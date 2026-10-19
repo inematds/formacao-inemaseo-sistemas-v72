@@ -39,3 +39,15 @@ Somas à mão: direto 2+2+2+2 = 8; pelo desvio 1+1+2+2+2 = 8 (empata, não passa
 - Números do INEMA no texto só da lista "Casos reais"; o resto (notas do agente-ready, achados do auditor, contagens do botlog) fica dentro de `saida` com selo real e data.
 - bing-ia: exemplo é FICTÍCIO (rotulado assim no repo e na aula); colunas do export são palpite [a confirmar].
 - Preços (Firecrawl, Apify, Semrush) só com data e "confira no site"; nenhum serviço pago chamado.
+
+## Resultado (19/10/2026)
+- Publicado: https://inematds.github.io/formacao-inemaseo-sistemas-v72/ (+ `en/`, `es/`).
+- Portão: `validar.py` OK em PT/EN/ES; `--links` só falha no curso 5 (`formacao-inemaseo-agentes-v72`, ainda não publicado). `conferir-tela.cjs` 27 páginas × 2 larguras OK; simconversa percorrida (máx. 8).
+- Saídas reais rodadas em 19/10/2026: testes (5×OK), auditor (inema.club 50 págs, eventos 30), agente-ready (93 e 69; 73 com `webmcp_api` = 0), gsc-historico e bing-ia (exemplos do repo; bing FICTÍCIO), botlog (montado + real filtrado), `rotina.sh semana|mes`, leitura do agente por `claude -p --tools ""` (assinatura).
+- Imagens: 10 pelo Codex; capa EN/ES editadas pelo Codex, com a linha pequena (kicker) redesenhada em Pillow (Codex errou "INEMAŞEO"/"FORMACÍON" duas vezes). Sem flux.
+- Tradução: 1ª rodada falhou por limite de uso (3.123 textos); 2ª completou. EN: objetivo da aula 7 e ES: lead da aula 6 encurtados à mão (conteúdo + cache). "portão humano" ES = "control humano".
+
+## Lições
+- Scratchpad é compartilhado entre subagentes paralelos: use `scratchpad/<curso>-img/` (registrado no LICOES do motor).
+- Texto desenhado pelo Codex em caixa alta com tracking erra diacríticos (Ş, Í): confira com zoom e redesenhe a linha em Pillow se preciso.
+- Tradução EN/ES estoura limites do validador (objetivo ≤ 160, lead ≤ 70): deixe folga de ~15% no PT.
