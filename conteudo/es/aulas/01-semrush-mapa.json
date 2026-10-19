@@ -152,7 +152,7 @@
         {
           "rot": "Mis preguntas × fuente (modelo)",
           "icone": "lista",
-          "conteudo": "# Lo que quiero saber de mi sitio — <seusite.com> — <dd/mm/aaaa>\n| pregunta | fuente | ¿gratis? | herramienta / clase |\n|---|---|---|---|\n| cuántas búsquedas sin mi marca me encuentran | Search Console | sí | gsc-historico (clase 4) |\n| ¿la IA de Microsoft cita mis páginas? | Bing AI Performance | sí | bing-ia (clase 5) |\n| qué está roto en el HTML | el propio sitio | sí | auditor (clase 2) |\n| qué robots de IA me leen | log del servidor | sí | botlog (clase 6) |\n| cuántas personas buscan <término> por mes | dato comprado | no | clase 8 |"
+          "conteudo": "# Lo que quiero saber de mi sitio — <tusitio.com> — <dd/mm/aaaa>\n| pregunta | fuente | ¿gratis? | herramienta / clase |\n|---|---|---|---|\n| cuántas búsquedas sin mi marca me encuentran | Search Console | sí | gsc-historico (clase 4) |\n| ¿la IA de Microsoft cita mis páginas? | Bing AI Performance | sí | bing-ia (clase 5) |\n| qué está roto en el HTML | el propio sitio | sí | auditor (clase 2) |\n| qué robots de IA me leen | log del servidor | sí | botlog (clase 6) |\n| cuántas personas buscan <término> por mes | dato comprado | no | clase 8 |"
         }
       ],
       "saida": {

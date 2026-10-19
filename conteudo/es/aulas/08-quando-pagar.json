@@ -130,17 +130,17 @@
         {
           "rot": "Tabla de decisión (modelo)",
           "icone": "lista",
-          "conteudo": "# ¿Pagar por dato? — <seusite.com> — <dd/mm/aaaa>\n| decisión que el dato cambia | ¿lo gratis responde? (lección) | dato que falta | quién vende | precio verificado en | tope del mes |\n|---|---|---|---|---|---|\n| <escolher 3 temas do próximo mês> | en parte (gsc-historico, lección 4) | volumen exacto | <fornecedor> | <dd/mm/aaaa, link> | <R$ ou US$> |\n| <quem são os concorrentes no termo X> | no | SERP de competidor | <fornecedor> | <dd/mm/aaaa, link> | <…> |"
+          "conteudo": "# ¿Pagar por dato? — <tusitio.com> — <dd/mm/aaaa>\n| decisión que el dato cambia | ¿lo gratis responde? (lección) | dato que falta | quién vende | precio verificado en | tope del mes |\n|---|---|---|---|---|---|\n| <elegir 3 temas del próximo mes> | en parte (gsc-historico, lección 4) | volumen exacto | <proveedor> | <dd/mm/aaaa, link> | <R$ o US$> |\n| <quiénes son los competidores en el término X> | no | SERP de competidor | <proveedor> | <dd/mm/aaaa, link> | <…> |"
         },
         {
           "rot": "Prueba de 1 mes (modelo)",
           "icone": "calendario",
-          "conteudo": "# Prueba: <fornecedor> — del <dd/mm> al <dd/mm>\npregunta única: <…>\ntope de gasto: <…>   (desligar renovação automática no dia 1)\nclave de API: solo en el .env local, fuera de git; nunca en el repositorio\nal final del mes:\n- ¿se tomó la decisión con el dato? <sí/no>\n- ¿qué no habría mostrado lo gratis? <…>\n- continuar, cambiar o cancelar: <…>"
+          "conteudo": "# Prueba: <proveedor> — del <dd/mm> al <dd/mm>\npregunta única: <…>\ntope de gasto: <…>   (desactivar la renovación automática el día 1)\nclave de API: solo en el .env local, fuera de git; nunca en el repositorio\nal final del mes:\n- ¿se tomó la decisión con el dato? <sí/no>\n- ¿qué no habría mostrado lo gratis? <…>\n- continuar, cambiar o cancelar: <…>"
         },
         {
           "rot": "Mi plan de herramientas (modelo)",
           "icone": "camadas",
-          "conteudo": "# Herramientas — <seusite.com>\nnúcleo gratis (siempre): Search Console, Bing Webmaster, IndexNow, inemaseo-sistemas (5), agente por la suscripción\nsemana: gsc-historico + lectura del agente + decisoes.md\nmes: auditor, agente-ready, bing-ia (export), botlog (log filtrado), batería manual de preguntas en las IAs\npago (opcional, con tope): <ninguno | proveedor + pregunta + mes>"
+          "conteudo": "# Herramientas — <tusitio.com>\nnúcleo gratis (siempre): Search Console, Bing Webmaster, IndexNow, inemaseo-sistemas (5), agente por la suscripción\nsemana: gsc-historico + lectura del agente + decisoes.md\nmes: auditor, agente-ready, bing-ia (export), botlog (log filtrado), batería manual de preguntas en las IAs\npago (opcional, con tope): <ninguno | proveedor + pregunta + mes>"
         }
       ]
     },
@@ -356,7 +356,7 @@
       ],
       "resultado": {
         "titulo": "Al final del curso",
-        "texto": "Cinco herramientas abiertas midiendo tu sitio, una rutina con agente y comcontrol humano, y una regla clara para pagar por datos.",
+        "texto": "Cinco herramientas abiertas midiendo tu sitio, una rutina con agente y control humano, y una regla clara para pagar por datos.",
         "total": "16 ejercicios"
       },
       "rolagem_fim": {

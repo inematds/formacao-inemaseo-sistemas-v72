@@ -140,17 +140,17 @@
         {
           "rot": "Terminal · report for one site",
           "icone": "terminal",
-          "conteudo": "python3 gsc_historico.py relatorio --db dados/gsc.sqlite --site inema.club --saida saida/inema.club\n# outra comparação: --atual AAAA-MM-DD --anterior AAAA-MM-DD"
+          "conteudo": "python3 gsc_historico.py relatorio --db dados/gsc.sqlite --site inema.club --saida saida/inema.club\n# another comparison: --atual YYYY-MM-DD --anterior YYYY-MM-DD"
         },
         {
           "rot": "Terminal · every week, with your CSVs",
           "icone": "calendario",
-          "conteudo": "# depois do gsc_semanal.py (inemaseo-metodo), aponte para a pasta dele\npython3 gsc_historico.py importar ~/caminho/da/pasta/gsc --db dados/gsc.sqlite\npython3 gsc_historico.py relatorio --db dados/gsc.sqlite --site <seusite.com> --saida saida/<seusite.com>"
+          "conteudo": "# after gsc_semanal.py (inemaseo-metodo), point to its folder\npython3 gsc_historico.py importar ~/path/to/gsc-folder --db dados/gsc.sqlite\npython3 gsc_historico.py relatorio --db dados/gsc.sqlite --site <yoursite.com> --saida saida/<yoursite.com>"
         },
         {
           "rot": "Template · API mode (uses the Google API; not run in this course)",
           "icone": "cadeado",
-          "conteudo": "# roda o gsc_semanal.py com a sua credencial (gcloud) e importa; não testado ao vivo pelo autor\npython3 gsc_historico.py puxar --script ~/projetos/inemaseo-metodo/tools/gsc_semanal.py --pasta dados/gsc-csv"
+          "conteudo": "# runs gsc_semanal.py with your credential (gcloud) and imports; not tested live by the author\npython3 gsc_historico.py puxar --script ~/projetos/inemaseo-metodo/tools/gsc_semanal.py --pasta dados/gsc-csv"
         }
       ],
       "saida": {

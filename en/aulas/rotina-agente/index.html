@@ -21,9 +21,9 @@
 # rotina.sh — semana | mes. Runs the inemaseo-sistemas tools and saves the dated output.
 set -e
 SIS=~/inemaseo-sistemas/ferramentas   # where you cloned it
-SITE=seusite.com                       # Search Console property
-URL=https://seusite.com                # site home page
-CSV=~/caminho/da/pasta/gsc             # gsc_semanal.py folder
+SITE=yoursite.com                       # Search Console property
+URL=https://yoursite.com                # site home page
+CSV=~/path/to/gsc-folder             # gsc_semanal.py folder
 D=rotina/$(date +%F); mkdir -p $D dados
 
 case &quot;$1&quot; in
@@ -40,19 +40,19 @@ case &quot;$1&quot; in
     # botlog: only after copying the log (filter it before saving)
     ls logs/* &gt;/dev/null 2&gt;&amp;1 &amp;&amp; python3 $SIS/botlog/botlog.py analisar logs/* --saida $D/botlog
     ;;
-  *) echo &quot;uso: bash rotina.sh semana|mes&quot;; exit 1 ;;
+  *) echo &quot;usage: bash rotina.sh semana|mes&quot;; exit 1 ;;
 esac
-echo &quot;saída em $D&quot;</pre></div><div class="cod"><div class="cod-cab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><b>pedido-semana.md (template for the request to the agent)</b><button type="button" class="copiar" data-rot="Copy" data-ok="Copied"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button></div><pre>You are the site&#x27;s weekly SEO observer. Below is the relatorio.json from gsc-historico (this week&#x27;s Search Console, non-branded queries only).
+echo &quot;output in $D&quot;</pre></div><div class="cod"><div class="cod-cab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><b>pedido-semana.md (template for the request to the agent)</b><button type="button" class="copiar" data-rot="Copy" data-ok="Copied"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button></div><pre>You are the site&#x27;s weekly SEO observer. Below is the relatorio.json from gsc-historico (this week&#x27;s Search Console, non-branded queries only).
 
 Rules:
 - Read-only. Do not change any file, do not publish anything, do not run commands.
 - Use only the numbers in the report; do not invent data.
 - The &quot;owner page&quot; rule is a heuristic: check the column of the pages that appear today before proposing a new page.
 
-Answer in Portuguese, in at most 12 lines:
+Answer in English, in at most 12 lines:
 1. One sentence with the week&#x27;s number (non-branded clicks and impressions, compared with the previous week).
 2. Exactly 3 proposals, each with: action (write new page / improve existing page / rewrite title), URL or query, and the number from the report that justifies it.
-3. One line &quot;Para o humano decidir:&quot; with the question only the site owner can answer.</pre></div><div class="cod"><div class="cod-cab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="14" r="1.2"/><circle cx="15" cy="14" r="1.2"/></svg><b>Terminal · week + agent (Claude Code, no tools)</b><button type="button" class="copiar" data-rot="Copy" data-ok="Copied"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button></div><pre>bash rotina.sh semana
+3. One line &quot;For the human to decide:&quot; with the question only the site owner can answer.</pre></div><div class="cod"><div class="cod-cab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="14" r="1.2"/><circle cx="15" cy="14" r="1.2"/></svg><b>Terminal · week + agent (Claude Code, no tools)</b><button type="button" class="copiar" data-rot="Copy" data-ok="Copied"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button></div><pre>bash rotina.sh semana
 (cat pedido-semana.md; echo; cat rotina/$(date +%F)/gsc/relatorio.json) | claude -p --tools &quot;&quot; &gt; rotina/$(date +%F)/leitura-agente.md</pre></div><div class="cod"><div class="cod-cab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="4" height="16" rx="1"/><rect x="15" y="4" width="4" height="16" rx="1"/></svg><b>decisoes.md (human gate)</b><button type="button" class="copiar" data-rot="Copy" data-ok="Copied"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button></div><pre># Decisions — week of &lt;dd/mm/yyyy&gt;
 | agent proposal | decision | reason | who | when |
 |---|---|---|---|---|
@@ -60,7 +60,7 @@ Answer in Portuguese, in at most 12 lines:
 | &lt;rewrite title of /cursos/…&gt; | postpone | &lt;only 5 impressions; wait 2 more weeks&gt; | &lt;name&gt; | &lt;dd/mm&gt; |
 | &lt;…&gt; | decline | &lt;…&gt; | &lt;name&gt; | &lt;dd/mm&gt; |</pre></div></div><div class="saida"><div class="saida-tabs" role="tablist"><button type="button" data-alvo="s0" aria-selected="true">rotina.sh (Oct 19, 2026)</button><button type="button" data-alvo="s1" aria-selected="false">Agent's reading (Oct 19, 2026)</button><button type="button" data-alvo="s2" aria-selected="false">Common mistakes</button></div><div class="saida-corpo" data-painel="s0"><span class="selo real">Example from the repository</span><p><code>bash rotina.sh semana</code> with the sample CSVs from inema.club:</p><pre>importado: 10 linha(s) de resumo, 244 linha(s) de consulta → dados/gsc.sqlite
 inema.club semana 2026-10-11 (comparada com 2026-10-04): sem marca 0 cliques / 157 impr.; subiram 15, caíram 15, pauta 18, páginas sem clique 5 → rotina/2026-10-19/gsc/relatorio.html
-saída em rotina/2026-10-19</pre></div><div class="saida-corpo" data-painel="s1" hidden><p>Real response from <code>claude -p</code> (Claude Code via subscription, no tools) to the request above, shortened:</p><pre>1. Semana 05–11/10: 0 cliques e 157 impressões sem marca, contra 0 cliques
+output in rotina/2026-10-19</pre></div><div class="saida-corpo" data-painel="s1" hidden><p>Real response from <code>claude -p</code> (Claude Code via subscription, no tools) to the request above, shortened:</p><pre>1. Semana 05–11/10: 0 cliques e 157 impressões sem marca, contra 0 cliques
    e 47 impressões em 28/09–04/10.
 2. Propostas (todas já têm página respondendo, então nenhuma página nova):
    - Melhorar /es/aprender-inteligencia-artificial/: 106 impressões,

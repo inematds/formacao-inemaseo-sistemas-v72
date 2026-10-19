@@ -146,17 +146,17 @@
         {
           "rot": "Terminal · your site",
           "icone": "terminal",
-          "conteudo": "cd ferramentas/auditor\npython3 auditor.py https://seusite.com --max 50 -q --saida auditoria/seusite"
+          "conteudo": "cd ferramentas/auditor\npython3 auditor.py https://yoursite.com --max 50 -q --saida auditoria/yoursite"
         },
         {
           "rot": "Terminal · just a guide's folder on GitHub Pages",
           "icone": "terminal",
-          "conteudo": "python3 auditor.py https://usuario.github.io/repo/guia/ --max 20 --saida auditoria/guia"
+          "conteudo": "python3 auditor.py https://username.github.io/repo/guia/ --max 20 --saida auditoria/guia"
         },
         {
           "rot": "Terminal · critical and important findings from the CSV",
           "icone": "lista",
-          "conteudo": "grep -E '^(critico|importante),' auditoria/seusite/achados.csv"
+          "conteudo": "grep -E '^(critico|importante),' auditoria/yoursite/achados.csv"
         }
       ],
       "saida": {

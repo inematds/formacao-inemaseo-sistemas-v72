@@ -134,17 +134,17 @@
         {
           "rot": "Terminal · your site's score",
           "icone": "terminal",
-          "conteudo": "cd ferramentas/agente-ready\npython3 agente-ready.py https://seusite.com --saida nota/seusite"
+          "conteudo": "cd ferramentas/agente-ready\npython3 agente-ready.py https://yoursite.com --saida nota/yoursite"
         },
         {
           "rot": "Terminal · your weights",
           "icone": "terminal",
-          "conteudo": "cp pesos.json meus-pesos.json\n# open meus-pesos.json and change the \"peso\" of one criterion (e.g.: webmcp_api from 5 to 0)\npython3 agente-ready.py https://seusite.com --pesos meus-pesos.json --saida nota/seusite-meus-pesos"
+          "conteudo": "cp pesos.json my-weights.json\n# open my-weights.json and change the \"peso\" of one criterion (e.g.: webmcp_api from 5 to 0)\npython3 agente-ready.py https://yoursite.com --pesos my-weights.json --saida nota/yoursite-my-weights"
         },
         {
           "rot": "Why I changed the weight (template)",
           "icone": "caneta",
-          "conteudo": "# Weights for <seusite.com> — <dd/mm/aaaa>\ncritério: <id do critério>\npeso original: <n>  →  meu peso: <n>\nmotivo: <e.g.: my audience doesn't use browser agents; WebMCP is a draft with no stable browser>\nnota com pesos.json: <n>  ·  nota com meus pesos: <n>"
+          "conteudo": "# Weights for <yoursite.com> — <dd/mm/yyyy>\ncriterion: <criterion id>\noriginal weight: <n>  →  my weight: <n>\nreason: <e.g.: my audience doesn't use browser agents; WebMCP is a draft with no stable browser>\nscore with pesos.json: <n>  ·  score with my weights: <n>"
         }
       ],
       "saida": {
@@ -156,7 +156,7 @@
           },
           {
             "rot": "With a different weight (10/19/2026)",
-            "html": "<p>The same eventos.inema.pro with <code>webmcp_api</code> from 5 to 0 in <code>meus-pesos.json</code>:</p><pre>eventos.inema.pro: nota 73/100 (5 páginas, 15 requisições).\n  [falha, peso 8] Organization ou Person com @id no JSON-LD da home: 0 entidade(s); com @id: 0\n  [falha, peso 5] Autoria identificada: 0 de 5 com autor (meta, rel=author ou JSON-LD)\n  [falha, peso 5] Data de publicação ou atualização: 0 de 5 com data (JSON-LD, meta article ou &lt;time&gt;)\n  [falha, peso 4] sameAs ligando a entidade aos perfis oficiais: sem sameAs na entidade</pre><p>The math: 66 points earned out of 95 applicable gives 69; out of 90, it gives 73. The list of what to fix first did not change order at the top.</p>"
+            "html": "<p>The same eventos.inema.pro with <code>webmcp_api</code> from 5 to 0 in <code>my-weights.json</code>:</p><pre>eventos.inema.pro: nota 73/100 (5 páginas, 15 requisições).\n  [falha, peso 8] Organization ou Person com @id no JSON-LD da home: 0 entidade(s); com @id: 0\n  [falha, peso 5] Autoria identificada: 0 de 5 com autor (meta, rel=author ou JSON-LD)\n  [falha, peso 5] Data de publicação ou atualização: 0 de 5 com data (JSON-LD, meta article ou &lt;time&gt;)\n  [falha, peso 4] sameAs ligando a entidade aos perfis oficiais: sem sameAs na entidade</pre><p>The math: 66 points earned out of 95 applicable gives 69; out of 90, it gives 73. The list of what to fix first did not change order at the top.</p>"
           },
           {
             "rot": "Common mistakes",

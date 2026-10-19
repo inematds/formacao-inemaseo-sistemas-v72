@@ -145,7 +145,7 @@
         {
           "rot": "Terminal · cada semana, con tus CSV",
           "icone": "calendario",
-          "conteudo": "# después de gsc_semanal.py (inemaseo-metodo), apunta a la carpeta de él\npython3 gsc_historico.py importar ~/caminho/da/pasta/gsc --db dados/gsc.sqlite\npython3 gsc_historico.py relatorio --db dados/gsc.sqlite --site <seusite.com> --saida saida/<seusite.com>"
+          "conteudo": "# después de gsc_semanal.py (inemaseo-metodo), apunta a la carpeta de él\npython3 gsc_historico.py importar ~/ruta/de/la/carpeta/gsc --db dados/gsc.sqlite\npython3 gsc_historico.py relatorio --db dados/gsc.sqlite --site <tusitio.com> --saida saida/<tusitio.com>"
         },
         {
           "rot": "Modelo · modo API (usa la API de Google; no se ejecutó en este curso)",

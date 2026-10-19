@@ -139,7 +139,7 @@
         {
           "rot": "Terminal · when the tool doesn't recognize the columns",
           "icone": "terminal",
-          "conteudo": "python3 bing_ia.py importar meu-export-paginas.csv --tipo paginas --colunas \"url=<column with the URL>,citacoes=<column with the citations>,data=<column with the date>\" --db dados/bing.sqlite\npython3 bing_ia.py importar meu-export-consultas.csv --tipo consultas --colunas \"consulta=<column with the query>,citacoes=<column with the citations>\" --db dados/bing.sqlite"
+          "conteudo": "python3 bing_ia.py importar my-pages-export.csv --tipo paginas --colunas \"url=<column with the URL>,citacoes=<column with the citations>,data=<column with the date>\" --db dados/bing.sqlite\npython3 bing_ia.py importar my-queries-export.csv --tipo consultas --colunas \"consulta=<column with the query>,citacoes=<column with the citations>\" --db dados/bing.sqlite"
         }
       ],
       "saida": {
