@@ -1,0 +1,280 @@
+{
+  "slug": "bing-ia",
+  "num": 5,
+  "menu": "bing-ia",
+  "titulo": "bing-ia: Microsoft's official AI citations cross-referenced with Google",
+  "titulo_curto": "bing-ia",
+  "minutos": 15,
+  "lead": "Since February 2026, Bing Webmaster has had the AI Performance report: how many times Copilot and Bing's AI summaries cited each of your pages, and the phrases the AI used to search. Today it's the only official, free \"I was cited by AI\" dashboard. bing-ia stores these exports and cross-references them with Google.",
+  "objetivo": "cross-reference the Bing AI Performance export with Google and pull content ideas from the grounding queries.",
+  "competencias": [
+    "medir-citacao-oficial-de-ia",
+    "cruzar-bing-com-google",
+    "tirar-pauta-de-grounding-query"
+  ],
+  "aprende": [
+    {
+      "t": "What AI Performance shows (and what it doesn't)"
+    },
+    {
+      "t": "Export the CSV and map columns that Microsoft doesn't document"
+    },
+    {
+      "t": "The 4 cross-reference lists with gsc-historico"
+    },
+    {
+      "t": "Why Bing matters twice"
+    }
+  ],
+  "hero_alt": "A person compares two stacks of documents side by side with a highlighter.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "From the Bing dashboard to the four lists",
+      "sub": "There is no API: the way in is to export the CSV from the dashboard. Tap each step.",
+      "nos": [
+        {
+          "icone": "robo",
+          "titulo": "AI Performance",
+          "sub": "Bing Webmaster",
+          "detalhe": "Public preview since 02/2026: total citations, cited pages, and grounding queries. It covers Microsoft Copilot, Bing AI summaries, and partner integrations. The numbers are a sample and have no clicks."
+        },
+        {
+          "icone": "baixar",
+          "titulo": "Export CSV",
+          "sub": "pages and queries",
+          "detalhe": "In the dashboard, you download one CSV of pages and one of grounding queries. Microsoft doesn't document the columns; the tool tries to recognize common names and, if it can't, asks for the map with --colunas."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "SQLite",
+          "sub": "bing.sqlite",
+          "detalhe": "importar stores the exports in a local database. Re-importing the same file replaces it, it doesn't duplicate."
+        },
+        {
+          "icone": "camadas",
+          "titulo": "Cross-checks",
+          "sub": "with gsc-historico",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "check",
+              "t": "cited and with a click on Google"
+            },
+            {
+              "icone": "check",
+              "t": "cited, no click on Google"
+            },
+            {
+              "icone": "check",
+              "t": "click on Google, never cited"
+            },
+            {
+              "icone": "check",
+              "t": "ideas: a query Google didn't see"
+            }
+          ],
+          "detalhe": "URL normalized on both sides (no scheme, www, trailing slash, or parameters) and the query lowercased with no accents. Only an exact match counts as \"already on Google\"."
+        }
+      ],
+      "legenda": "A citation is not ranking or authority; it is the closest official signal to \"the AI used my site\"."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "What to do with each list",
+      "sub": "Tap each one.",
+      "passos": [
+        {
+          "titulo": "Cited + click",
+          "sub": "works on both",
+          "texto": [
+            "The AI uses it as a source and Google sends people. Keep it up to date: date, numbers, authorship.",
+            "This is the page most worth protecting."
+          ]
+        },
+        {
+          "titulo": "Cited, no click",
+          "sub": "review on Google",
+          "texto": [
+            "The AI trusts it, but Google doesn't send people. Review the title and the target query.",
+            "Careful: the cross-check uses only non-branded queries; a page with clicks only from branded queries shows up here."
+          ]
+        },
+        {
+          "titulo": "Click, never cited",
+          "sub": "AI candidate",
+          "texto": [
+            "It works on Google and Bing's AI has never cited it. Check whether Bingbot reads it (lessons 2 and 6), and whether the page has a direct answer, authorship, date, and structured data."
+          ]
+        },
+        {
+          "titulo": "Ideas",
+          "sub": "grounding queries",
+          "texto": [
+            "Phrases the AI used to search that don't appear in any week of gsc-historico. They become candidates for a new page.",
+            "It compares exact text: variations of the same question count as different ideas."
+          ],
+          "exemplo": {
+            "rot": "Why Bing matters twice",
+            "texto": "Besides Copilot, a study by Seer indicates that ChatGPT uses the Bing index to search. It's a third-party study, not a statement from OpenAI."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Import and cross-check",
+      "sub": "Run it from the ferramentas/bing-ia folder. The repository example uses FICTITIOUS CSVs (made-up numbers, real inema.pro URLs) cross-checked against the real database from lesson 4.",
+      "blocos": [
+        {
+          "rot": "Terminal · import the exports",
+          "icone": "terminal",
+          "conteudo": "cd ferramentas/bing-ia\npython3 bing_ia.py importar ../../exemplos/bing-ia/entrada/*.csv --db dados/bing.sqlite"
+        },
+        {
+          "rot": "Terminal · cross-check with gsc-historico",
+          "icone": "terminal",
+          "conteudo": "python3 bing_ia.py relatorio --db dados/bing.sqlite --gsc-db ../gsc-historico/dados/gsc.sqlite --site inema.pro --saida saida/inema.pro"
+        },
+        {
+          "rot": "Terminal · when the tool doesn't recognize the columns",
+          "icone": "terminal",
+          "conteudo": "python3 bing_ia.py importar meu-export-paginas.csv --tipo paginas --colunas \"url=<column with the URL>,citacoes=<column with the citations>,data=<column with the date>\" --db dados/bing.sqlite\npython3 bing_ia.py importar meu-export-consultas.csv --tipo consultas --colunas \"consulta=<column with the query>,citacoes=<column with the citations>\" --db dados/bing.sqlite"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<p>Real command, <b>fictitious data</b> (repository example):</p><pre>FICTICIO_ai-performance-grounding-queries.csv: 6 linha(s) de consultas (colunas {'citacoes': 'Citations', 'consulta': 'Grounding Query', 'data': 'Date'}) → dados/bing.sqlite\nFICTICIO_ai-performance-paginas.csv: 6 linha(s) de paginas (colunas {'url': 'Page', 'citacoes': 'Citations', 'data': 'Date'}) → dados/bing.sqlite\n38 citações em 5 página(s), 6 grounding queries, 4 ideia(s), citadas sem clique no Google 5, clique sem citação 1 → saida/inema.pro/relatorio.html</pre>"
+          },
+          {
+            "rot": "The lists (fictional)",
+            "html": "<p><code>paginas.csv</code>, \"no click\" group (fictional citations × real Google):</p><pre>sem_clique,…/en/noticias/slopmonster/,23 citações,0 cliques,189 impr.\nsem_clique,…/en/noticias/openai-dots/,6 citações,0 cliques,15 impr.\nsem_clique,https://eventos.inema.pro/oswork/,3 citações,0 cliques,0 impr.</pre><p><code>ideias.csv</code>:</p><pre>what is slopmonster ai,7\nopenai dots agent,5\nclaude opus 5.5 benchmarks,4\nhow to manage ai agents in a company,2</pre>"
+          },
+          {
+            "rot": "Common mistakes",
+            "html": "<ul><li><b>Treating a citation as a ranking</b>: Bing says it's a sample, and there's no click.</li><li><b>Trusting the column names</b>: Page, Citations, Grounding Query and Date are guesses, to be confirmed with a real export; if the tool stops, use --colunas.</li><li><b>Waiting for the Topics Portfolio</b>: the 10/13/2026 beta isn't read here.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: your citations",
+      "sub": "No access to the dashboard yet? Do E1 with the sample, and E2 once your site is in Bing Webmaster (course 1, lesson 3).",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Run the sample",
+          "min": "10 min",
+          "texto": "Import the sample CSVs and cross them with the gsc-historico database from lesson 4.",
+          "pronto": "the terminal shows \"38 citações em 5 página(s)\" and relatorio.html opens with the four lists."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Your export",
+          "min": "25 min",
+          "texto": "Export the AI Performance pages CSV for your site and import it. If the tool asks, build the --colunas option with the names from your file.",
+          "pronto": "your export is in the database (the \"N linha(s) de paginas\" line) and you've written down the real column names."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "Today, what is the only official, free dashboard for AI citations?",
+          "opcoes": [
+            "A paid share of voice monitor.",
+            "Bing AI Performance, in Bing Webmaster.",
+            "llms.txt.",
+            "Google's speed report."
+          ],
+          "certa": 1,
+          "explica": "The Search Console AI report shows impressions only. Bing AI Performance shows citations, pages and grounding queries.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "The tool stopped, saying it didn't recognize the columns. Why?",
+          "opcoes": [
+            "The CSV is wrong.",
+            "Microsoft doesn't document the columns; the recognized names are guesses. Use --colunas.",
+            "An API key is missing.",
+            "Bing blocked it."
+          ],
+          "certa": 1,
+          "explica": "Without official documentation, the field=column map solves it. There's no API: everything comes from the export.",
+          "ref": "codigo"
+        },
+        {
+          "p": "A page is cited by AI, but it shows up as \"no click on Google\" and you know it gets clicks. What could it be?",
+          "opcoes": [
+            "A Bing error.",
+            "Its clicks are branded; the cross-check looks only at non-branded queries.",
+            "The page is offline.",
+            "Google blocked it."
+          ],
+          "certa": 1,
+          "explica": "gsc-historico stores non-branded queries per page; branded ones come in only as a total. It's a documented limit of the tool.",
+          "ref": "passos"
+        },
+        {
+          "p": "What is a grounding query?",
+          "opcoes": [
+            "A paid keyword.",
+            "The phrase the AI used to look up the content it cited.",
+            "The page title.",
+            "A Google query."
+          ],
+          "certa": 1,
+          "explica": "It's what the AI searched for while building the answer. The ones Google never showed you become content ideas.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Official",
+          "texto": "Bing AI Performance: citations and grounding queries, no clicks, CSV only."
+        },
+        {
+          "t": "Cross-check",
+          "texto": "Cited × click on Google in 4 lists; ideas from the queries Google didn't see."
+        },
+        {
+          "t": "2026 yardstick",
+          "texto": "Bing matters twice: Copilot and, according to a Seer study (not OpenAI), ChatGPT."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "bing-ia: README",
+          "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/bing-ia",
+          "icone": "terminal"
+        },
+        {
+          "t": "Bing: AI Performance announcement (02/2026)",
+          "href": "https://blogs.bing.com/webmaster/2026/02/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+          "icone": "robo"
+        },
+        {
+          "t": "Bing Webmaster Tools",
+          "href": "https://www.bing.com/webmasters/",
+          "icone": "nuvem"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "slug": "auditor",
+  "num": 2,
+  "menu": "auditor",
+  "titulo": "auditor: the X-ray of the whole site",
+  "titulo_curto": "auditor",
+  "minutos": 18,
+  "lead": "The X-ray from course 1 looks at one page at a time. The auditor crawls the site politely, like a bot that doesn't run JavaScript, and checks every page: canonical, hreflang, sitemap, orphans, robots.txt by AI bot purpose, and CDN blocking. Each finding comes with a priority and a one-line fix.",
+  "objetivo": "run the auditor on your site and sort the findings by priority, with the fix line for each one.",
+  "competencias": [
+    "rodar-crawler-educado",
+    "ler-robots-por-finalidade",
+    "priorizar-achados-tecnicos"
+  ],
+  "aprende": [
+    {
+      "t": "How the auditor crawls without weighing on the server"
+    },
+    {
+      "t": "What it checks on each page and across the site"
+    },
+    {
+      "t": "Reading robots.txt by purpose and the CDN test"
+    },
+    {
+      "t": "The honest limit: partial crawl and what's left out"
+    }
+  ],
+  "hero_alt": "A technician inspects the wiring of a tidy electrical panel with a flashlight.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The auditor's path",
+      "sub": "GET only, one request per second, at most the pages you ask for. Click each step.",
+      "nos": [
+        {
+          "icone": "nuvem",
+          "titulo": "Starting URL",
+          "sub": "home or folder",
+          "detalhe": "You pass the home page (or a guide's folder on github.io). If it redirects to another host, like inema.club to www.inema.club, it follows the destination. The scope is the same host and the same folder."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "robots.txt",
+          "sub": "by purpose",
+          "detalhe": "Reads robots.txt in the RFC 9309 format (the longest rule wins; a tie goes to Allow) and tells you what each bot can do: search, user action, and training. It also respects robots.txt for its own name."
+        },
+        {
+          "icone": "fila",
+          "titulo": "Queue",
+          "sub": "sitemap + links",
+          "detalhe": "After the starting URL come the sitemap URLs, the internal links, and the hreflang alternates, up to the --max limit (default 50)."
+        },
+        {
+          "icone": "lista",
+          "titulo": "Each page",
+          "sub": "the delivered HTML",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "check",
+              "t": "status, canonical, noindex"
+            },
+            {
+              "icone": "check",
+              "t": "reciprocal hreflang"
+            },
+            {
+              "icone": "check",
+              "t": "title, H1, JSON-LD"
+            },
+            {
+              "icone": "check",
+              "t": "broken links, orphans, alt"
+            }
+          ],
+          "detalhe": "Checks the HTML the server delivers, without running JavaScript: it's the point of view of a bot that doesn't render."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "CDN/WAF",
+          "sub": "1 request per bot",
+          "detalhe": "Requests the home page with the published User-Agent of OAI-SearchBot, PerplexityBot, Perplexity-User, and GPTBot, only if robots.txt allows it. A 403, 429, 503, or challenge page response = the CDN blocks that bot."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Report",
+          "sub": "critical → improvement",
+          "detalhe": "relatorio.html, auditoria.json, achados.csv, and paginas.csv. Each finding has a priority (critical, important, improvement, info), the URL, and a line on how to fix it, with the source."
+        }
+      ],
+      "legenda": "It crawls slowly, reads like a bot, and gives you a list in priority order."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Run, read, prioritize",
+      "sub": "Click each step.",
+      "passos": [
+        {
+          "titulo": "Run",
+          "sub": "start with 50",
+          "texto": [
+            "Run it on the home page with --max 50 and an output folder. With a 1 s pause, a small site takes a minute or two.",
+            "Use -q to avoid listing every page in the terminal."
+          ],
+          "exemplo": {
+            "rot": "Etiquette",
+            "texto": "The minimum pause is 0.5 s and each response is cut off at 2 MB. On a client's site, give notice before you run it."
+          }
+        },
+        {
+          "titulo": "Critical",
+          "sub": "first",
+          "texto": [
+            "Critical is what takes pages out of the search engine: robots.txt with a 5xx error (it becomes everything blocked), a blanket Disallow, a blocked search bot, a broken internal link, noindex on a sitemap URL.",
+            "If there's anything critical, stop and fix it before looking at the rest."
+          ]
+        },
+        {
+          "titulo": "Important",
+          "sub": "next",
+          "texto": [
+            "Canonical missing or multiple, hreflang without a return link, sitemap without lastmod, a page with fewer than 80 words in the HTML.",
+            "Improvement (long title, no JSON-LD, image without alt) goes into the month's queue."
+          ],
+          "exemplo": {
+            "rot": "Not a Google rule",
+            "texto": "The title range of 15 to 65 characters comes from webmcp-readiness. Google cuts off by width; treat it as a reminder, not an error."
+          }
+        },
+        {
+          "titulo": "Training bot",
+          "sub": "is your choice",
+          "texto": [
+            "GPTBot, ClaudeBot, and Google-Extended blocked show up as info: blocking training doesn't take the site out of search.",
+            "A search bot blocked, in robots or at the CDN, is critical: you disappear from that assistant's answers."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The auditor commands",
+      "sub": "Run from the ferramentas/auditor folder of inemaseo-sistemas.",
+      "blocos": [
+        {
+          "rot": "Terminal · your site",
+          "icone": "terminal",
+          "conteudo": "cd ferramentas/auditor\npython3 auditor.py https://seusite.com --max 50 -q --saida auditoria/seusite"
+        },
+        {
+          "rot": "Terminal · just a guide's folder on GitHub Pages",
+          "icone": "terminal",
+          "conteudo": "python3 auditor.py https://usuario.github.io/repo/guia/ --max 20 --saida auditoria/guia"
+        },
+        {
+          "rot": "Terminal · critical and important findings from the CSV",
+          "icone": "lista",
+          "conteudo": "grep -E '^(critico|importante),' auditoria/seusite/achados.csv"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<p><code>python3 auditor.py https://inema.club --max 50</code> (without -q, shortened list):</p><pre>  [ 1/50] 200 https://www.inema.club/\n  [ 2/50] 200 https://www.inema.club/en/\n  (…)\n  [50/50] 200 https://www.inema.club/conhecimento/metodologia-de-ensino-do-inema/\nwww.inema.club: 50 páginas, 0 crítico(s), 1 importante(s), 2 melhoria(s). Relatório: …/relatorio.html\n  [importante] Pouco texto no HTML entregue (&lt; 80 palavras)</pre><p>In <code>achados.csv</code>, the important finding points to two pages: <code>/conhecimento/curso-atia/ (77)</code> and <code>/conhecimento/curso-codex-basico/ (78)</code>. The JSON records 62 requests and 1,287 URLs still in the queue.</p>"
+          },
+          {
+            "rot": "robots and CDN (10/19/2026)",
+            "html": "<p>From the <code>auditoria.json</code> of the same crawl:</p><pre>busca    Googlebot, Bingbot, OAI-SearchBot,\n         Claude-SearchBot, PerplexityBot   → liberados\nusuário  ChatGPT-User, Claude-User,\n         Perplexity-User                   → liberados (grupo *)\ntreino   GPTBot, ClaudeBot, Google-Extended → liberados\nCDN      OAI-SearchBot 200 · PerplexityBot 200\n         Perplexity-User 200 · GPTBot 200</pre><p>On a GitHub Pages guide (<code>rea-engenharia-reversa/guia/</code>), the repository example shows \"robots.txt não existe\": the robots.txt that counts is the one at the host root, which belongs to another repository.</p>"
+          },
+          {
+            "rot": "Common mistakes",
+            "html": "<ul><li><b>Reading \"orphan\" as absolute truth</b>: with --max 50 on a site with 1,000 URLs, orphan means \"no link from the 50 pages read.\"</li><li><b>Thinking it measures speed</b>: Core Web Vitals and backlinks are left out; use PageSpeed and URL Inspection.</li><li><b>Trusting only the CDN test</b>: it sees rules by User-Agent; a CDN that checks the real bot's IP may act differently.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: audit your site",
+      "sub": "Keep the output folder: in lesson 7 you compare month by month.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Run and open",
+          "min": "15 min",
+          "texto": "Run the auditor on your site (or a client's, with notice) with --max 50 and --saida.",
+          "pronto": "the folder has relatorio.html, auditoria.json, achados.csv and paginas.csv, and the report opens in the browser."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Three findings in order",
+          "min": "20 min",
+          "texto": "Pick the 3 highest-priority findings (if there are no critical or important ones, the first 3 improvements) and note the URL and the line on how to fix it.",
+          "pronto": "a list of 3 lines in priority order, each with the URL, the finding and the fix copied from the report."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "Your site's robots.txt returns a 503 error. How does the auditor treat it?",
+          "opcoes": [
+            "As \"no restriction.\"",
+            "As \"everything blocked,\" and flags it critical.",
+            "Ignores it and moves on.",
+            "As an improvement."
+          ],
+          "certa": 1,
+          "explica": "Per RFC 9309, a 5xx error on robots.txt is treated as everything blocked; a 4xx (file doesn't exist) is treated as no restriction. That's why 5xx is critical.",
+          "ref": "passos",
+          "cert": true
+        },
+        {
+          "p": "The report says GPTBot is blocked. What's the priority?",
+          "opcoes": [
+            "Critical: it disappears from ChatGPT.",
+            "Info: it's a training bot; blocking it doesn't remove the site from search.",
+            "Important.",
+            "It doesn't appear in the report."
+          ],
+          "certa": 1,
+          "explica": "GPTBot is for training. The one that searches and cites in ChatGPT is OAI-SearchBot. Blocking training is the owner's choice; blocking search is critical.",
+          "ref": "passos"
+        },
+        {
+          "p": "With --max 50 on a site with 1,000 URLs, a page shows up as an orphan. What does that mean?",
+          "opcoes": [
+            "That no page on the site links to it.",
+            "That none of the 50 pages read link to it.",
+            "That it's outside the sitemap.",
+            "That it returns a 404 error."
+          ],
+          "certa": 1,
+          "explica": "The crawl is partial. The report says how many URLs stayed in the queue; raise --max or check the links before concluding.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Why doesn't the auditor run JavaScript?",
+          "opcoes": [
+            "Because it's faster to write.",
+            "On purpose: it shows what a bot that doesn't render sees.",
+            "Because Google doesn't run JavaScript.",
+            "Because JavaScript is insecure."
+          ],
+          "certa": 1,
+          "explica": "Google renders JavaScript; to see what it sees, use URL Inspection. Many other bots may not render, and the auditor shows that view.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Polite",
+          "texto": "GET only, 1 s pause, --max pages, respects robots.txt."
+        },
+        {
+          "t": "Order",
+          "texto": "Critical, important, improvement. A blocked training bot is info."
+        },
+        {
+          "t": "Limit",
+          "texto": "Partial crawl; CDN checked by User-Agent only; no speed or backlinks."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "auditor: README with all checks and sources",
+          "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/auditor",
+          "icone": "terminal"
+        },
+        {
+          "t": "Google: how robots.txt is interpreted",
+          "href": "https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt",
+          "icone": "cadeado"
+        },
+        {
+          "t": "OpenAI: the bots and their User-Agents",
+          "href": "https://platform.openai.com/docs/bots",
+          "icone": "robo"
+        }
+      ]
+    }
+  ]
+}

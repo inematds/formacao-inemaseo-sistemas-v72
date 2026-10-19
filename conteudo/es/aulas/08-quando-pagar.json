@@ -1,0 +1,522 @@
+{
+  "slug": "quando-pagar",
+  "num": 8,
+  "menu": "Cuándo pagar",
+  "titulo": "Cuándo pagar: DataForSEO, Firecrawl, Apify, Semrush y Ahrefs",
+  "titulo_curto": "Cuándo pagar",
+  "minutos": 18,
+  "lead": "Las cinco herramientas cubren tu sitio. Mercado y competidor son otra cosa: alguien lo recolectó y lo cobra. Pagar tiene sentido cuando una decisión depende de un dato que solo existe de pago, por un tiempo definido y con tope de gasto. Esta clase te da el criterio, muestra qué entrega cada servicio y cierra con tu plan de herramientas.",
+  "objetivo": "decidir si y cuándo pagar por un dato, con criterio, tope de gasto y precio verificado en el sitio, y armar tu plan de herramientas.",
+  "competencias": [
+    "decidir-compra-de-dato",
+    "comparar-servicios-de-seo",
+    "planejar-pilha-de-ferramentas"
+  ],
+  "aprende": [
+    {
+      "t": "El criterio: qué decisión va a cambiar el dato de pago"
+    },
+    {
+      "t": "Qué entregan DataForSEO, open-seo, Firecrawl, Apify, Semrush y Ahrefs"
+    },
+    {
+      "t": "Los límites: términos de uso, muestra y precio que cambia"
+    },
+    {
+      "t": "Tu mapa y el plan fechado de las 8 clases"
+    }
+  ],
+  "hero_alt": "Hombre en una ferretería compara dos taladros, uno simple y uno profesional.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Pagar o no pagar",
+      "sub": "Cuatro preguntas antes de suscribirte. Haz clic en cada una.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "¿Qué decisión?",
+          "sub": "la pregunta",
+          "detalhe": "Escribe la decisión que el dato va a cambiar: \"elegir entre 3 temas para el próximo mes\", \"entrar o no en un mercado\". Sin decisión, la suscripción se vuelve un panel bonito."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "¿Lo gratis responde?",
+          "sub": "lecciones 1 a 7",
+          "detalhe": "Search Console, Bing, auditor, agente-ready y botlog responden casi todo sobre tu sitio. Si responden, no pagues."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "¿Qué dato falta?",
+          "sub": "solo de pago",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "volumen exacto y dificultad"
+            },
+            {
+              "icone": "check",
+              "t": "SERP y tráfico de competidor"
+            },
+            {
+              "icone": "check",
+              "t": "backlinks con ancla"
+            },
+            {
+              "icone": "check",
+              "t": "SERP o mapa extraídos a escala"
+            }
+          ],
+          "detalhe": "Es dato de mercado: comprado, modelado o extraído. No existe una versión gratis honesta."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "Prueba con tope de gasto",
+          "sub": "1 mes",
+          "forte": true,
+          "detalhe": "Un mes, una pregunta, un tope de gasto, precio verificado en el sitio del proveedor ese mismo día. Al final, ¿se tomó la decisión? Si no, cancela."
+        }
+      ],
+      "legenda": "El núcleo gratis se queda; el de pago entra como pieza conectable, apagada por defecto."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Qué entrega cada uno",
+      "sub": "Los precios cambian rápido: verifica siempre en el sitio del proveedor. Haz clic en cada uno.",
+      "passos": [
+        {
+          "titulo": "DataForSEO + open-seo",
+          "sub": "dato por llamada",
+          "texto": [
+            "open-seo es una alternativa abierta (MIT) a Semrush y Ahrefs, con servidor MCP y skills para agentes. Pero el dato viene de DataForSEO, que se paga por llamada: el README dice que necesitas la clave de todos modos, y el servicio alojado cobra 28% más sobre cada solicitud.",
+            "Es una interfaz sobre dato de pago, no una fuente de datos propia."
+          ]
+        },
+        {
+          "titulo": "Firecrawl",
+          "sub": "páginas en Markdown",
+          "texto": [
+            "Scrape, crawl, map y search: convierte páginas en Markdown y JSON para auditoría de contenido y brief. Página de precios leída el 19/10/2026: plan gratuito con 1.000 créditos al mes, 1 crédito por página; planes de pago desde US$ 16 al mes con facturación anual. Verifícalo en el sitio.",
+            "Su search no es el SERP de Google."
+          ]
+        },
+        {
+          "titulo": "Apify",
+          "sub": "actors de terceros",
+          "texto": [
+            "Tienda de robots (actors) que extraen SERP con preguntas relacionadas, Google Maps y otros. Página de precios leída el 19/10/2026: gratis con US$ 5 de crédito; Starter a US$ 19 al mes. Cada actor tiene su propio precio.",
+            "Quien ejecuta un actor que extrae datos de Google asume la violación de los términos; la calidad y el precio varían según el autor."
+          ]
+        },
+        {
+          "titulo": "Semrush, Ahrefs",
+          "sub": "suite completa",
+          "texto": [
+            "Volumen, dificultad, competidores, backlinks y monitores de IA, con MCP oficial. Los monitores de visibilidad en IA van de unos US$ 20–100 al mes con pocas preguntas a US$ 300–1.500+ con volumen, según terceros (jul–oct/2026).",
+            "Share of voice es una muestra de la lista de preguntas de la herramienta, no una nota oficial."
+          ],
+          "exemplo": {
+            "rot": "La vara de 2026",
+            "texto": "El volumen exacto de búsqueda no existe gratis. Un monitor de IA de pago es una muestra; lo oficial y gratis es Bing AI Performance. Una batería manual de 20–30 preguntas al mes sigue valiendo."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Los modelos de la decisión",
+      "sub": "Complétalos antes de suscribirte y al final del mes de prueba.",
+      "blocos": [
+        {
+          "rot": "Tabla de decisión (modelo)",
+          "icone": "lista",
+          "conteudo": "# ¿Pagar por dato? — <seusite.com> — <dd/mm/aaaa>\n| decisión que el dato cambia | ¿lo gratis responde? (lección) | dato que falta | quién vende | precio verificado en | tope del mes |\n|---|---|---|---|---|---|\n| <escolher 3 temas do próximo mês> | en parte (gsc-historico, lección 4) | volumen exacto | <fornecedor> | <dd/mm/aaaa, link> | <R$ ou US$> |\n| <quem são os concorrentes no termo X> | no | SERP de competidor | <fornecedor> | <dd/mm/aaaa, link> | <…> |"
+        },
+        {
+          "rot": "Prueba de 1 mes (modelo)",
+          "icone": "calendario",
+          "conteudo": "# Prueba: <fornecedor> — del <dd/mm> al <dd/mm>\npregunta única: <…>\ntope de gasto: <…>   (desligar renovação automática no dia 1)\nclave de API: solo en el .env local, fuera de git; nunca en el repositorio\nal final del mes:\n- ¿se tomó la decisión con el dato? <sí/no>\n- ¿qué no habría mostrado lo gratis? <…>\n- continuar, cambiar o cancelar: <…>"
+        },
+        {
+          "rot": "Mi plan de herramientas (modelo)",
+          "icone": "camadas",
+          "conteudo": "# Herramientas — <seusite.com>\nnúcleo gratis (siempre): Search Console, Bing Webmaster, IndexNow, inemaseo-sistemas (5), agente por la suscripción\nsemana: gsc-historico + lectura del agente + decisoes.md\nmes: auditor, agente-ready, bing-ia (export), botlog (log filtrado), batería manual de preguntas en las IAs\npago (opcional, con tope): <ninguno | proveedor + pregunta + mes>"
+        }
+      ]
+    },
+    {
+      "tipo": "simconversa",
+      "titulo": "Conversación simulada: la clienta quiere suscribirse a Semrush y a tres herramientas de IA",
+      "sub": "Conversación ficticia para practicar. Elige la respuesta que darías; el comentario aparece justo después.",
+      "personagem": {
+        "nome": "Carla",
+        "papel": "tienda en línea pequeña · clienta ficticia"
+      },
+      "inicio": "abre",
+      "licao": "Una suscripción no es una estrategia. Pregunta qué decisión va a cambiar el dato, usa el núcleo gratis para tu propio sitio y paga solo el dato de mercado que falta, por un mes, con tope de gasto.",
+      "falas": {
+        "abre": {
+          "cliente": "Quiero hacer SEO bien. Voy a suscribirme a Semrush y a tres herramientas más que miden si aparezco en las IAs. ¿Me ayudas a configurarlas?",
+          "opcoes": [
+            {
+              "t": "Te ayudo. Suscríbete hoy y mañana ya configuramos todo.",
+              "vai": "fim-caro",
+              "nota": 0,
+              "comenta": "Atendiste la compra, no la necesidad. Nadie preguntó qué van a decidir esas herramientas."
+            },
+            {
+              "t": "Antes de suscribirte: ¿qué decisión quieres tomar con esos números?",
+              "vai": "pergunta",
+              "nota": 2,
+              "comenta": "Buena pregunta. El dato solo vale si cambia una decisión; su respuesta dice qué es gratis y qué falta."
+            },
+            {
+              "t": "Nada de eso sirve. Se puede hacer todo gratis.",
+              "vai": "radical",
+              "nota": 1,
+              "comenta": "Media verdad: tu propio sitio sale gratis, pero los datos de mercado no. Prometer \"todo\" gratis te cobrará la cuenta después."
+            }
+          ]
+        },
+        "radical": {
+          "cliente": "¿Todo gratis? Entonces, ¿cómo sé cuántas personas buscan \"vestido de lino\" al mes?",
+          "opcoes": [
+            {
+              "t": "Ese número exacto no existe gratis. Lo demás de tu sitio, sí. Dime qué quieres decidir.",
+              "vai": "pergunta",
+              "nota": 1,
+              "comenta": "Corrigió la promesa con el límite honesto y volvió a la pregunta de la decisión, con una vuelta más."
+            },
+            {
+              "t": "Google Trends da el volumen.",
+              "vai": "fim-errado",
+              "nota": 0,
+              "comenta": "Trends es un índice relativo, de 0 a 100, no un número de búsquedas."
+            }
+          ]
+        },
+        "pergunta": {
+          "cliente": "Quiero saber si la tienda aparece en ChatGPT y cuánta gente busca mis productos.",
+          "opcoes": [
+            {
+              "t": "Empezamos por lo gratis: Search Console con historial, citas oficiales de Bing y una lista fija de preguntas por mes. Para el volumen exacto, probamos un servicio de pago durante un mes.",
+              "vai": "monitor",
+              "nota": 2,
+              "comenta": "Núcleo gratis para lo que es del sitio, pago solo para el dato de mercado que falta, con plazo."
+            },
+            {
+              "t": "Search Console resuelve las dos cosas.",
+              "vai": "monitor",
+              "nota": 1,
+              "comenta": "Muestra búsquedas en las que la tienda ya apareció, no el volumen del mercado, y no muestra citas en IA."
+            },
+            {
+              "t": "Las herramientas de IA dan la nota oficial de ChatGPT. Suscríbete.",
+              "vai": "fim-sov",
+              "nota": 0,
+              "comenta": "No existe una nota oficial de ChatGPT. Esas herramientas corren una lista de preguntas propia: es una muestra."
+            }
+          ]
+        },
+        "monitor": {
+          "cliente": "Pero probé una de esas herramientas de IA y me dijo que la tienda tiene 34% de share of voice. ¿Eso no es lo que importa?",
+          "opcoes": [
+            {
+              "t": "Es una muestra: la lista de preguntas de la herramienta, en un día. Oficial y gratis hoy es Bing AI Performance. Y armamos tu batería fija de 20 a 30 preguntas, corrida cada mes.",
+              "vai": "piloto",
+              "nota": 2,
+              "comenta": "Explicó qué es el número, señaló la fuente oficial y dio un método que ella controla."
+            },
+            {
+              "t": "Si la herramienta lo dice, es eso.",
+              "vai": "fim-sov",
+              "nota": 0,
+              "comenta": "Las respuestas de las IA varían y la lista de preguntas es de la herramienta. El número cambia sin que cambie nada en la tienda."
+            },
+            {
+              "t": "Se puede medir igual y gratis con un modelo local, tipo Ollama.",
+              "vai": "fim-ollama",
+              "nota": 0,
+              "comenta": "Un modelo local no tiene la búsqueda ni el índice de ChatGPT. No sabe lo que responde ChatGPT."
+            }
+          ]
+        },
+        "piloto": {
+          "cliente": "Vale. ¿Y cuándo conviene pagar algo?",
+          "opcoes": [
+            {
+              "t": "Cuando una decisión depende de un dato que solo existe de pago: un mes, una pregunta, tope de gasto y precio verificado en el sitio ese día.",
+              "vai": "fim-bom",
+              "nota": 2,
+              "comenta": "Criterio, plazo y tope. Al final del mes puedes decir si el dinero decidió algo."
+            },
+            {
+              "t": "Suscríbete al plan anual, que sale más barato.",
+              "vai": "fim-caro",
+              "nota": 0,
+              "comenta": "Descuento anual antes de saber si el dato sirve es pagar 12 meses por una pregunta sin respuesta."
+            },
+            {
+              "t": "Usa DataForSEO por llamada, sin límite, cuando lo necesites.",
+              "vai": "fim-bom",
+              "nota": 1,
+              "comenta": "Pagar por llamada va bien para poco volumen, pero sin tope de gasto el gasto se escapa, sobre todo con un agente corriendo solo."
+            }
+          ]
+        },
+        "fim-caro": {
+          "fim": true,
+          "titulo": "Cuatro suscripciones, ninguna decisión",
+          "texto": "La tienda paga todos los meses por paneles que nadie lee con una pregunta en la mano. En tres meses, Carla cancela todo y concluye que el SEO no funciona."
+        },
+        "fim-errado": {
+          "fim": true,
+          "titulo": "Número equivocado en la mano",
+          "texto": "El índice relativo de Trends se convirtió en \"búsquedas por mes\" en la presentación. La decisión de inventario se tomó sobre un número que no existe."
+        },
+        "fim-sov": {
+          "fim": true,
+          "titulo": "Rehén de un número de panel",
+          "texto": "El share of voice cae de 34% a 22% sin que cambie nada en la tienda, y Carla pide una explicación. La lista de preguntas era de la herramienta, y nadie sabe qué cambió."
+        },
+        "fim-ollama": {
+          "fim": true,
+          "titulo": "Midiendo la IA equivocada",
+          "texto": "El modelo local respondió que la tienda es citada. A ChatGPT de verdad nunca se le preguntó."
+        },
+        "fim-bom": {
+          "fim": true,
+          "titulo": "Núcleo gratis y pago con tope de gasto",
+          "texto": "Search Console con historial, Bing AI Performance y la batería mensual miden la tienda gratis. Un mes de datos de volumen, con tope de gasto, decide los temas del trimestre. Carla sabe qué es cada número."
+        }
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica: tu decisión",
+      "sub": "La tabla de la clase 1 es el punto de partida.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Tabla de decisión",
+          "min": "25 min",
+          "texto": "Completa la tabla de decisión con al menos 2 filas, partiendo de las preguntas \"no\" de tu tabla de la clase 1.",
+          "pronto": "cada fila tiene la decisión, si lo gratis responde (con la clase), el dato que falta y, si hay proveedor, el precio con fecha y enlace verificado en el sitio."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Plan con fechas",
+          "min": "10 min",
+          "texto": "Completa \"mi plan de herramientas\" y genera el plan con fechas justo abajo.",
+          "pronto": "tienes el plan de herramientas completo y el archivo .md (o .ics) del generador guardado."
+        }
+      ]
+    },
+    {
+      "tipo": "mapa",
+      "titulo": "El mapa de tu Semrush abierto",
+      "sub": "Cuatro niveles y los ejercicios de cada uno. Haz clic en un ejercicio para ver el \"listo cuando\".",
+      "degraus": [
+        {
+          "aula": "auditor",
+          "icone": "lupa",
+          "quando": "Semana 1",
+          "titulo": "Auditar",
+          "sub": "auditor y agente-ready (clases 2 y 3)",
+          "saida": "Hallazgos en orden de prioridad y la nota de preparación.",
+          "passo": "Empieza por lo que ve un robot. Lo crítico primero; el mapa muestra los ejercicios de la clase 2."
+        },
+        {
+          "aula": "gsc-historico",
+          "icone": "grafico",
+          "quando": "Semana 1",
+          "titulo": "Historial",
+          "sub": "gsc-historico (clase 4)",
+          "saida": "Base local con las semanas y el informe sin marca.",
+          "passo": "Requiere los CSV de gsc_semanal.py. Mientras antes empieces a guardar, más historia tendrás."
+        },
+        {
+          "aula": "botlog",
+          "icone": "escudo",
+          "quando": "Semana 2",
+          "titulo": "IA y robots",
+          "sub": "bing-ia y botlog (clases 5 y 6)",
+          "saida": "Citas oficiales cruzadas con Google y robots por finalidad.",
+          "passo": "Requiere el export de Bing y el log del servidor; filtra el log antes de guardar."
+        },
+        {
+          "aula": "rotina-agente",
+          "icone": "robo",
+          "quando": "Semana 3",
+          "titulo": "Rutina",
+          "sub": "agente y compuerta (clase 7)",
+          "saida": "rotina.sh funcionando, lectura del agente y decisoes.md.",
+          "passo": "Requiere las herramientas funcionando. Después de eso, decide qué pagar (clase 8)."
+        }
+      ],
+      "resultado": {
+        "titulo": "Al final del curso",
+        "texto": "Cinco herramientas abiertas midiendo tu sitio, una rutina con agente y comcontrol humano, y una regla clara para pagar por datos.",
+        "total": "16 ejercicios"
+      },
+      "rolagem_fim": {
+        "titulo": "El Semrush abierto completo",
+        "texto": "Audita, guarda el historial, mide IA y robots, ejecuta la rutina. Paga solo por el dato de mercado que una decisión pida."
+      },
+      "legenda": "Las herramientas miden; el cimiento (curso 1) y el contenido (curso 2) son los que cambian el número."
+    },
+    {
+      "tipo": "gerador",
+      "titulo": "Genera tu plan con fechas",
+      "sub": "Elige la fecha de inicio y cuánto tiempo tienes por semana.",
+      "curso": "inemaSEO 7 · Sistemas",
+      "horas_padrao": 3,
+      "degraus": [
+        {
+          "titulo": "Clase 1 · De dónde viene el dato",
+          "aula": "semrush-mapa"
+        },
+        {
+          "titulo": "Clase 2 · auditor",
+          "aula": "auditor"
+        },
+        {
+          "titulo": "Clase 3 · agente-ready",
+          "aula": "agente-ready"
+        },
+        {
+          "titulo": "Clase 4 · gsc-historico",
+          "aula": "gsc-historico"
+        },
+        {
+          "titulo": "Clase 5 · bing-ia",
+          "aula": "bing-ia"
+        },
+        {
+          "titulo": "Clase 6 · botlog",
+          "aula": "botlog"
+        },
+        {
+          "titulo": "Clase 7 · Rutina con agente",
+          "aula": "rotina-agente"
+        },
+        {
+          "titulo": "Clase 8 · Cuándo pagar",
+          "aula": "quando-pagar"
+        }
+      ],
+      "txt": {
+        "titulo": "Plan — inemaSEO 7 · Sistemas",
+        "inicio": "Inicio",
+        "ritmo": "Ritmo",
+        "termino": "Fecha prevista de término",
+        "ate": "hasta",
+        "pronto": "listo cuando",
+        "semanas": "semanas",
+        "travou": "## Qué me frenó y qué decidí",
+        "h": "h por semana",
+        "exs": "ejercicios"
+      }
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba lo que aprendiste",
+      "sub": "La explicación aparece después de tu respuesta.",
+      "perguntas": [
+        {
+          "p": "¿Cuál es la primera pregunta antes de contratar una herramienta de SEO?",
+          "opcoes": [
+            "Cuál es la más famosa.",
+            "Qué decisión va a cambiar el dato.",
+            "Cuál tiene más gráficos.",
+            "Cuál tiene plan anual."
+          ],
+          "certa": 1,
+          "explica": "Sin una decisión, el dato se vuelve un panel que nadie lee. Con ella, puedes ver si lo gratis ya responde.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "open-seo es MIT. ¿Entonces es gratis de punta a punta?",
+          "opcoes": [
+            "Sí.",
+            "No: el código es abierto, pero el dato viene de DataForSEO, que se paga por llamada.",
+            "Solo en Cloudflare.",
+            "Solo para uso personal."
+          ],
+          "certa": 1,
+          "explica": "Es interfaz, MCP y skills sobre dato de pago. El README dice que necesitas la clave de DataForSEO de todos modos.",
+          "ref": "passos"
+        },
+        {
+          "p": "Un actor de Apify raspa Google por ti. ¿Cuál es el riesgo?",
+          "opcoes": [
+            "Ninguno, es de pago.",
+            "La violación de los términos de Google recae en quien lo ejecuta; la calidad y el precio varían según el autor.",
+            "El sitio sale del índice.",
+            "Apify es de Google."
+          ],
+          "certa": 1,
+          "explica": "Pagar no hace que el raspado esté permitido. Para tu propio sitio, prefiere las herramientas abiertas y los paneles oficiales.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Cómo hacer la primera prueba de pago?",
+          "opcoes": [
+            "Plan anual, por el descuento.",
+            "Un mes, una pregunta, tope de gasto y precio verificado en el sitio ese mismo día.",
+            "Por llamada, sin límite.",
+            "Todos los proveedores juntos."
+          ],
+          "certa": 1,
+          "explica": "Al final del mes sabes si la decisión se tomó con el dato. Si no fue así, cancelas sin haber perdido el año.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Para llevar",
+      "itens": [
+        {
+          "t": "Criterio",
+          "texto": "Paga solo por el dato de mercado que una decisión pide; tu sitio sale gratis."
+        },
+        {
+          "t": "Prueba",
+          "texto": "Un mes, una pregunta, tope, precio verificado en el sitio con fecha."
+        },
+        {
+          "t": "La vara de 2026",
+          "texto": "El volumen exacto no existe gratis; share of voice es una muestra; lo oficial de IA es Bing AI Performance."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "open-seo (MIT, sobre DataForSEO)",
+          "href": "https://github.com/every-app/open-seo",
+          "icone": "git"
+        },
+        {
+          "t": "Firecrawl: precios",
+          "href": "https://www.firecrawl.dev/pricing",
+          "icone": "nuvem"
+        },
+        {
+          "t": "Apify: precios",
+          "href": "https://apify.com/pricing",
+          "icone": "nuvem"
+        },
+        {
+          "t": "Área inemaSEO",
+          "href": "https://eventos.inema.pro/inemaseo/",
+          "icone": "lupa"
+        }
+      ]
+    }
+  ]
+}

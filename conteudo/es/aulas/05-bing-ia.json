@@ -1,0 +1,280 @@
+{
+  "slug": "bing-ia",
+  "num": 5,
+  "menu": "bing-ia",
+  "titulo": "bing-ia: las citas oficiales de la IA de Microsoft cruzadas con Google",
+  "titulo_curto": "bing-ia",
+  "minutos": 15,
+  "lead": "Desde febrero de 2026 Bing Webmaster tiene el informe AI Performance: cuántas veces Copilot y los resúmenes de IA de Bing citaron cada página tuya, y las frases que la IA usó para buscar. Hoy es el único panel oficial y gratis de \"me citó una IA\". El bing-ia guarda esos exports y los cruza con Google.",
+  "objetivo": "cruzar el export de Bing AI Performance con Google y sacar ideas de contenido de las grounding queries.",
+  "competencias": [
+    "medir-citacao-oficial-de-ia",
+    "cruzar-bing-com-google",
+    "tirar-pauta-de-grounding-query"
+  ],
+  "aprende": [
+    {
+      "t": "Qué muestra AI Performance (y qué no muestra)"
+    },
+    {
+      "t": "Exportar el CSV y mapear columnas que Microsoft no documenta"
+    },
+    {
+      "t": "Las 4 listas del cruce con gsc-historico"
+    },
+    {
+      "t": "Por qué Bing importa dos veces"
+    }
+  ],
+  "hero_alt": "Una persona compara dos pilas de documentos lado a lado con un marcador.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Del panel de Bing a las cuatro listas",
+      "sub": "No hay API: el camino es exportar el CSV desde el panel. Haz clic en cada etapa.",
+      "nos": [
+        {
+          "icone": "robo",
+          "titulo": "AI Performance",
+          "sub": "Bing Webmaster",
+          "detalhe": "Vista previa pública desde 02/2026: total de citas, páginas citadas y grounding queries. Cubre Microsoft Copilot, los resúmenes de IA de Bing e integraciones de socios. Los números son una muestra y no incluyen clics."
+        },
+        {
+          "icone": "baixar",
+          "titulo": "Export CSV",
+          "sub": "páginas y consultas",
+          "detalhe": "Descargas desde el panel un CSV de páginas y uno de grounding queries. Microsoft no documenta las columnas; la herramienta intenta reconocer nombres comunes y, si no lo logra, te pide el mapa con --colunas."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "SQLite",
+          "sub": "bing.sqlite",
+          "detalhe": "importar guarda los exports en una base de datos local. Reimportar el mismo archivo lo reemplaza, no lo duplica."
+        },
+        {
+          "icone": "camadas",
+          "titulo": "Cruza",
+          "sub": "con el gsc-historico",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "check",
+              "t": "citada y con clic en Google"
+            },
+            {
+              "icone": "check",
+              "t": "citada, sin clic en Google"
+            },
+            {
+              "icone": "check",
+              "t": "clic en Google, nunca citada"
+            },
+            {
+              "icone": "check",
+              "t": "ideas: consulta que Google no vio"
+            }
+          ],
+          "detalhe": "URL normalizada en ambos lados (sin esquema, www, barra final ni parámetros) y consulta en minúsculas y sin acentos. Solo la igualdad exacta cuenta como \"ya está en Google\"."
+        }
+      ],
+      "legenda": "Una cita no es ranking ni autoridad; es la señal oficial más cercana a \"la IA usó mi sitio\"."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Qué hacer con cada lista",
+      "sub": "Haz clic en cada una.",
+      "passos": [
+        {
+          "titulo": "Citada + clic",
+          "sub": "funciona en ambos",
+          "texto": [
+            "La IA la usa como fuente y Google envía gente. Mantenla actualizada: fecha, números, autoría.",
+            "Es la página que más vale la pena proteger."
+          ]
+        },
+        {
+          "titulo": "Citada, sin clic",
+          "sub": "revisar en Google",
+          "texto": [
+            "La IA confía, pero Google no envía gente. Revisa el título y la consulta objetivo.",
+            "Ojo: el cruce usa solo las consultas sin marca; una página con clics solo de marca aparece aquí."
+          ]
+        },
+        {
+          "titulo": "Clic, nunca citada",
+          "sub": "candidata a IA",
+          "texto": [
+            "Funciona en Google y la IA de Bing nunca la citó. Verifica si Bingbot la lee (clases 2 y 6), y si la página tiene respuesta directa, autoría, fecha y datos estructurados."
+          ]
+        },
+        {
+          "titulo": "Ideas",
+          "sub": "grounding queries",
+          "texto": [
+            "Frases que la IA usó para buscar y que no aparecen en ninguna semana del gsc-historico. Se convierten en candidatas a página nueva.",
+            "Compara texto exacto: las variaciones de la misma pregunta cuentan como ideas distintas."
+          ],
+          "exemplo": {
+            "rot": "Por qué Bing importa dos veces",
+            "texto": "Además de Copilot, un estudio de Seer indica que ChatGPT usa el índice de Bing para buscar. Es un estudio de terceros, no una declaración de OpenAI."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Importar y cruzar",
+      "sub": "Ejecútalo desde la carpeta ferramentas/bing-ia. El ejemplo del repositorio usa CSV FICTICIOS (números inventados, URLs reales de inema.pro) cruzados con la base real de la clase 4.",
+      "blocos": [
+        {
+          "rot": "Terminal · importar los exports",
+          "icone": "terminal",
+          "conteudo": "cd ferramentas/bing-ia\npython3 bing_ia.py importar ../../exemplos/bing-ia/entrada/*.csv --db dados/bing.sqlite"
+        },
+        {
+          "rot": "Terminal · cruzar con el gsc-historico",
+          "icone": "terminal",
+          "conteudo": "python3 bing_ia.py relatorio --db dados/bing.sqlite --gsc-db ../gsc-historico/dados/gsc.sqlite --site inema.pro --saida saida/inema.pro"
+        },
+        {
+          "rot": "Terminal · cuando la herramienta no reconoce las columnas",
+          "icone": "terminal",
+          "conteudo": "python3 bing_ia.py importar meu-export-paginas.csv --tipo paginas --colunas \"url=<columna de la URL>,citacoes=<columna de las citas>,data=<columna de la fecha>\" --db dados/bing.sqlite\npython3 bing_ia.py importar meu-export-consultas.csv --tipo consultas --colunas \"consulta=<columna de la consulta>,citacoes=<columna de las citas>\" --db dados/bing.sqlite"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<p>Comando real, <b>datos ficticios</b> (ejemplo del repositorio):</p><pre>FICTICIO_ai-performance-grounding-queries.csv: 6 linha(s) de consultas (colunas {'citacoes': 'Citations', 'consulta': 'Grounding Query', 'data': 'Date'}) → dados/bing.sqlite\nFICTICIO_ai-performance-paginas.csv: 6 linha(s) de paginas (colunas {'url': 'Page', 'citacoes': 'Citations', 'data': 'Date'}) → dados/bing.sqlite\n38 citações em 5 página(s), 6 grounding queries, 4 ideia(s), citadas sem clique no Google 5, clique sem citação 1 → saida/inema.pro/relatorio.html</pre>"
+          },
+          {
+            "rot": "Las listas (ficticio)",
+            "html": "<p><code>paginas.csv</code>, grupo \"sem clique\" (citas ficticias × Google real):</p><pre>sem_clique,…/en/noticias/slopmonster/,23 citações,0 cliques,189 impr.\nsem_clique,…/en/noticias/openai-dots/,6 citações,0 cliques,15 impr.\nsem_clique,https://eventos.inema.pro/oswork/,3 citações,0 cliques,0 impr.</pre><p><code>ideias.csv</code>:</p><pre>what is slopmonster ai,7\nopenai dots agent,5\nclaude opus 5.5 benchmarks,4\nhow to manage ai agents in a company,2</pre>"
+          },
+          {
+            "rot": "Errores comunes",
+            "html": "<ul><li><b>Tratar una cita como posición</b>: Bing dice que es una muestra y no tiene clics.</li><li><b>Confiar en los nombres de columna</b>: Page, Citations, Grounding Query y Date son una suposición, a confirmar con un export real; si la herramienta se detiene, usa --colunas.</li><li><b>Esperar el Topics Portfolio</b>: la beta del 13/10/2026 no se lee aquí.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica: tus citas",
+      "sub": "¿Todavía no tienes acceso al panel? Haz el E1 con el ejemplo y el E2 cuando el sitio esté en Bing Webmaster (curso 1, clase 3).",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Ejecutar el ejemplo",
+          "min": "10 min",
+          "texto": "Importa los CSV de ejemplo y crúzalos con la base del gsc-historico de la clase 4.",
+          "pronto": "la terminal muestra \"38 citações em 5 página(s)\" y el relatorio.html se abre con las cuatro listas."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Tu export",
+          "min": "25 min",
+          "texto": "Exporta el CSV de páginas del AI Performance de tu sitio e impórtalo. Si la herramienta lo pide, arma el --colunas con los nombres de tu archivo.",
+          "pronto": "tu export está en la base (línea \"N linha(s) de paginas\") y anotaste los nombres reales de las columnas."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba lo que aprendiste",
+      "sub": "La explicación aparece después de tu respuesta.",
+      "perguntas": [
+        {
+          "p": "¿Cuál es hoy el único panel oficial y gratuito de citas por IA?",
+          "opcoes": [
+            "Un monitor de pago de share of voice.",
+            "El Bing AI Performance, en Bing Webmaster.",
+            "El llms.txt.",
+            "El informe de velocidad de Google."
+          ],
+          "certa": 1,
+          "explica": "El informe de IA de Search Console muestra solo impresiones. El Bing AI Performance muestra citas, páginas y grounding queries.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "La herramienta se detuvo diciendo que no reconoció las columnas. ¿Por qué?",
+          "opcoes": [
+            "El CSV está mal.",
+            "Microsoft no documenta las columnas; los nombres reconocidos son una suposición. Usa --colunas.",
+            "Falta la clave de API.",
+            "Bing lo bloqueó."
+          ],
+          "certa": 1,
+          "explica": "Sin documentación oficial, el mapa campo=columna lo resuelve. No hay API: todo sale del export.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Una página es citada por la IA, pero aparece \"sin clic en Google\" y sabes que recibe clics. ¿Qué puede ser?",
+          "opcoes": [
+            "Error de Bing.",
+            "Sus clics son de marca; el cruce solo mira las consultas sin marca.",
+            "La página está fuera de línea.",
+            "Google lo bloqueó."
+          ],
+          "certa": 1,
+          "explica": "El gsc-historico guarda las consultas sin marca por página; la marca entra solo como suma. Es un límite documentado de la herramienta.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Qué es una grounding query?",
+          "opcoes": [
+            "Una palabra clave de pago.",
+            "La frase que la IA usó para buscar el contenido que citó.",
+            "El título de la página.",
+            "Una consulta de Google."
+          ],
+          "certa": 1,
+          "explica": "Es lo que la IA buscó al armar la respuesta. Las que Google nunca te mostró se vuelven ideas de contenido.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Para llevar",
+      "itens": [
+        {
+          "t": "Oficial",
+          "texto": "AI Performance de Bing: citas y grounding queries, sin clics, solo por CSV."
+        },
+        {
+          "t": "Cruce",
+          "texto": "Citada × clic en Google en 4 listas; ideas a partir de las consultas que Google no vio."
+        },
+        {
+          "t": "La vara de 2026",
+          "texto": "Bing importa dos veces: Copilot y, según un estudio de Seer (no de OpenAI), ChatGPT."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "bing-ia: README",
+          "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/bing-ia",
+          "icone": "terminal"
+        },
+        {
+          "t": "Bing: anuncio del AI Performance (02/2026)",
+          "href": "https://blogs.bing.com/webmaster/2026/02/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+          "icone": "robo"
+        },
+        {
+          "t": "Bing Webmaster Tools",
+          "href": "https://www.bing.com/webmasters/",
+          "icone": "nuvem"
+        }
+      ]
+    }
+  ]
+}

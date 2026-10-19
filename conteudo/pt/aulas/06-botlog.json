@@ -1,0 +1,125 @@
+{
+  "slug": "botlog",
+  "num": 6,
+  "menu": "botlog",
+  "titulo": "botlog: quem lê o seu site de verdade",
+  "titulo_curto": "botlog",
+  "minutos": 17,
+  "lead": "O robots.txt diz o que você permite; o log do servidor diz quem veio. O botlog lê o log de acesso, separa os robôs de IA por finalidade (busca, pedido do usuário, treino), confere o IP de cada um na lista oficial da empresa e mostra os falsos. E filtra o log antes de você guardar ou mostrar, porque IP de pessoa é dado pessoal.",
+  "objetivo": "separar no log os robôs de IA por finalidade, achar os falsos e filtrar o log antes de guardar ou compartilhar.",
+  "competencias": ["classificar-robo-por-finalidade", "verificar-robo-por-ip-oficial", "tratar-log-com-lgpd"],
+  "aprende": [
+    {"t": "As quatro finalidades e o que acontece se você bloquear cada uma"},
+    {"t": "Falso robô: por que o User-Agent não basta"},
+    {"t": "Rodar a análise num log nginx ou da Cloudflare"},
+    {"t": "Filtrar o log antes de guardar (LGPD)"}
+  ],
+  "hero_alt": "Porteiro confere o livro de registro de visitantes no balcão da portaria de um prédio.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Do log à lista de quem leu",
+      "sub": "Cada linha do log passa por quatro perguntas. Clique em cada uma.",
+      "nos": [
+        {"icone": "arquivo", "titulo": "Log", "sub": "nginx, Apache, Cloudflare",
+         "detalhe": "Formato combined do nginx e do Apache (também .gz) e o JSON por linha do Cloudflare Logpush. Log da Vercel não está implementado."},
+        {"icone": "lupa", "titulo": "Quem diz ser", "sub": "User-Agent",
+         "detalhe": "Procura o nome do robô no User-Agent (o token, não a string inteira). Google-Extended não aparece em log: é só um token de robots.txt; quem busca é o Googlebot."},
+        {"icone": "camadas", "titulo": "Finalidade", "sub": "4 grupos",
+         "itens": [{"icone": "check", "t": "busca: OAI-SearchBot, Claude-SearchBot, PerplexityBot"}, {"icone": "check", "t": "usuário: ChatGPT-User, Claude-User, Perplexity-User"}, {"icone": "check", "t": "treino: GPTBot, ClaudeBot"}, {"icone": "check", "t": "buscador: Googlebot, bingbot"}],
+         "detalhe": "Cada robô cai num grupo pela documentação da empresa. UA com bot, crawler ou spider fora do catálogo entra como \"fora do catálogo\", sem verificação."},
+        {"icone": "escudo", "titulo": "IP oficial?", "sub": "verdadeiro ou falso", "forte": true,
+         "detalhe": "Confere o IP na lista que a própria empresa publica (pasta listas/, com URL e data). Robô com lista e IP fora dela = falso, e não conta. Com --rdns, Googlebot e bingbot fora da lista passam por DNS reverso e direto (usa rede)."},
+        {"icone": "grafico", "titulo": "Relatório", "sub": "quem leu o quê",
+         "detalhe": "Acessos por finalidade, por robô (autênticos, falsos, páginas, robots.txt, erros 4xx/5xx), robô × caminho, falsos robôs e páginas que nenhum robô conseguiu ler."}
+      ],
+      "legenda": "Log mostra quem pediu a página, não se a IA usou o conteúdo. Para citação, a aula 5."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Ler o relatório",
+      "sub": "Clique em cada ponto.",
+      "passos": [
+        {"titulo": "Finalidade", "sub": "o que bloquear custa",
+         "texto": ["Bloquear busca de IA = sumir das respostas com fonte daquele assistente. Bloquear o agente do usuário = a IA não abre a página quando alguém pede.", "Bloquear treino tira o site do treino de modelos futuros, sem sumir da busca."]},
+        {"titulo": "Falsos", "sub": "não contam",
+         "texto": ["Qualquer um escreve GPTBot no User-Agent. Sem conferir o IP, a contagem infla.", "O relatório mostra o IP só dos falsos robôs, para você bloquear se quiser."]},
+        {"titulo": "403 para IA", "sub": "olhe a CDN",
+         "texto": ["Robô de IA autêntico recebendo 403 costuma ser bloqueio da CDN ou do WAF, não do robots.txt.", "Desde 15/09/2026 o Cloudflare gratuito bloqueia por padrão robôs de treino e agentes em páginas com anúncios: confira no painel do seu site."]},
+        {"titulo": "LGPD", "sub": "antes de guardar",
+         "texto": ["IP de quem não é robô é dado pessoal. Antes de mostrar, publicar ou guardar um log por muito tempo, rode filtrar: ficam só as linhas de robô com IP oficial.", "Lista velha gera falso \"falso\": a do Bing na pasta é de jan/2024. Atualize a pasta listas/."]}
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Analisar e filtrar",
+      "sub": "Rode a partir da pasta ferramentas/botlog. A amostra MONTADO usa User-Agents oficiais e IPs de faixas de documentação (RFC 5737), que não são de ninguém.",
+      "blocos": [
+        {"rot": "Terminal · analisar (vários arquivos, .gz incluso)", "icone": "terminal",
+         "conteudo": "cd ferramentas/botlog\npython3 botlog.py analisar ../../exemplos/botlog/entrada/MONTADO_access.log ../../exemplos/botlog/entrada/MONTADO_cloudflare.jsonl \\\n  --sitemap ../../exemplos/botlog/entrada/MONTADO_sitemap.xml --saida saida/montado"},
+        {"rot": "Terminal · o seu servidor (só leitura) e o seu sitemap", "icone": "terminal",
+         "conteudo": "ssh root@SEU_SERVIDOR 'cd /var/log/nginx; zcat -f access.log.*.gz; cat access.log.1 access.log' > /tmp/site.log\npython3 botlog.py analisar /tmp/site.log --sitemap https://seusite.com/sitemap.xml --saida saida/site"},
+        {"rot": "Terminal · LGPD: só robôs com IP oficial", "icone": "cadeado",
+         "conteudo": "python3 botlog.py filtrar /tmp/site.log --saida /tmp/so-robos.log\nrm /tmp/site.log   # o log completo não precisa ficar"}
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {"rot": "Saída capturada (19/10/2026)", "html": "<pre>26 linhas, 22 de robô (treino 6, busca 5, buscador 4, usuario 3); falsos 4; nunca visitadas 1/6 → saida/montado/relatorio.html</pre><p>Do <code>robos.csv</code> (amostra montada):</p><pre>robo           finalidade  acessos autênticos falsos erros\nGPTBot         treino      5       3          2      2\nClaudeBot      treino      3       3          0      2\nGooglebot      buscador    3       2          1      0\nOAI-SearchBot  busca       3       3          0      0\nPerplexityBot  busca       2       1          1      0</pre><p>Os 2 erros do ClaudeBot simulam bloqueio de CDN (403).</p>"},
+          {"rot": "Log real filtrado (19/10/2026)", "html": "<p>Log do nginx de desenho.inema.pro, 05/10 a 19/10/2026, já passado pelo <code>filtrar</code> (o original tinha 3.082 linhas; ficaram 8, só robôs com IP oficial):</p><pre>8 linhas, 8 de robô (treino 6, busca 2); falsos 0; nunca visitadas 0/1 → saida/real/relatorio.html</pre><p>E o <code>filtrar</code> na amostra montada:</p><pre>16 de 23 linha(s) mantidas (só robôs com IP oficial) → /tmp/so-robos.log</pre>"},
+          {"rot": "Erros comuns", "html": "<ul><li><b>Contar pelo User-Agent</b>: sem conferir IP, falso robô vira \"acesso de IA\".</li><li><b>Procurar Google-Extended no log</b>: ele não aparece; é token de robots.txt.</li><li><b>Olhar só o log do servidor atrás de CDN</b>: ele vê só o que passou pela CDN, às vezes com o IP dela. Use o log da CDN.</li><li><b>Publicar o log inteiro</b>: IP de pessoa é dado pessoal; filtre antes.</li></ul>"}
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática: quem lê você",
+      "sub": "Sem acesso ao log do servidor? Faça o E1 e peça o log da CDN ou da hospedagem para o E2.",
+      "exercicios": [
+        {"id": "e1", "titulo": "E1 · A amostra", "min": "10 min",
+         "texto": "Rode a análise na amostra montada e encontre no relatório os falsos robôs e a página que nenhum robô leu.",
+         "pronto": "você anotou quais robôs tinham acesso falso e qual página do sitemap ficou sem leitura."},
+        {"id": "e2", "titulo": "E2 · O seu log, filtrado", "min": "30 min",
+         "texto": "Copie o log do seu servidor (só leitura), rode analisar e depois filtrar; apague o log completo.",
+         "pronto": "você tem o relatório por finalidade, a linha \"N de M linha(s) mantidas\" do filtrar e o log completo apagado."}
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste o que aprendeu",
+      "sub": "A explicação aparece depois da sua resposta.",
+      "perguntas": [
+        {"p": "O log mostra 50 acessos de \"GPTBot\". O que falta para acreditar?",
+         "opcoes": ["Nada, o User-Agent prova.", "Conferir o IP de cada acesso na lista oficial da OpenAI.", "Ver se o robots.txt permite.", "Contar as páginas."],
+         "certa": 1, "explica": "Qualquer um escreve GPTBot no User-Agent. O botlog confere o IP na lista publicada; fora dela, é falso e não conta.", "ref": "diagrama", "cert": true},
+        {"p": "Você bloqueia GPTBot e ClaudeBot. O que acontece?",
+         "opcoes": ["O site some do ChatGPT e do Claude.", "O site sai do treino de modelos futuros, sem sumir da busca.", "O Google para de indexar.", "Nada muda."],
+         "certa": 1, "explica": "São robôs de treino. Quem busca e cita é OAI-SearchBot e Claude-SearchBot; quem abre a pedido é ChatGPT-User e Claude-User.", "ref": "passos"},
+        {"p": "ClaudeBot autêntico recebe 403 no log. Causa mais provável?",
+         "opcoes": ["O robots.txt.", "Bloqueio da CDN ou do WAF.", "Página fora do ar.", "IP falso."],
+         "certa": 1, "explica": "robots.txt é pedido; o robô educado nem pede a página. 403 é resposta do servidor ou da CDN, que impõe. Confira o painel da CDN.", "ref": "passos"},
+        {"p": "Por que rodar filtrar antes de guardar o log?",
+         "opcoes": ["Para o arquivo ficar menor.", "Porque IP de pessoa é dado pessoal (LGPD); ficam só robôs com IP oficial.", "Porque o relatório exige.", "Para esconder os falsos."],
+         "certa": 1, "explica": "Robô verificado não é pessoa. O resto do log tem IPs de visitantes, que não devem ser publicados nem guardados sem necessidade.", "ref": "codigo"}
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Para levar",
+      "itens": [
+        {"t": "Finalidade", "texto": "Busca, usuário, treino e buscador: bloquear cada um custa coisas diferentes."},
+        {"t": "IP oficial", "texto": "User-Agent não prova nada; falso robô não conta."},
+        {"t": "LGPD", "texto": "filtrar antes de guardar ou mostrar; apague o log completo."}
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {"t": "botlog: README e listas oficiais", "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/botlog", "icone": "terminal"},
+        {"t": "Anthropic: ClaudeBot, Claude-User e Claude-SearchBot", "href": "https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler", "icone": "robo"},
+        {"t": "Google: verificar o Googlebot", "href": "https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot", "icone": "escudo"}
+      ]
+    }
+  ]
+}

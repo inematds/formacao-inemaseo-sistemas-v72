@@ -1,0 +1,293 @@
+{
+  "slug": "semrush-mapa",
+  "num": 1,
+  "menu": "Map",
+  "titulo": "What a \"Semrush\" does and where each piece of data comes from",
+  "titulo_curto": "Where the data comes from",
+  "minutos": 14,
+  "lead": "An SEO suite pulls together, on one screen, data from very different sources: your own site, official Google and Bing dashboards, and data the company buys or scrapes. You get the first two for free. Knowing where each number comes from is what separates what you can build yourself from what only exists as a paid product.",
+  "objetivo": "separate, function by function, what your site gives you for free from what only exists with paid data, and install the 5 open tools.",
+  "competencias": [
+    "mapear-fonte-de-dado",
+    "separar-gratis-de-pago",
+    "instalar-ferramentas-abertas"
+  ],
+  "aprende": [
+    {
+      "t": "The layers of an SEO suite and where each one comes from"
+    },
+    {
+      "t": "What your own site's data answers for free"
+    },
+    {
+      "t": "What only exists as paid: exact volume, competitors, full backlinks"
+    },
+    {
+      "t": "Download inemaseo-sistemas and check that everything runs"
+    }
+  ],
+  "hero_alt": "A hand-drawn map with boxes and arrows on a desk, with a pencil and ruler beside it.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The layers of a \"Semrush\"",
+      "sub": "From top to bottom: from data that is only yours to data that someone sells. Tap each layer.",
+      "estilo": "escada",
+      "nos": [
+        {
+          "icone": "grafico",
+          "titulo": "Real performance",
+          "sub": "Search Console",
+          "detalhe": "Queries, clicks, impressions, pages, and country for your site, straight from Google. Free, but the interface and the API keep only 16 months. Lesson 4 keeps it forever."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Official AI",
+          "sub": "Bing AI Performance",
+          "detalhe": "Bing Webmaster shows how many times Microsoft's AI cited each of your pages. It is the only official, free dashboard for AI citations. Search Console has the AI report, with impressions only. Lesson 5 combines the two."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "Technical audit",
+          "sub": "your site",
+          "detalhe": "Canonical, hreflang, sitemap, robots.txt, broken links, orphan pages. It all comes from the HTML your server delivers: you can crawl it without paying anyone. Lessons 2 and 3."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "Who reads you",
+          "sub": "server log",
+          "detalhe": "Which AI bots and search engines requested your pages, by purpose, and which ones were fake. The data is in the log of your server or your CDN. Lesson 6."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Paid only",
+          "sub": "market and competitors",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "x",
+              "t": "exact search volume"
+            },
+            {
+              "icone": "x",
+              "t": "keyword difficulty"
+            },
+            {
+              "icone": "x",
+              "t": "SERP and competitor traffic"
+            },
+            {
+              "icone": "x",
+              "t": "full backlinks"
+            }
+          ],
+          "detalhe": "This comes from purchased data, large-scale SERP scraping, or a proprietary crawl of the entire web. There is no honest free version. Lesson 8 teaches when it is worth paying."
+        }
+      ],
+      "legenda": "The first four layers belong to your site and come free. The last one is market data: someone collected it and charges for it.",
+      "dica": "Estimate from the 10/19/2026 research, not measured: the free core covers most of the day-to-day needs of someone who looks after their own site; it does not cover market intelligence on third parties."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Function by function: where the data comes from",
+      "sub": "The functions suites sell, and the open substitute for each one.",
+      "passos": [
+        {
+          "titulo": "Keyword",
+          "sub": "ideas, not volume",
+          "texto": [
+            "Paid tools mix clickstream, SERP scraping, and the Keyword Planner. For free you get your site's real queries in Search Console, autocomplete, and Google Trends.",
+            "Trends is a relative index, not a count of searches. Exact volume does not exist for free."
+          ],
+          "exemplo": {
+            "rot": "Honest limit",
+            "texto": "Search Console shows only the searches your site has already appeared in, and it hides rare queries (the \"anonymized\" ones)."
+          }
+        },
+        {
+          "titulo": "Position",
+          "sub": "only yours",
+          "texto": [
+            "Search Console gives your site's real average position for each query. Tracking competitors' positions requires scraping Google, which violates the terms and gets blocked.",
+            "For your own site, free is enough."
+          ]
+        },
+        {
+          "titulo": "Audit",
+          "sub": "easy to match",
+          "texto": [
+            "Crawler, canonical, hreflang, schema, broken links: it all comes from your HTML. This course's auditor does the essentials; Core Web Vitals live in PageSpeed and CrUX, free.",
+            "It doesn't run JavaScript on purpose: it shows what a bot that doesn't render sees."
+          ]
+        },
+        {
+          "titulo": "AI and backlinks",
+          "sub": "where paid tools matter",
+          "texto": [
+            "AI citation: the official, free option is Bing AI Performance. Paid monitors run a list of questions through the AIs; that's a sample, not an official score.",
+            "Full backlinks, with anchor and URL, only in paid tools. The Common Crawl web graph gives a rough view, by domain and months behind."
+          ],
+          "exemplo": {
+            "rot": "2026 yardstick",
+            "texto": "A local model (Ollama) doesn't measure what ChatGPT, Gemini or Perplexity answer: it has neither their search nor their index."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Download the 5 tools and check them",
+      "sub": "Just Python 3.10+ with the standard library. Nothing to install besides git.",
+      "blocos": [
+        {
+          "rot": "Terminal · download",
+          "icone": "git",
+          "conteudo": "git clone https://github.com/inematds/inemaseo-sistemas && cd inemaseo-sistemas\npython3 --version"
+        },
+        {
+          "rot": "Terminal · run the tests (no network)",
+          "icone": "terminal",
+          "conteudo": "for t in ferramentas/*/; do [ -d $t/tests ] && python3 -m unittest discover -s $t/tests; done"
+        },
+        {
+          "rot": "My questions × source (template)",
+          "icone": "lista",
+          "conteudo": "# What I want to know about my site — <yoursite.com> — <mm/dd/yyyy>\n| question | source | free? | tool / lesson |\n|---|---|---|---|\n| how many non-branded searches find me | Search Console | yes | gsc-historico (lesson 4) |\n| does Microsoft's AI cite my pages? | Bing AI Performance | yes | bing-ia (lesson 5) |\n| what is broken in the HTML | the site itself | yes | auditor (lesson 2) |\n| which AI bots read me | server log | yes | botlog (lesson 6) |\n| how many people search <term> per month | purchased data | no | lesson 8 |"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<p>The tests for the 5 tools, in folder order (agente-ready, auditor, bing-ia, botlog, gsc-historico), no network:</p><pre>Ran 10 tests in 0.004s\nOK\nRan 17 tests in 0.004s\nOK\nRan 11 tests in 0.260s\nOK\nRan 14 tests in 0.060s\nOK\nRan 10 tests in 0.439s\nOK</pre>"
+          },
+          {
+            "rot": "The 5 tools",
+            "html": "<ul><li><b>auditor</b>: what is broken in the HTML your server delivers.</li><li><b>agente-ready</b>: a 0–100 readiness score for AI, with public weights.</li><li><b>gsc-historico</b>: non-branded searches, week by week, forever.</li><li><b>bing-ia</b>: pages cited by Bing's AI × clicks on Google.</li><li><b>botlog</b>: AI bots in the log, by purpose, and the fake ones.</li></ul>"
+          },
+          {
+            "rot": "Common mistakes",
+            "html": "<ul><li><b>Old Python</b>: anything below 3.10 gives a syntax error. Check with <code>python3 --version</code>.</li><li><b>Expecting search volume</b>: none of the five gives market volume; they measure your site.</li><li><b>Thinking you need a paid account</b>: besides Search Console and Bing Webmaster (free), there are no accounts at all.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: your map",
+      "sub": "Keep the table: it becomes your tool plan in lesson 8.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Download and test",
+          "min": "10 min",
+          "texto": "Clone inemaseo-sistemas and run the tests for the 5 tools.",
+          "pronto": "the terminal shows OK five times, once per tool."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Your questions",
+          "min": "20 min",
+          "texto": "Fill in the \"my questions × source\" table with at least 5 questions you want to answer about your site (or a client's).",
+          "pronto": "each question has its data source and is marked free or not; at least one is \"no\"."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "Which of these data does NOT exist for free with an exact number?",
+          "opcoes": [
+            "Your site's clicks by query.",
+            "Monthly search volume for a keyword.",
+            "Your site's pages cited by Bing's AI.",
+            "AI bots that read your site."
+          ],
+          "certa": 1,
+          "explica": "Exact volume comes from purchased or modeled data. Trends gives only relative interest, and Search Console only shows searches where you already appeared. The other three come from your own site or a free official dashboard.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Why isn't Search Console alone enough to see how things evolve over years?",
+          "opcoes": [
+            "Because it's paid.",
+            "Because the interface and the API only keep 16 months.",
+            "Because it doesn't show clicks.",
+            "Because it only shows Bing."
+          ],
+          "certa": 1,
+          "explica": "Data older than 16 months disappears. Exporting every week and saving it to a local database is the only way to have the history; that's what lesson 4 does.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "A paid AI monitor says your brand shows up in 30% of answers. What is that?",
+          "opcoes": [
+            "ChatGPT's official score.",
+            "A sample: the tool's question list run through the AIs.",
+            "The same as Bing AI Performance.",
+            "Search Console data."
+          ],
+          "certa": 1,
+          "explica": "Answers vary and the question list belongs to the tool. Official and free, today, is only Bing AI Performance (citations) and the Search Console AI report (impressions).",
+          "ref": "passos"
+        },
+        {
+          "p": "Can you use a local model (Ollama) to measure whether ChatGPT cites your site?",
+          "opcoes": [
+            "Yes, it's the same and free.",
+            "No: it doesn't have ChatGPT's search or index.",
+            "Yes, if the model is big.",
+            "Only in English."
+          ],
+          "certa": 1,
+          "explica": "A local model is good for classifying answers you've already collected or generating question variations. It doesn't know what ChatGPT answers today.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Free",
+          "texto": "Performance, official AI, auditing and bots: everything about your site, with the 5 tools."
+        },
+        {
+          "t": "Paid",
+          "texto": "Exact volume, difficulty, competitor and full backlinks: market data."
+        },
+        {
+          "t": "2026 yardstick",
+          "texto": "A tool's share of voice is a sample; the official one is Bing AI Performance. Ollama doesn't measure the real AIs."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "inemaseo-sistemas on GitHub (MIT)",
+          "href": "https://github.com/inematds/inemaseo-sistemas",
+          "icone": "git"
+        },
+        {
+          "t": "Search Console: performance guide (anonymized queries)",
+          "href": "https://developers.google.com/search/blog/2022/10/performance-data-deep-dive",
+          "icone": "grafico"
+        },
+        {
+          "t": "Common Crawl: web graph by host and domain",
+          "href": "https://commoncrawl.org/blog/host--and-domain-level-web-graphs-may-june-and-july-2026",
+          "icone": "camadas"
+        }
+      ]
+    }
+  ]
+}

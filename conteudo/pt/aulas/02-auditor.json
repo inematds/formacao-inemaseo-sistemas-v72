@@ -1,0 +1,129 @@
+{
+  "slug": "auditor",
+  "num": 2,
+  "menu": "auditor",
+  "titulo": "auditor: o raio-x do site inteiro",
+  "titulo_curto": "auditor",
+  "minutos": 18,
+  "lead": "O raio-x do curso 1 olha uma página por vez. O auditor rastreia o site com educação, como um robô que não roda JavaScript, e confere cada página: canônico, hreflang, sitemap, órfãs, robots.txt por finalidade de robô de IA e bloqueio de CDN. Cada achado sai com prioridade e uma linha de como corrigir.",
+  "objetivo": "rodar o auditor no seu site e ordenar os achados por prioridade, com a linha de correção de cada um.",
+  "competencias": ["rodar-crawler-educado", "ler-robots-por-finalidade", "priorizar-achados-tecnicos"],
+  "aprende": [
+    {"t": "Como o auditor rastreia sem pesar no servidor"},
+    {"t": "O que ele confere em cada página e no site"},
+    {"t": "Ler o robots.txt por finalidade e o teste de CDN"},
+    {"t": "O limite honesto: crawl parcial e o que fica de fora"}
+  ],
+  "hero_alt": "Técnico examina com lanterna a fiação de um quadro elétrico organizado.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "O caminho do auditor",
+      "sub": "Só GET, uma requisição por segundo, no máximo as páginas que você pedir. Clique em cada etapa.",
+      "nos": [
+        {"icone": "nuvem", "titulo": "URL inicial", "sub": "home ou pasta",
+         "detalhe": "Você passa a home (ou a pasta de um guia no github.io). Se ela redireciona para outro host, como inema.club para www.inema.club, ele segue o destino. O escopo é o mesmo host e a mesma pasta."},
+        {"icone": "cadeado", "titulo": "robots.txt", "sub": "por finalidade",
+         "detalhe": "Lê o robots.txt no formato da RFC 9309 (regra mais longa vence; empate fica com Allow) e diz o que cada robô pode: busca, ação do usuário e treino. Também respeita o robots.txt para o próprio nome dele."},
+        {"icone": "fila", "titulo": "Fila", "sub": "sitemap + links",
+         "detalhe": "Depois da URL inicial vêm as URLs do sitemap, os links internos e os alternates hreflang, até o limite do --max (padrão 50)."},
+        {"icone": "lista", "titulo": "Cada página", "sub": "o HTML entregue", "forte": true,
+         "itens": [{"icone": "check", "t": "status, canônico, noindex"}, {"icone": "check", "t": "hreflang recíproco"}, {"icone": "check", "t": "título, H1, JSON-LD"}, {"icone": "check", "t": "links quebrados, órfãs, alt"}],
+         "detalhe": "Confere o HTML que o servidor entrega, sem rodar JavaScript: é o ponto de vista do robô que não renderiza."},
+        {"icone": "escudo", "titulo": "CDN/WAF", "sub": "1 pedido por robô",
+         "detalhe": "Pede a home com o User-Agent publicado de OAI-SearchBot, PerplexityBot, Perplexity-User e GPTBot, só se o robots.txt permitir. Resposta 403, 429, 503 ou página de desafio = a CDN barra aquele robô."},
+        {"icone": "grafico", "titulo": "Relatório", "sub": "crítico → melhoria",
+         "detalhe": "relatorio.html, auditoria.json, achados.csv e paginas.csv. Cada achado tem prioridade (crítico, importante, melhoria, info), a URL e uma linha de como corrigir, com a fonte."}
+      ],
+      "legenda": "Rastreia devagar, lê como robô, devolve uma lista em ordem de prioridade."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Rodar, ler, priorizar",
+      "sub": "Clique em cada etapa.",
+      "passos": [
+        {"titulo": "Rodar", "sub": "comece com 50",
+         "texto": ["Rode na home com --max 50 e uma pasta de saída. Com pausa de 1 s, um site pequeno leva um ou dois minutos.", "Use -q para não listar cada página no terminal."],
+         "exemplo": {"rot": "Educação", "texto": "A pausa mínima é 0,5 s e cada resposta é cortada em 2 MB. Num site de cliente, avise antes de rodar."}},
+        {"titulo": "Crítico", "sub": "primeiro",
+         "texto": ["Crítico é o que tira páginas do buscador: robots.txt com erro 5xx (vira tudo bloqueado), Disallow geral, robô de busca bloqueado, link interno quebrado, noindex em URL do sitemap.", "Se tiver crítico, pare e corrija antes de olhar o resto."]},
+        {"titulo": "Importante", "sub": "depois",
+         "texto": ["Canônico ausente ou múltiplo, hreflang sem volta, sitemap sem lastmod, página com menos de 80 palavras no HTML.", "Melhoria (título longo, sem JSON-LD, imagem sem alt) entra na fila do mês."],
+         "exemplo": {"rot": "Não é regra do Google", "texto": "A faixa de título de 15 a 65 caracteres vem do webmcp-readiness. O Google corta pela largura; trate como lembrete, não como erro."}},
+        {"titulo": "Robô de treino", "sub": "é escolha sua",
+         "texto": ["GPTBot, ClaudeBot e Google-Extended bloqueados aparecem como info: bloquear treino não tira o site da busca.", "Robô de busca bloqueado, no robots ou na CDN, é crítico: some das respostas daquele assistente."]}
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Os comandos do auditor",
+      "sub": "Rode a partir da pasta ferramentas/auditor do inemaseo-sistemas.",
+      "blocos": [
+        {"rot": "Terminal · o seu site", "icone": "terminal",
+         "conteudo": "cd ferramentas/auditor\npython3 auditor.py https://seusite.com --max 50 -q --saida auditoria/seusite"},
+        {"rot": "Terminal · só a pasta de um guia no GitHub Pages", "icone": "terminal",
+         "conteudo": "python3 auditor.py https://usuario.github.io/repo/guia/ --max 20 --saida auditoria/guia"},
+        {"rot": "Terminal · achados críticos e importantes do CSV", "icone": "lista",
+         "conteudo": "grep -E '^(critico|importante),' auditoria/seusite/achados.csv"}
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {"rot": "Saída capturada (19/10/2026)", "html": "<p><code>python3 auditor.py https://inema.club --max 50</code> (sem -q, lista encurtada):</p><pre>  [ 1/50] 200 https://www.inema.club/\n  [ 2/50] 200 https://www.inema.club/en/\n  (…)\n  [50/50] 200 https://www.inema.club/conhecimento/metodologia-de-ensino-do-inema/\nwww.inema.club: 50 páginas, 0 crítico(s), 1 importante(s), 2 melhoria(s). Relatório: …/relatorio.html\n  [importante] Pouco texto no HTML entregue (&lt; 80 palavras)</pre><p>No <code>achados.csv</code>, o importante aponta duas fichas: <code>/conhecimento/curso-atia/ (77)</code> e <code>/conhecimento/curso-codex-basico/ (78)</code>. O JSON registra 62 requisições e 1.287 URLs ainda na fila.</p>"},
+          {"rot": "robots e CDN (19/10/2026)", "html": "<p>Do <code>auditoria.json</code> do mesmo rastreio:</p><pre>busca    Googlebot, Bingbot, OAI-SearchBot,\n         Claude-SearchBot, PerplexityBot   → liberados\nusuário  ChatGPT-User, Claude-User,\n         Perplexity-User                   → liberados (grupo *)\ntreino   GPTBot, ClaudeBot, Google-Extended → liberados\nCDN      OAI-SearchBot 200 · PerplexityBot 200\n         Perplexity-User 200 · GPTBot 200</pre><p>Num guia do GitHub Pages (<code>rea-engenharia-reversa/guia/</code>), o exemplo do repositório mostra \"robots.txt não existe\": o robots.txt que vale é o da raiz do host, de outro repositório.</p>"},
+          {"rot": "Erros comuns", "html": "<ul><li><b>Ler \"órfã\" como verdade absoluta</b>: com --max 50 num site de 1.000 URLs, órfã quer dizer \"sem link nas 50 páginas lidas\".</li><li><b>Achar que mede velocidade</b>: Core Web Vitals e backlinks ficam de fora; use PageSpeed e a Inspeção de URL.</li><li><b>Confiar só no teste de CDN</b>: ele vê regra por User-Agent; CDN que confere o IP do robô real pode agir diferente.</li></ul>"}
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática: a auditoria do seu site",
+      "sub": "Guarde a pasta de saída: na aula 7 você compara mês a mês.",
+      "exercicios": [
+        {"id": "e1", "titulo": "E1 · Rodar e abrir", "min": "15 min",
+         "texto": "Rode o auditor no seu site (ou no de um cliente, com aviso) com --max 50 e --saida.",
+         "pronto": "a pasta tem relatorio.html, auditoria.json, achados.csv e paginas.csv, e o relatório abre no navegador."},
+        {"id": "e2", "titulo": "E2 · Três achados em ordem", "min": "20 min",
+         "texto": "Escolha os 3 achados de maior prioridade (se não houver crítico nem importante, os 3 primeiros de melhoria) e anote a URL e a linha de como corrigir.",
+         "pronto": "lista com 3 linhas em ordem de prioridade, cada uma com URL, achado e correção copiada do relatório."}
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste o que aprendeu",
+      "sub": "A explicação aparece depois da sua resposta.",
+      "perguntas": [
+        {"p": "O robots.txt do seu site responde erro 503. Como o auditor trata isso?",
+         "opcoes": ["Como \"sem restrição\".", "Como \"tudo bloqueado\", e marca crítico.", "Ignora e segue.", "Como melhoria."],
+         "certa": 1, "explica": "Pela RFC 9309, erro 5xx no robots.txt equivale a tudo bloqueado; já 4xx (arquivo não existe) equivale a sem restrição. Por isso 5xx é crítico.", "ref": "passos", "cert": true},
+        {"p": "O relatório diz que GPTBot está bloqueado. Qual a prioridade?",
+         "opcoes": ["Crítico: some do ChatGPT.", "Info: é robô de treino; bloquear não tira o site da busca.", "Importante.", "Não aparece no relatório."],
+         "certa": 1, "explica": "GPTBot é de treino. Quem busca e cita no ChatGPT é o OAI-SearchBot. Bloquear treino é escolha do dono; bloquear busca é crítico.", "ref": "passos"},
+        {"p": "Com --max 50 num site de 1.000 URLs, uma página aparece como órfã. O que isso quer dizer?",
+         "opcoes": ["Que nenhuma página do site aponta para ela.", "Que nenhuma das 50 páginas lidas aponta para ela.", "Que ela está fora do sitemap.", "Que ela dá erro 404."],
+         "certa": 1, "explica": "O crawl é parcial. O relatório diz quantas URLs ficaram na fila; aumente o --max ou confira os links antes de concluir.", "ref": "codigo"},
+        {"p": "Por que o auditor não roda JavaScript?",
+         "opcoes": ["Porque é mais rápido de escrever.", "De propósito: mostra o que vê o robô que não renderiza.", "Porque o Google não roda JavaScript.", "Porque JavaScript é inseguro."],
+         "certa": 1, "explica": "O Google renderiza JavaScript; para ver o que ele vê, use a Inspeção de URL. Muitos outros robôs podem não renderizar, e o auditor mostra essa visão.", "ref": "diagrama"}
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Para levar",
+      "itens": [
+        {"t": "Educado", "texto": "Só GET, pausa de 1 s, --max páginas, respeita o robots.txt."},
+        {"t": "Ordem", "texto": "Crítico, importante, melhoria. Robô de treino bloqueado é info."},
+        {"t": "Limite", "texto": "Crawl parcial; CDN só por User-Agent; sem velocidade nem backlinks."}
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {"t": "auditor: README com todas as checagens e fontes", "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/auditor", "icone": "terminal"},
+        {"t": "Google: como o robots.txt é interpretado", "href": "https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt", "icone": "cadeado"},
+        {"t": "OpenAI: os robôs e seus User-Agents", "href": "https://platform.openai.com/docs/bots", "icone": "robo"}
+      ]
+    }
+  ]
+}

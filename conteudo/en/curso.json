@@ -1,0 +1,185 @@
+{
+  "id": "formacao-inemaseo-sistemas-v72",
+  "lang": "en",
+  "url": "https://inematds.github.io/formacao-inemaseo-sistemas-v72/en/",
+  "nome": "inemaSEO 7 — Systems: build your own open Semrush",
+  "sub": "inemaSEO Program · course 7 of 7",
+  "volta": {
+    "t": "inemaSEO Area",
+    "href": "https://eventos.inema.pro/inemaseo/"
+  },
+  "lado_card": {
+    "rot": "inemaSEO Program",
+    "t": "Course 7 of 7",
+    "texto": "Tools measure; the groundwork and the content are what change the number. If you haven't yet, start with course 1.",
+    "link": "Go to course 1",
+    "href": "https://inematds.github.io/formacao-inemaseo-fundacao-v72/"
+  },
+  "rodape": "INEMA.CLUB · open and free content · INEMA Learning format v7.2 · <a href=\"https://eventos.inema.pro/inemaseo/\">eventos.inema.pro/inemaseo</a> · <a href=\"https://github.com/inematds/inemaseo-sistemas\">inemaseo-sistemas (MIT)</a> · <a href=\"https://inema.club/\">inema.club</a>",
+  "videos": {},
+  "inicio": {
+    "kicker": "inemaSEO Program · course 7 of 7 · 8 lessons",
+    "titulo": "Systems: build your own open Semrush",
+    "lead": "Five open, free terminal tools that do for your site what the paid suites do: a full-site audit, an AI readiness score, Search Console history, Bing AI citations, and AI bots in the log. In eight lessons you run each one, tie everything into a routine with an agent, and decide, with clear criteria, when it's worth paying.",
+    "cta": "Start with lesson 1",
+    "cta2": {
+      "t": "See the inemaseo-sistemas repository",
+      "href": "https://github.com/inematds/inemaseo-sistemas"
+    },
+    "capa_alt": "Laptop with an open terminal on a dark desk, with the course title: build your own open Semrush.",
+    "numeros": [
+      {
+        "v": "5",
+        "t": "open tools (MIT)"
+      },
+      {
+        "v": "8",
+        "t": "lessons with real output"
+      },
+      {
+        "v": "16",
+        "t": "exercises with \"done when\""
+      },
+      {
+        "v": "0",
+        "t": "paid API on the main path"
+      }
+    ],
+    "aulas_titulo": "The lessons",
+    "aulas_sub": "In the order of the work: understand where each piece of data comes from, run the five tools, tie everything into a routine, and decide when to pay.",
+    "blocos": [
+      {
+        "t": "Who it's for",
+        "itens": [
+          "People who already use a terminal (or are willing to) and look after their own site or their clients' sites.",
+          "People who pay for an SEO suite, or are thinking about it, and want to know what they can do for free with their own site's data.",
+          "People who want to measure AI bots and citations with an official source, not with a dashboard number nobody explains."
+        ]
+      },
+      {
+        "t": "What you'll be able to do",
+        "itens": [
+          "Audit the whole site and get the AI readiness score, with weights you can change.",
+          "Keep Search Console data forever and read branded, non-branded, and anonymized queries week by week.",
+          "Cross-check Bing's official AI citations with Google and see which bots really read the site.",
+          "Run everything on a routine with an agent that reads the reports and only proposes, and decide when to pay for data."
+        ]
+      },
+      {
+        "t": "Where this course fits in the inemaSEO Program",
+        "itens": [
+          "<b>1 Foundation</b>, <b>2 Content</b>, and <b>3 Measurement</b>: the technical groundwork, the pages only you can write, and the search numbers without your brand.",
+          "<b>4 In the AIs</b>, <b>5 With Agents</b>, and <b>6 Professional</b>: official AI dashboards, agents on the repetitive work, and SEO as a service.",
+          "<b>7 Systems</b> (this course): the tools that measure all of this, open at <a href=\"https://github.com/inematds/inemaseo-sistemas\">inemaseo-sistemas</a>. You can take it after course 1."
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "pular": "Skip to content",
+    "aulas": "Lessons",
+    "concluido": "completed",
+    "aula": "Lesson",
+    "nesta_aula": "In this lesson, you will learn:",
+    "objetivo": "Goal:",
+    "proxima_aula": "Next lesson",
+    "aula_anterior": "Previous lesson",
+    "voltar_inicio": "Back to the start of the course",
+    "marcar_concluida": "Mark lesson as completed",
+    "dg_dica": "Click each block in the diagram to see what it does.",
+    "copiar": "Copy",
+    "copiado": "Copied",
+    "selo_simulacao": "Simulation: illustrative example",
+    "selo_real": "Example from the repository",
+    "pronto_quando": "Done when:",
+    "fiz": "I did this exercise",
+    "video_pagina": "Video page with script",
+    "pergunta": "Question",
+    "de": "of",
+    "cert_tag": "skill",
+    "correto": "Correct",
+    "errado": "Not that one",
+    "quiz_aguarda": "Pick an option. The explanation appears after you try.",
+    "proxima_pergunta": "Next question",
+    "quiz_ver": "See result",
+    "quiz_fim": "Quiz complete",
+    "quiz_total": "You got {a} of {n} right. Get them all right and the lesson is marked as complete.",
+    "aparencia": "Appearance",
+    "tamanho_texto": "Text size",
+    "tema": "Theme",
+    "tema_escuro": "Dark",
+    "tema_papel": "Light paper",
+    "role_dica": "Scroll the page: each step below lights up its part of the diagram.",
+    "pre_requisito": "requires",
+    "ver_aula": "View the lesson",
+    "mapa_dica": "Tap an exercise to see what to do and the \"done when\".",
+    "etapas": "Steps",
+    "exercicios": "exercises",
+    "rever": "Review:",
+    "revisar_erradas": "Review the wrong ones",
+    "refazer": "Retake the quiz",
+    "h_semana": "h per week",
+    "data_inicio": "Start date",
+    "ritmo": "Time available",
+    "gerar_plano": "Generate my plan",
+    "baixar_md": "Download plan.md",
+    "baixar_ics": "Download to calendar (.ics)",
+    "ind_estudo": "Study (lessons)",
+    "ind_pratica": "Declared practice",
+    "ind_nota": "Practice = exercises you marked as done. Proof comes in the certification exam.",
+    "estudo": {
+      "titulo": "Your study",
+      "continuar": "Pick up where I left off",
+      "comecar": "Start with lesson 1",
+      "cta_continuar": "Continue lesson {n}",
+      "hoje": "today",
+      "ontem": "yesterday",
+      "ha_dias": "{n} days ago",
+      "desempenho": "Test performance",
+      "notas": "My notes",
+      "dados": "Copy my data",
+      "sem_testes": "No quiz taken yet. The quiz is at the end of each lesson.",
+      "nao_fez": "quiz not taken yet",
+      "ultimo": "Latest",
+      "melhor": "Best",
+      "tentativas": "attempts",
+      "tentativa": "attempt",
+      "tudo_certo": "You got everything right on the latest quiz.",
+      "rever": "To review",
+      "resposta": "Right answer:",
+      "ir_teste": "Retake the quiz",
+      "sem_notas": "No notes yet. In a lesson, select a passage of text and tap Highlight or Note.",
+      "so_marcado": "(highlight only)",
+      "marcar": "Highlight",
+      "anotar": "Note",
+      "salvar": "Save",
+      "apagar": "Remove highlight",
+      "fechar": "Close",
+      "nota_ph": "Write your note about this passage…",
+      "um_bloco": "Highlight within a single paragraph only.",
+      "nao_marca": "This passage can't be highlighted.",
+      "dados_exp": "Your progress, your notes, and your quiz scores stay only in this browser. Download a copy (.json) to keep it or to continue on another computer or browser; there, load the copy. Loading adds to what already exists and doesn't erase anything.",
+      "exportar": "Download copy",
+      "importar": "Load copy",
+      "import_ok": "Copy loaded ({n} items). Refreshing the page…",
+      "import_erro": "File not recognized. Nothing was changed.",
+      "import_outro": "This copy is from another course. Nothing was changed.",
+      "export_ok": "Copy downloaded."
+    },
+    "conv_dica": "Pick your answer. The comment shows up right after, and the conversation goes on based on your choice.",
+    "conv_voce": "You",
+    "conv_escolha": "Your answer",
+    "conv_boa": "Good choice",
+    "conv_meio": "Room to improve",
+    "conv_ruim": "Weak choice",
+    "conv_fim": "End of conversation",
+    "conv_placar": "You scored {p} of {m} possible points.",
+    "conv_licao": "Lesson:",
+    "conv_recomecar": "Restart the conversation",
+    "conv_feita": "Your best score: {p} of {m} points.",
+    "comecar": "Start the lesson",
+    "nesta_vai": "In this lesson you will",
+    "trocar_tema": "Switch light/dark theme"
+  },
+  "icone": "lupa"
+}

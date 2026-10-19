@@ -1,0 +1,129 @@
+{
+  "slug": "semrush-mapa",
+  "num": 1,
+  "menu": "Mapa",
+  "titulo": "O que um \"Semrush\" faz e de onde vem cada dado",
+  "titulo_curto": "De onde vem o dado",
+  "minutos": 14,
+  "lead": "Uma suíte de SEO junta, numa tela só, dados de origens muito diferentes: o seu próprio site, painéis oficiais do Google e do Bing, e dados que a empresa compra ou raspa. Os dois primeiros você tem de graça. Saber de onde vem cada número é o que separa o que dá para montar sozinho do que só existe pago.",
+  "objetivo": "separar, função por função, o que o seu site dá de graça e o que só existe com dado pago, e instalar as 5 ferramentas abertas.",
+  "competencias": ["mapear-fonte-de-dado", "separar-gratis-de-pago", "instalar-ferramentas-abertas"],
+  "aprende": [
+    {"t": "As camadas de uma suíte de SEO e a origem de cada uma"},
+    {"t": "O que o dado do seu próprio site responde de graça"},
+    {"t": "O que só existe pago: volume exato, concorrente, backlinks completos"},
+    {"t": "Baixar o inemaseo-sistemas e conferir que tudo roda"}
+  ],
+  "hero_alt": "Mapa desenhado à mão com caixas e setas sobre uma mesa, com lápis e régua ao lado.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "As camadas de um \"Semrush\"",
+      "sub": "De cima para baixo: do dado que é só seu ao dado que alguém vende. Clique em cada camada.",
+      "estilo": "escada",
+      "nos": [
+        {"icone": "grafico", "titulo": "Desempenho real", "sub": "Search Console",
+         "detalhe": "Consultas, cliques, impressões, páginas e país do seu site, direto do Google. Grátis, mas a interface e a API guardam só 16 meses. A aula 4 guarda para sempre."},
+        {"icone": "robo", "titulo": "IA oficial", "sub": "Bing AI Performance",
+         "detalhe": "O Bing Webmaster mostra quantas vezes a IA da Microsoft citou cada página sua. É o único painel oficial e grátis de citação por IA. O Search Console tem o relatório de IA, só com impressões. A aula 5 cruza os dois."},
+        {"icone": "lupa", "titulo": "Auditoria técnica", "sub": "o seu site",
+         "detalhe": "Canônico, hreflang, sitemap, robots.txt, links quebrados, páginas órfãs. Tudo sai do HTML que o seu servidor entrega: dá para rastrear sem pagar ninguém. Aulas 2 e 3."},
+        {"icone": "escudo", "titulo": "Quem lê você", "sub": "log do servidor",
+         "detalhe": "Quais robôs de IA e buscadores pediram suas páginas, por finalidade, e quais eram falsos. O dado está no log do seu servidor ou da sua CDN. Aula 6."},
+        {"icone": "cadeado", "titulo": "Só pago", "sub": "mercado e concorrente", "forte": true,
+         "itens": [{"icone": "x", "t": "volume exato de busca"}, {"icone": "x", "t": "dificuldade de palavra-chave"}, {"icone": "x", "t": "SERP e tráfego de concorrente"}, {"icone": "x", "t": "backlinks completos"}],
+         "detalhe": "Isso vem de dado comprado, de raspagem de SERP em escala ou de um crawl próprio da web inteira. Não existe versão grátis honesta. A aula 8 ensina quando vale pagar."}
+      ],
+      "legenda": "As quatro primeiras camadas são do seu site e saem de graça. A última é mercado: alguém coletou e cobra por isso.",
+      "dica": "Estimativa da pesquisa de 19/10/2026, não medida: o núcleo grátis cobre a maior parte do dia a dia de quem cuida do próprio site; não cobre inteligência de mercado sobre terceiros."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Função por função: de onde vem o dado",
+      "sub": "As funções que as suítes vendem, e o substituto aberto de cada uma.",
+      "passos": [
+        {"titulo": "Palavra-chave", "sub": "ideias, não volume",
+         "texto": ["Os pagos misturam clickstream, raspagem de SERP e o Planejador de palavras-chave. De graça você tem as consultas reais do seu site no Search Console, o autocompletar e o Google Trends.", "O Trends é índice relativo, não número de buscas. Volume exato não existe grátis."],
+         "exemplo": {"rot": "Limite honesto", "texto": "O Search Console mostra só as buscas em que o seu site já apareceu, e esconde as consultas raras (as \"anônimas\")."}},
+        {"titulo": "Posição", "sub": "só a sua",
+         "texto": ["O Search Console dá a posição média real do seu site em cada consulta. Rastrear a posição de concorrentes exige raspar o Google, o que viola os termos e é bloqueado.", "Para o próprio site, o grátis basta."]},
+        {"titulo": "Auditoria", "sub": "fácil de igualar",
+         "texto": ["Crawler, canônico, hreflang, schema, links quebrados: tudo sai do seu HTML. O auditor deste curso faz o essencial; Core Web Vitals ficam no PageSpeed e no CrUX, grátis.", "Não roda JavaScript de propósito: mostra o que o robô que não renderiza vê."]},
+        {"titulo": "IA e backlinks", "sub": "onde o pago pesa",
+         "texto": ["Citação por IA: o oficial e grátis é o Bing AI Performance. Monitores pagos rodam uma lista de perguntas nas IAs; é amostra, não nota oficial.", "Backlinks completos, com âncora e URL, só nos pagos. O web graph do Common Crawl dá uma visão grosseira, por domínio e com meses de atraso."],
+         "exemplo": {"rot": "Régua de 2026", "texto": "Modelo local (Ollama) não mede o que ChatGPT, Gemini ou Perplexity respondem: não tem a busca nem o índice deles."}}
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Baixar as 5 ferramentas e conferir",
+      "sub": "Só Python 3.10+ com a biblioteca padrão. Nada para instalar além do git.",
+      "blocos": [
+        {"rot": "Terminal · baixar", "icone": "git",
+         "conteudo": "git clone https://github.com/inematds/inemaseo-sistemas && cd inemaseo-sistemas\npython3 --version"},
+        {"rot": "Terminal · rodar os testes (sem rede)", "icone": "terminal",
+         "conteudo": "for t in ferramentas/*/; do [ -d $t/tests ] && python3 -m unittest discover -s $t/tests; done"},
+        {"rot": "Minhas perguntas × fonte (modelo)", "icone": "lista",
+         "conteudo": "# O que eu quero saber do meu site — <seusite.com> — <dd/mm/aaaa>\n| pergunta | fonte | grátis? | ferramenta / aula |\n|---|---|---|---|\n| quantas buscas sem a minha marca me acham | Search Console | sim | gsc-historico (aula 4) |\n| a IA da Microsoft cita minhas páginas? | Bing AI Performance | sim | bing-ia (aula 5) |\n| o que está quebrado no HTML | o próprio site | sim | auditor (aula 2) |\n| quais robôs de IA me leem | log do servidor | sim | botlog (aula 6) |\n| quantas pessoas buscam <termo> por mês | dado comprado | não | aula 8 |"}
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {"rot": "Saída capturada (19/10/2026)", "html": "<p>Os testes das 5 ferramentas, na ordem das pastas (agente-ready, auditor, bing-ia, botlog, gsc-historico), sem rede:</p><pre>Ran 10 tests in 0.004s\nOK\nRan 17 tests in 0.004s\nOK\nRan 11 tests in 0.260s\nOK\nRan 14 tests in 0.060s\nOK\nRan 10 tests in 0.439s\nOK</pre>"},
+          {"rot": "As 5 ferramentas", "html": "<ul><li><b>auditor</b>: o que está quebrado no HTML que o servidor entrega.</li><li><b>agente-ready</b>: nota 0–100 de prontidão para IA, com pesos públicos.</li><li><b>gsc-historico</b>: buscas sem a sua marca, semana a semana, para sempre.</li><li><b>bing-ia</b>: páginas citadas pela IA do Bing × clique no Google.</li><li><b>botlog</b>: robôs de IA no log, por finalidade, e os falsos.</li></ul>"},
+          {"rot": "Erros comuns", "html": "<ul><li><b>Python antigo</b>: abaixo de 3.10 dá erro de sintaxe. Confira com <code>python3 --version</code>.</li><li><b>Esperar volume de busca</b>: nenhuma das cinco dá volume de mercado; elas medem o seu site.</li><li><b>Achar que é preciso conta paga</b>: além do Search Console e do Bing Webmaster (grátis), não há conta nenhuma.</li></ul>"}
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática: o seu mapa",
+      "sub": "Guarde a tabela: ela vira o seu plano de ferramentas na aula 8.",
+      "exercicios": [
+        {"id": "e1", "titulo": "E1 · Baixar e testar", "min": "10 min",
+         "texto": "Clone o inemaseo-sistemas e rode os testes das 5 ferramentas.",
+         "pronto": "o terminal mostra OK cinco vezes, uma por ferramenta."},
+        {"id": "e2", "titulo": "E2 · Suas perguntas", "min": "20 min",
+         "texto": "Preencha a tabela \"minhas perguntas × fonte\" com pelo menos 5 perguntas que você quer responder sobre o seu site (ou de um cliente).",
+         "pronto": "cada pergunta tem a fonte do dado e está marcada grátis ou não; pelo menos uma é \"não\"."}
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste o que aprendeu",
+      "sub": "A explicação aparece depois da sua resposta.",
+      "perguntas": [
+        {"p": "Qual destes dados NÃO existe de graça e com número exato?",
+         "opcoes": ["Cliques do seu site por consulta.", "Volume mensal de busca de uma palavra.", "Páginas do seu site citadas pela IA do Bing.", "Robôs de IA que leram o seu site."],
+         "certa": 1, "explica": "Volume exato vem de dado comprado ou modelado. O Trends dá só interesse relativo e o Search Console só mostra buscas em que você já apareceu. As outras três saem do seu site ou de painel oficial grátis.", "ref": "diagrama", "cert": true},
+        {"p": "Por que o Search Console sozinho não basta para ver a evolução de anos?",
+         "opcoes": ["Porque ele é pago.", "Porque a interface e a API guardam só 16 meses.", "Porque não mostra cliques.", "Porque só mostra o Bing."],
+         "certa": 1, "explica": "O dado mais antigo que 16 meses some. Exportar toda semana e guardar num banco local é o único jeito de ter o histórico; é o que a aula 4 faz.", "ref": "diagrama"},
+        {"p": "Um monitor pago de IA diz que a sua marca aparece em 30% das respostas. O que isso é?",
+         "opcoes": ["A nota oficial do ChatGPT.", "Uma amostra: a lista de perguntas da ferramenta rodada nas IAs.", "O mesmo que o Bing AI Performance.", "O dado do Search Console."],
+         "certa": 1, "explica": "As respostas variam e a lista de perguntas é da ferramenta. Oficial e grátis, hoje, só o Bing AI Performance (citações) e o relatório de IA do Search Console (impressões).", "ref": "passos"},
+        {"p": "Dá para usar um modelo local (Ollama) para medir se o ChatGPT cita o seu site?",
+         "opcoes": ["Sim, é igual e grátis.", "Não: ele não tem a busca nem o índice do ChatGPT.", "Sim, se o modelo for grande.", "Só em inglês."],
+         "certa": 1, "explica": "Modelo local serve para classificar respostas já coletadas ou gerar variações de pergunta. Ele não sabe o que o ChatGPT responde hoje.", "ref": "passos"}
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Para levar",
+      "itens": [
+        {"t": "Grátis", "texto": "Desempenho, IA oficial, auditoria e robôs: tudo do seu site, com as 5 ferramentas."},
+        {"t": "Pago", "texto": "Volume exato, dificuldade, concorrente e backlinks completos: dado de mercado."},
+        {"t": "Régua de 2026", "texto": "Share of voice de ferramenta é amostra; oficial é o Bing AI Performance. Ollama não mede as IAs reais."}
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {"t": "inemaseo-sistemas no GitHub (MIT)", "href": "https://github.com/inematds/inemaseo-sistemas", "icone": "git"},
+        {"t": "Search Console: guia de desempenho (consultas anônimas)", "href": "https://developers.google.com/search/blog/2022/10/performance-data-deep-dive", "icone": "grafico"},
+        {"t": "Common Crawl: web graph por host e domínio", "href": "https://commoncrawl.org/blog/host--and-domain-level-web-graphs-may-june-and-july-2026", "icone": "camadas"}
+      ]
+    }
+  ]
+}

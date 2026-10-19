@@ -1,0 +1,128 @@
+{
+  "slug": "gsc-historico",
+  "num": 4,
+  "menu": "gsc-historico",
+  "titulo": "gsc-historico: o Search Console para sempre",
+  "titulo_curto": "gsc-historico",
+  "minutos": 17,
+  "lead": "O Search Console guarda 16 meses. Daqui a dois anos, a semana em que o seu site começou a ser achado por quem não conhece a sua marca terá sumido. O gsc-historico importa o CSV semanal num banco local que nunca apaga nada e monta o relatório que importa: marca, sem marca e anônimas, o que subiu, o que caiu e a pauta.",
+  "objetivo": "importar os CSV semanais num banco que não apaga e ler marca × sem marca × anônimas, a pauta e as páginas sem clique.",
+  "competencias": ["arquivar-search-console", "ler-busca-sem-marca", "tirar-pauta-de-dado-real"],
+  "aprende": [
+    {"t": "De onde vem o CSV e o que é \"anônimas\""},
+    {"t": "Importar sem duplicar e gerar o relatório"},
+    {"t": "Ler a série semanal e o subiu/caiu"},
+    {"t": "Pauta e página sem clique: regras da ferramenta, não do Google"}
+  ],
+  "hero_alt": "Arquivo de gavetas de madeira com fichas catalogadas, uma gaveta aberta, numa biblioteca.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Do Search Console ao histórico",
+      "sub": "Toda semana o mesmo caminho. Clique em cada etapa.",
+      "nos": [
+        {"icone": "grafico", "titulo": "Search Console", "sub": "16 meses",
+         "detalhe": "A interface e a API guardam 16 meses de desempenho. O que passar disso some."},
+        {"icone": "arquivo", "titulo": "gsc_semanal.py", "sub": "CSV da semana",
+         "detalhe": "O script do inemaseo-metodo exporta toda semana um resumo.csv (marca, sem marca, anônimas) e um CSV por site só com as consultas sem a sua marca. Ele usa a API do Google com a sua credencial; o gsc-historico só lê os arquivos."},
+        {"icone": "memoria", "titulo": "SQLite", "sub": "nunca apaga", "forte": true,
+         "detalhe": "importar põe tudo num banco local. Reimportar não duplica (a chave é site + fim da semana). O banco fica no seu computador e fora do git."},
+        {"icone": "lista", "titulo": "Relatório", "sub": "4 listas",
+         "itens": [{"icone": "check", "t": "série marca × sem marca × anônimas"}, {"icone": "check", "t": "consultas que subiram e caíram"}, {"icone": "check", "t": "pauta: consulta nova sem página dona"}, {"icone": "check", "t": "página com impressão e 0 clique"}],
+         "detalhe": "relatorio.html, relatorio.json e um CSV por lista. A semana mais recente é comparada com a anterior (ou as datas que você escolher)."}
+      ],
+      "volta": "toda semana, depois do gsc_semanal.py",
+      "legenda": "O dado é do Google; a memória longa é sua."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Ler o que o relatório mostra",
+      "sub": "Clique em cada lista.",
+      "passos": [
+        {"titulo": "Série", "sub": "o número que importa",
+         "texto": ["Marca é quem já te conhece. Sem marca é gente nova chegando pelo assunto. Anônimas é o que o Google esconde por ser raro: total menos marca menos sem marca.", "Acompanhe as impressões e os cliques sem marca, semana a semana."],
+         "exemplo": {"rot": "Caso real do INEMA", "texto": "inema.club, de 16–22/09 a 05–11/10: impressões sem marca de 8 para 157 e consultas sem marca de 3 para 51, com 0 clique sem marca. Os 2 primeiros cliques sem marca vieram no inema.pro (2/293), puxados por \"curso jev\"."}},
+        {"titulo": "Subiu e caiu", "sub": "por consulta",
+         "texto": ["Soma impressões e cliques de cada consulta, semana atual contra a anterior. A posição mostrada é a melhor entre as páginas.", "Consulta que cai várias semanas seguidas é sinal para olhar a página dela."]},
+        {"titulo": "Pauta", "sub": "consulta sem dona",
+         "texto": ["Consulta nova (nunca vista no banco) sem página dona vira pauta: escreva uma página feita para ela.", "Página dona é uma regra desta ferramenta: alguma página na 1ª página do Google, ou com palavra da consulta no endereço."],
+         "exemplo": {"rot": "Decida você", "texto": "A regra compara palavras com o endereço, não com o conteúdo. Uma página em espanhol pode já aparecer para a consulta, fora da 1ª página, e mesmo assim a consulta sair como pauta. A coluna paginas_hoje mostra quem aparece hoje."}},
+        {"titulo": "Sem clique", "sub": "reescrever título",
+         "texto": ["Página com 5+ impressões sem marca na semana e 0 clique: reescreva título e descrição com uma promessa específica.", "Ela pode ter clique de marca; a lista olha só as buscas sem marca."]}
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Importar e gerar o relatório",
+      "sub": "Rode a partir da pasta ferramentas/gsc-historico. O exemplo usa os CSV reais do inemaSEO que vêm no repositório.",
+      "blocos": [
+        {"rot": "Terminal · importar (pasta ou arquivos)", "icone": "terminal",
+         "conteudo": "cd ferramentas/gsc-historico\npython3 gsc_historico.py importar ../../exemplos/gsc-historico/entrada --db dados/gsc.sqlite"},
+        {"rot": "Terminal · relatório de um site", "icone": "terminal",
+         "conteudo": "python3 gsc_historico.py relatorio --db dados/gsc.sqlite --site inema.club --saida saida/inema.club\n# outra comparação: --atual AAAA-MM-DD --anterior AAAA-MM-DD"},
+        {"rot": "Terminal · toda semana, com os seus CSV", "icone": "calendario",
+         "conteudo": "# depois do gsc_semanal.py (inemaseo-metodo), aponte para a pasta dele\npython3 gsc_historico.py importar ~/caminho/da/pasta/gsc --db dados/gsc.sqlite\npython3 gsc_historico.py relatorio --db dados/gsc.sqlite --site <seusite.com> --saida saida/<seusite.com>"},
+        {"rot": "Modelo · modo API (usa a API do Google; não rodado neste curso)", "icone": "cadeado",
+         "conteudo": "# roda o gsc_semanal.py com a sua credencial (gcloud) e importa; não testado ao vivo pelo autor\npython3 gsc_historico.py puxar --script ~/projetos/inemaseo-metodo/tools/gsc_semanal.py --pasta dados/gsc-csv"}
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {"rot": "Saída capturada (19/10/2026)", "html": "<pre>importado: 10 linha(s) de resumo, 244 linha(s) de consulta → dados/gsc.sqlite\ninema.club semana 2026-10-11 (comparada com 2026-10-04): sem marca 0 cliques / 157 impr.; subiram 15, caíram 15, pauta 18, páginas sem clique 5 → saida/inema.club/relatorio.html\ninema.pro semana 2026-10-11 (comparada com 2026-10-04): sem marca 2 cliques / 293 impr.; subiram 15, caíram 5, pauta 6, páginas sem clique 6 → saida/inema.pro/relatorio.html</pre>"},
+          {"rot": "Pauta e sem clique (inema.club)", "html": "<p>Início do <code>pauta.csv</code> (consulta, impressões, melhor posição, página que aparece hoje):</p><pre>ia para principiantes,6,38.5,…/es/aprender-inteligencia-artificial/\nguía ia principiantes,5,60.8,…/es/aprender-inteligencia-artificial/\ntutorial ia desde cero,5,29.4,…/es/aprender-inteligencia-artificial/</pre><p>Início do <code>paginas_sem_clique.csv</code>:</p><pre>…/es/aprender-inteligencia-artificial/,106 impr.,posição 39.1,22 consultas\nhttps://buscas.inema.club/,12 impr.,posição 26.6,6 consultas</pre><p>A página em espanhol já aparece para essas consultas; a regra de página dona não a reconhece porque as palavras não estão no endereço. Aqui a decisão é melhorar a página que existe, não escrever outra.</p>"},
+          {"rot": "Erros comuns", "html": "<ul><li><b>Somar semanas sobrepostas</b>: 27/09–03/10 e 28/09–04/10 dividem dias; o banco guarda as duas e o relatório avisa.</li><li><b>Ler pauta como ordem</b>: é heurística; confira a coluna da página que aparece hoje.</li><li><b>Pôr o banco no git</b>: fica em dados/, que o .gitignore já tira.</li></ul>"}
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática: o seu histórico",
+      "sub": "Sem CSV seu ainda? Faça com o exemplo e volte quando o gsc_semanal.py rodar.",
+      "exercicios": [
+        {"id": "e1", "titulo": "E1 · Importar e gerar", "min": "15 min",
+         "texto": "Importe a pasta de exemplo (ou os seus CSV) e gere o relatório de um site.",
+         "pronto": "o terminal mostra a linha \"semana … sem marca … pauta …\" e o relatorio.html abre com a série semanal."},
+        {"id": "e2", "titulo": "E2 · Três decisões de pauta", "min": "20 min",
+         "texto": "Pegue 3 consultas da pauta e decida para cada uma: escrever página nova ou melhorar a que já aparece (coluna da página de hoje).",
+         "pronto": "3 linhas com consulta, decisão (nova ou melhorar) e a URL da página que você faria ou mudaria."}
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste o que aprendeu",
+      "sub": "A explicação aparece depois da sua resposta.",
+      "perguntas": [
+        {"p": "Por que guardar o Search Console num banco local?",
+         "opcoes": ["Porque o Search Console é pago.", "Porque ele guarda só 16 meses; o banco local nunca apaga.", "Porque o banco local tem mais consultas que o Google.", "Para mandar ao Bing."],
+         "certa": 1, "explica": "O dado é o mesmo; a diferença é a memória. Sem arquivar, a história do site some depois de 16 meses.", "ref": "diagrama", "cert": true},
+        {"p": "Total 114 cliques, marca 87, sem marca 0. De onde vêm os outros 27?",
+         "opcoes": ["Erro da ferramenta.", "Das consultas anônimas, que o Google esconde por serem raras.", "Do Bing.", "De robôs."],
+         "certa": 1, "explica": "É a semana de 05–11/10 do inema.club. Anônimas = total menos marca menos sem marca. Por isso as três colunas nunca batem sem ela.", "ref": "passos"},
+        {"p": "Uma consulta saiu como pauta, mas a coluna da página de hoje mostra uma página sua aparecendo, fora da 1ª página. O que fazer?",
+         "opcoes": ["Escrever outra página igual.", "Avaliar melhorar a página que já aparece: a regra de dona é heurística.", "Ignorar a consulta.", "Apagar a página."],
+         "certa": 1, "explica": "A regra compara palavras da consulta com o endereço. Se uma página já aparece, melhorar costuma valer mais que criar uma concorrente dentro do próprio site.", "ref": "codigo"},
+        {"p": "Qual é o número que mostra gente nova chegando pelo assunto?",
+         "opcoes": ["Cliques de marca.", "Impressões e cliques sem marca.", "Total de cliques.", "Posição média."],
+         "certa": 1, "explica": "Marca é quem já te conhece. O sem marca mede se o conteúdo atrai quem ainda não conhece o site.", "ref": "passos"}
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Para levar",
+      "itens": [
+        {"t": "Memória", "texto": "CSV semanal → SQLite que nunca apaga; reimportar não duplica."},
+        {"t": "O número", "texto": "Sem marca, semana a semana; anônimas explicam a diferença."},
+        {"t": "Pauta", "texto": "Heurística da ferramenta: confira a página que já aparece antes de escrever outra."}
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {"t": "gsc-historico: README", "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/gsc-historico", "icone": "terminal"},
+        {"t": "gsc_semanal.py (inemaseo-metodo)", "href": "https://github.com/inematds/inemaseo-metodo/blob/main/tools/gsc_semanal.py", "icone": "arquivo"},
+        {"t": "Google: os 16 meses do Search Console", "href": "https://developers.google.com/search/blog/2018/01/introducing-new-search-console", "icone": "grafico"}
+      ]
+    }
+  ]
+}

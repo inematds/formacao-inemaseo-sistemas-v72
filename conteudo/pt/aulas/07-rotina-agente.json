@@ -1,0 +1,129 @@
+{
+  "slug": "rotina-agente",
+  "num": 7,
+  "menu": "Rotina",
+  "titulo": "Ligando tudo: a rotina semanal e mensal com um agente",
+  "titulo_curto": "Rotina com agente",
+  "minutos": 18,
+  "lead": "Cinco ferramentas soltas viram trabalho esquecido. Um script roda as de cada semana e as de cada mês e guarda a saída com data. Um agente pela assinatura (Claude Code ou Codex) lê o relatório e propõe três ações com o número que as justifica. Quem decide e quem muda o site é você: esse é o portão humano.",
+  "objetivo": "montar a rotina semanal e mensal das 5 ferramentas e um agente que lê os relatórios e só propõe, com o portão humano antes de mudar o site.",
+  "competencias": ["automatizar-rotina-de-seo", "usar-agente-como-observador", "manter-portao-humano"],
+  "aprende": [
+    {"t": "O que roda toda semana e o que roda todo mês"},
+    {"t": "Um rotina.sh que guarda tudo com data"},
+    {"t": "O agente como observador: só lê e propõe"},
+    {"t": "O portão humano e o registro da decisão"}
+  ],
+  "hero_alt": "Pessoa revisa relatórios impressos ao lado de um notebook com terminal, numa manhã calma.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "A rotina",
+      "sub": "Máquina mede e propõe; humano decide. Clique em cada etapa.",
+      "nos": [
+        {"icone": "calendario", "titulo": "Semana", "sub": "gsc-historico",
+         "detalhe": "Depois do gsc_semanal.py: importar e relatório. Consultas sem marca, o que subiu e caiu, pauta e páginas sem clique."},
+        {"icone": "calendario", "titulo": "Mês", "sub": "as outras quatro",
+         "itens": [{"icone": "check", "t": "auditor e agente-ready"}, {"icone": "check", "t": "bing-ia (depois do export)"}, {"icone": "check", "t": "botlog (log filtrado)"}],
+         "detalhe": "auditor e agente-ready rodam sozinhos. bing-ia depende de você exportar o CSV no painel (não há API). botlog depende de copiar o log e filtrar."},
+        {"icone": "pasta", "titulo": "Saída datada", "sub": "rotina/AAAA-MM-DD",
+         "detalhe": "Cada rodada vai para uma pasta com a data. Os relatórios JSON ficam para o agente ler e para você comparar mês com mês."},
+        {"icone": "robo", "titulo": "Agente", "sub": "só lê e propõe",
+         "detalhe": "Claude Code ou Codex pela assinatura, sem ferramentas de escrita. Lê o JSON, devolve o número da semana, 3 propostas com o dado que as justifica e uma pergunta para o humano."},
+        {"icone": "portao", "titulo": "Portão humano", "sub": "você decide", "forte": true,
+         "detalhe": "Você aceita, adia ou recusa cada proposta e anota por quê. Só depois a mudança vai para o site. É o mesmo portão da \"máquina com agentes\" do método inemaSEO."}
+      ],
+      "volta": "a decisão volta para a próxima semana",
+      "legenda": "Nada muda no site sem passar pelo portão."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Montar em quatro passos",
+      "sub": "Clique em cada passo.",
+      "passos": [
+        {"titulo": "Script", "sub": "rotina.sh",
+         "texto": ["Copie o rotina.sh do bloco abaixo para uma pasta de trabalho e ajuste as quatro variáveis: onde está o inemaseo-sistemas, a propriedade do Search Console, a home e a pasta dos CSV.", "Rode bash rotina.sh semana e confira a pasta datada."]},
+        {"titulo": "Agenda", "sub": "cron ou lembrete",
+         "texto": ["A parte semanal pode ir no cron, logo depois do gsc_semanal.py. A mensal tem dois passos à mão (export do Bing e cópia do log): um lembrete no calendário funciona melhor que um cron que falha calado."]},
+        {"titulo": "Agente", "sub": "observador",
+         "texto": ["Mande o pedido e o relatorio.json para o agente, sem ferramentas: ele não consegue mudar nada.", "O pedido manda usar só os números do relatório e lembra que a pauta é heurística."],
+         "exemplo": {"rot": "Assinatura, não API", "texto": "claude -p e codex exec rodam pela sua assinatura. Chamar modelo por chave de API é outra coisa, com custo por uso."}},
+        {"titulo": "Portão", "sub": "decisões.md",
+         "texto": ["Para cada proposta: aceito, adio ou recuso, com uma linha de motivo. A pergunta \"para o humano decidir\" é sua; o agente não tem o contexto do negócio.", "Nas próximas rodadas, junte o decisoes.md ao pedido (mais um cat antes do relatório) para o agente não repetir o que você recusou."]}
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "A rotina e o pedido ao agente",
+      "sub": "Modelos para copiar. Todos os comandos dentro deles são os dos READMEs das ferramentas.",
+      "blocos": [
+        {"rot": "rotina.sh (modelo)", "icone": "terminal",
+         "conteudo": "#!/bin/bash\n# rotina.sh — semana | mes. Roda as ferramentas do inemaseo-sistemas e guarda a saída datada.\nset -e\nSIS=~/inemaseo-sistemas/ferramentas   # onde você clonou\nSITE=seusite.com                       # propriedade do Search Console\nURL=https://seusite.com                # home do site\nCSV=~/caminho/da/pasta/gsc             # pasta do gsc_semanal.py\nD=rotina/$(date +%F); mkdir -p $D dados\n\ncase \"$1\" in\n  semana)\n    python3 $SIS/gsc-historico/gsc_historico.py importar $CSV --db dados/gsc.sqlite\n    python3 $SIS/gsc-historico/gsc_historico.py relatorio --db dados/gsc.sqlite --site $SITE --saida $D/gsc\n    ;;\n  mes)\n    python3 $SIS/auditor/auditor.py $URL --max 50 -q --saida $D/auditor\n    python3 $SIS/agente-ready/agente-ready.py $URL --saida $D/agente-ready\n    # bing-ia: só depois de exportar o CSV no painel do Bing (não há API)\n    ls bing/*.csv >/dev/null 2>&1 && python3 $SIS/bing-ia/bing_ia.py importar bing/*.csv --db dados/bing.sqlite \\\n      && python3 $SIS/bing-ia/bing_ia.py relatorio --db dados/bing.sqlite --gsc-db dados/gsc.sqlite --site $SITE --saida $D/bing-ia\n    # botlog: só depois de copiar o log (filtre antes de guardar)\n    ls logs/* >/dev/null 2>&1 && python3 $SIS/botlog/botlog.py analisar logs/* --saida $D/botlog\n    ;;\n  *) echo \"uso: bash rotina.sh semana|mes\"; exit 1 ;;\nesac\necho \"saída em $D\""},
+        {"rot": "pedido-semana.md (modelo do pedido ao agente)", "icone": "chat",
+         "conteudo": "Você é o observador semanal de SEO do site. Abaixo está o relatorio.json do gsc-historico (Search Console da semana, só consultas sem marca).\n\nRegras:\n- Só leitura. Não altere nenhum arquivo, não publique nada, não rode comandos.\n- Use só os números do relatório; não invente dado.\n- A regra de \"página dona\" é heurística: confira a coluna das páginas que aparecem hoje antes de propor página nova.\n\nResponda em português, em no máximo 12 linhas:\n1. Uma frase com o número da semana (cliques e impressões sem marca, comparado com a anterior).\n2. Exatamente 3 propostas, cada uma com: ação (escrever página nova / melhorar página existente / reescrever título), URL ou consulta, e o número do relatório que justifica.\n3. Uma linha \"Para o humano decidir:\" com a pergunta que só o dono do site responde."},
+        {"rot": "Terminal · semana + agente (Claude Code, sem ferramentas)", "icone": "robo",
+         "conteudo": "bash rotina.sh semana\n(cat pedido-semana.md; echo; cat rotina/$(date +%F)/gsc/relatorio.json) | claude -p --tools \"\" > rotina/$(date +%F)/leitura-agente.md"},
+        {"rot": "decisoes.md (portão humano)", "icone": "portao",
+         "conteudo": "# Decisões — semana de <dd/mm/aaaa>\n| proposta do agente | decisão | motivo | quem | quando |\n|---|---|---|---|---|\n| <melhorar /es/aprender-…/> | aceito | <a página já aparece; reforçar o início> | <nome> | <dd/mm> |\n| <reescrever título de /cursos/…> | adio | <só 5 impressões; esperar mais 2 semanas> | <nome> | <dd/mm> |\n| <…> | recuso | <…> | <nome> | <dd/mm> |"}
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {"rot": "rotina.sh (19/10/2026)", "html": "<p><code>bash rotina.sh semana</code> com os CSV de exemplo do inema.club:</p><pre>importado: 10 linha(s) de resumo, 244 linha(s) de consulta → dados/gsc.sqlite\ninema.club semana 2026-10-11 (comparada com 2026-10-04): sem marca 0 cliques / 157 impr.; subiram 15, caíram 15, pauta 18, páginas sem clique 5 → rotina/2026-10-19/gsc/relatorio.html\nsaída em rotina/2026-10-19</pre>"},
+          {"rot": "Leitura do agente (19/10/2026)", "html": "<p>Resposta real do <code>claude -p</code> (Claude Code pela assinatura, sem ferramentas) ao pedido acima, encurtada:</p><pre>1. Semana 05–11/10: 0 cliques e 157 impressões sem marca, contra 0 cliques\n   e 47 impressões em 28/09–04/10.\n2. Propostas (todas já têm página respondendo, então nenhuma página nova):\n   - Melhorar /es/aprender-inteligencia-artificial/: 106 impressões,\n     22 consultas, posição média 39,1 e 0 cliques. A pauta indicava página\n     nova para algumas dessas consultas, mas é esta página que já aparece.\n   - Reescrever o título de /cursos/278-laya-jev-decisoes-estruturadas-na-pratica/:\n     posição média 7,4, 5 impressões e 0 cliques.\n   - Melhorar /agentes-de-inteligencia-artificial/ para \"curso de agentes\n     de ia\": 4 impressões, posição 34,8.\n3. Para o humano decidir: vale investir no público em espanhol, que trouxe\n   quase todo o crescimento da semana, ou o foco continua no português?</pre><p>O agente também separou, sozinho, uma consulta que parecia teste interno e não a usou. A decisão sobre o espanhol fica com o dono.</p>"},
+          {"rot": "Erros comuns", "html": "<ul><li><b>Dar ferramentas de escrita ao observador</b>: ele lê e propõe; quem muda o site passa pelo portão.</li><li><b>Pedir \"analise o SEO\"</b>: sem regras (só números do relatório, formato fixo), a resposta vira opinião genérica.</li><li><b>Cron no export do Bing</b>: não há API; essa parte é à mão, com lembrete.</li><li><b>Esquecer o decisões.md</b>: sem ele, o agente repete toda semana o que você já recusou.</li></ul>"}
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática: a sua rotina rodando",
+      "sub": "Comece pela semana; o mês entra quando o export do Bing e o log estiverem à mão.",
+      "exercicios": [
+        {"id": "e1", "titulo": "E1 · rotina.sh semana", "min": "20 min",
+         "texto": "Copie o rotina.sh, ajuste as quatro variáveis e rode a parte semanal (com os seus CSV ou com os de exemplo).",
+         "pronto": "existe a pasta rotina/ com a data de hoje e, dentro dela, gsc/relatorio.json."},
+        {"id": "e2", "titulo": "E2 · Agente + portão", "min": "25 min",
+         "texto": "Mande o pedido e o relatório para o agente sem ferramentas e registre a sua decisão sobre cada proposta.",
+         "pronto": "leitura-agente.md tem 3 propostas com número, e decisoes.md tem uma linha por proposta com aceito, adio ou recuso e o motivo."}
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste o que aprendeu",
+      "sub": "A explicação aparece depois da sua resposta.",
+      "perguntas": [
+        {"p": "Por que o agente roda sem ferramentas (--tools vazio)?",
+         "opcoes": ["Para ficar mais rápido.", "Para ser observador: lê e propõe, sem conseguir mudar nada no site.", "Porque ferramentas são pagas.", "Porque o JSON é grande."],
+         "certa": 1, "explica": "O portão humano só funciona se o agente não puder agir sozinho. Quem aplica a mudança é você, depois de decidir.", "ref": "diagrama", "cert": true},
+        {"p": "Qual parte da rotina mensal não dá para automatizar por completo?",
+         "opcoes": ["auditor.", "agente-ready.", "O export do Bing AI Performance, que não tem API.", "gsc-historico."],
+         "certa": 2, "explica": "O CSV sai do painel. O botlog também depende de copiar o log; por isso o mensal funciona melhor com lembrete do que com cron.", "ref": "passos"},
+        {"p": "A pauta pedia página nova, e o agente propôs melhorar uma página existente. Quem estava certo?",
+         "opcoes": ["A pauta, sempre.", "O agente, porque o pedido mandou conferir as páginas que já aparecem; a pauta é heurística.", "Nenhum.", "Os dois, faça as duas coisas."],
+         "certa": 1, "explica": "A página em espanhol já aparecia nas consultas. Criar outra página para o mesmo assunto dividiria o sinal. A decisão final continua sendo do humano.", "ref": "codigo"},
+        {"p": "Para que serve o decisoes.md?",
+         "opcoes": ["Para o Google ler.", "Registrar aceito, adio ou recuso com motivo, e o agente não repetir o que foi recusado.", "Para guardar senhas.", "Para publicar no site."],
+         "certa": 1, "explica": "É a memória do portão. Mês a mês, mostra o que foi decidido e por quê.", "ref": "passos"}
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Para levar",
+      "itens": [
+        {"t": "Cadência", "texto": "Semana: gsc-historico. Mês: auditor, agente-ready, bing-ia e botlog."},
+        {"t": "Agente", "texto": "Pela assinatura, sem ferramentas: lê o JSON e propõe 3 ações com número."},
+        {"t": "Portão", "texto": "Você decide e anota; só então o site muda."}
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {"t": "Método inemaSEO: a máquina com agentes e a cadência", "href": "https://github.com/inematds/inemaseo-metodo/blob/main/docs/METODO.md", "icone": "lista"},
+        {"t": "inemaseo-sistemas no GitHub", "href": "https://github.com/inematds/inemaseo-sistemas", "icone": "git"},
+        {"t": "Formação inemaSEO, curso 5: Com Agentes", "href": "https://inematds.github.io/formacao-inemaseo-agentes-v72/", "icone": "robo"}
+      ]
+    }
+  ]
+}

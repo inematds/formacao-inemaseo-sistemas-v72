@@ -1,0 +1,522 @@
+{
+  "slug": "quando-pagar",
+  "num": 8,
+  "menu": "When to pay",
+  "titulo": "When to pay: DataForSEO, Firecrawl, Apify, Semrush, and Ahrefs",
+  "titulo_curto": "When to pay",
+  "minutos": 18,
+  "lead": "The five tools cover your own site. Market and competitors are a different thing: someone collected the data and charges for it. Paying makes sense when a decision depends on data that only exists as a paid product, for a set period and with a spending cap. This lesson gives you the criterion, shows what each service delivers, and closes with your own tool plan.",
+  "objetivo": "decide if and when to pay for data, with a criterion, a spending cap, and a price checked on the site, and build your tool plan.",
+  "competencias": [
+    "decidir-compra-de-dado",
+    "comparar-servicos-de-seo",
+    "planejar-pilha-de-ferramentas"
+  ],
+  "aprende": [
+    {
+      "t": "The criterion: which decision the paid data will change"
+    },
+    {
+      "t": "What DataForSEO, open-seo, Firecrawl, Apify, Semrush, and Ahrefs deliver"
+    },
+    {
+      "t": "The limits: terms of use, sample size, and prices that change"
+    },
+    {
+      "t": "Your map and the dated plan for the 8 lessons"
+    }
+  ],
+  "hero_alt": "A man in a hardware store compares two drills, a basic one and a professional one.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "To pay or not to pay",
+      "sub": "Four questions before you subscribe. Click each one.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "Which decision?",
+          "sub": "the question",
+          "detalhe": "Write down the decision the data will change: \"choose between 3 topics for next month\", \"enter or not enter a market\". Without a decision, the subscription becomes a pretty dashboard."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "Does the free option answer it?",
+          "sub": "lessons 1 to 7",
+          "detalhe": "Search Console, Bing, the auditor, agente-ready, and botlog answer almost everything about your site. If they answer it, don't pay."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "What data is missing?",
+          "sub": "paid only",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "exact volume and difficulty"
+            },
+            {
+              "icone": "check",
+              "t": "SERP and competitor traffic"
+            },
+            {
+              "icone": "check",
+              "t": "backlinks with anchor text"
+            },
+            {
+              "icone": "check",
+              "t": "SERP or map data scraped at scale"
+            }
+          ],
+          "detalhe": "This is market data: bought, modeled, or scraped. There is no honest free version."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "Test with a spending cap",
+          "sub": "1 month",
+          "forte": true,
+          "detalhe": "One month, one question, one spending cap, price checked on the vendor's site that day. At the end, was the decision made? If not, cancel."
+        }
+      ],
+      "legenda": "The free core stays; the paid piece plugs in, off by default."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "What each one delivers",
+      "sub": "Prices change fast: always check the vendor's site. Tap each one.",
+      "passos": [
+        {
+          "titulo": "DataForSEO + open-seo",
+          "sub": "data per call",
+          "texto": [
+            "open-seo is an open (MIT) alternative to Semrush and Ahrefs, with an MCP server and skills for agents. But the data comes from DataForSEO, paid per call: the README says you need the key either way, and the hosted service charges 28% extra on every request.",
+            "It's an interface over paid data, not a data source of its own."
+          ]
+        },
+        {
+          "titulo": "Firecrawl",
+          "sub": "pages in Markdown",
+          "texto": [
+            "Scrape, crawl, map, and search: turns pages into Markdown and JSON for content audits and briefs. Pricing page read on 10/19/2026: free plan with 1,000 credits per month, 1 credit per page; paid plans start at US$ 16 per month with annual billing. Check the site.",
+            "Its search is not Google's SERP."
+          ]
+        },
+        {
+          "titulo": "Apify",
+          "sub": "third-party actors",
+          "texto": [
+            "A store of bots (actors) that scrape SERPs with related questions, Google Maps, and more. Pricing page read on 10/19/2026: free with US$ 5 in credit; Starter at US$ 19 per month. Each actor has its own price.",
+            "Whoever runs an actor that scrapes Google takes on the terms violation; quality and price vary by author."
+          ]
+        },
+        {
+          "titulo": "Semrush, Ahrefs",
+          "sub": "full suite",
+          "texto": [
+            "Volume, difficulty, competitors, backlinks, and AI monitors, with an official MCP. AI visibility monitors run from about US$ 20–100 per month with a few questions to US$ 300–1,500+ with volume, according to third parties (Jul–Oct/2026).",
+            "Share of voice is a sample of the tool's question list, not an official score."
+          ],
+          "exemplo": {
+            "rot": "2026 yardstick",
+            "texto": "Exact search volume doesn't exist for free. A paid AI monitor is a sample; the official, free one is Bing AI Performance. A manual battery of 20–30 questions per month is still worth it."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The decision templates",
+      "sub": "Fill these in before you subscribe and at the end of the test month.",
+      "blocos": [
+        {
+          "rot": "Decision table (template)",
+          "icone": "lista",
+          "conteudo": "# Pay for data? — <yoursite.com> — <dd/mm/yyyy>\n| decision the data changes | does the free tier answer it? (lesson) | missing data | who sells it | price checked on | monthly cap |\n|---|---|---|---|---|---|\n| <pick 3 topics for next month> | partly (gsc-historico, lesson 4) | exact volume | <vendor> | <dd/mm/yyyy, link> | <R$ or US$> |\n| <who the competitors are for term X> | no | competitor SERP | <vendor> | <dd/mm/yyyy, link> | <…> |"
+        },
+        {
+          "rot": "1-month test (template)",
+          "icone": "calendario",
+          "conteudo": "# Test: <vendor> — from <dd/mm> to <dd/mm>\nsingle question: <…>\nspending cap: <…>   (turn off auto-renewal on day 1)\nAPI key: only in the local .env, outside git; never in the repository\nat the end of the month:\n- was the decision made with the data? <yes/no>\n- what would the free tier not have shown? <…>\n- continue, switch, or cancel: <…>"
+        },
+        {
+          "rot": "My tools plan (template)",
+          "icone": "camadas",
+          "conteudo": "# Tools — <yoursite.com>\nfree core (always): Search Console, Bing Webmaster, IndexNow, inemaseo-sistemas (5), agent via subscription\nweek: gsc-historico + agent reading + decisoes.md\nmonth: auditor, agente-ready, bing-ia (export), botlog (filtered log), manual battery of questions in the AIs\npaid (optional, with a cap): <none | vendor + question + month>"
+        }
+      ]
+    },
+    {
+      "tipo": "simconversa",
+      "titulo": "Simulated conversation: the client wants to subscribe to Semrush and three AI tools",
+      "sub": "Fictional conversation for practice. Pick the answer you would give; the comment appears right after.",
+      "personagem": {
+        "nome": "Carla",
+        "papel": "small online store · fictional client"
+      },
+      "inicio": "abre",
+      "licao": "A subscription is not a strategy. Ask what decision the data will change, use the free core for your own site, and pay only for the missing market data, for one month, with a spending cap.",
+      "falas": {
+        "abre": {
+          "cliente": "I want to do SEO right. I'm going to subscribe to Semrush and three more tools that measure whether I show up in the AIs. Can you help me set it up?",
+          "opcoes": [
+            {
+              "t": "I can help. Sign up today and we'll have everything set up tomorrow.",
+              "vai": "fim-caro",
+              "nota": 0,
+              "comenta": "You answered the purchase, not the need. Nobody asked what these tools will be used to decide."
+            },
+            {
+              "t": "Before you sign up: what decision do you want to make with these numbers?",
+              "vai": "pergunta",
+              "nota": 2,
+              "comenta": "Right question. Data is only worth it if it changes a decision; the answer tells you what's free and what's missing."
+            },
+            {
+              "t": "None of that is any good. You can do everything for free.",
+              "vai": "radical",
+              "nota": 1,
+              "comenta": "Half true: your own site's data is free, but market data isn't. Promising \"everything\" for free will send you the bill later."
+            }
+          ]
+        },
+        "radical": {
+          "cliente": "Everything for free? Then how do I know how many people search for \"linen dress\" each month?",
+          "opcoes": [
+            {
+              "t": "That exact number doesn't exist for free. The rest of your site does. Tell me what you want to decide.",
+              "vai": "pergunta",
+              "nota": 1,
+              "comenta": "It corrected the promise with the honest limit and went back to the decision question, with one extra turn."
+            },
+            {
+              "t": "Google Trends gives you the volume.",
+              "vai": "fim-errado",
+              "nota": 0,
+              "comenta": "Trends is a relative index, from 0 to 100, not a number of searches."
+            }
+          ]
+        },
+        "pergunta": {
+          "cliente": "I want to know if the store shows up in ChatGPT and how many people search for my products.",
+          "opcoes": [
+            {
+              "t": "We start with what's free: Search Console with history, official Bing citations, and a fixed list of questions each month. For exact volume, we test a paid service for one month.",
+              "vai": "monitor",
+              "nota": 2,
+              "comenta": "A free core for what belongs to the site, paid only for the missing market data, with a deadline."
+            },
+            {
+              "t": "Search Console solves both.",
+              "vai": "monitor",
+              "nota": 1,
+              "comenta": "It shows searches where the store has already appeared, not the market's volume, and it doesn't show AI citations."
+            },
+            {
+              "t": "The AI tools give you ChatGPT's official score. Sign up.",
+              "vai": "fim-sov",
+              "nota": 0,
+              "comenta": "There is no official ChatGPT score. Those tools run their own list of questions: it's a sample."
+            }
+          ]
+        },
+        "monitor": {
+          "cliente": "But I tested one of those AI tools and it said the store has 34% share of voice. Isn't that what matters?",
+          "opcoes": [
+            {
+              "t": "It's a sample: the tool's list of questions, on one day. The official and free option today is Bing AI Performance. And we build your fixed battery of 20 to 30 questions, run every month.",
+              "vai": "piloto",
+              "nota": 2,
+              "comenta": "It explained what the number is, pointed to the official source, and gave a method she controls."
+            },
+            {
+              "t": "If the tool says so, that's it.",
+              "vai": "fim-sov",
+              "nota": 0,
+              "comenta": "AI answers vary, and the list of questions belongs to the tool. The number changes with nothing changing in the store."
+            },
+            {
+              "t": "You can measure the same thing for free with a local model, like Ollama.",
+              "vai": "fim-ollama",
+              "nota": 0,
+              "comenta": "A local model has neither ChatGPT's search nor its index. It doesn't know what ChatGPT answers."
+            }
+          ]
+        },
+        "piloto": {
+          "cliente": "OK. And when is it worth paying for something?",
+          "opcoes": [
+            {
+              "t": "When a decision depends on data that only exists as paid: one month, one question, a spending cap, and the price checked on the site that day.",
+              "vai": "fim-bom",
+              "nota": 2,
+              "comenta": "Criterion, deadline, and cap. At the end of the month you can say whether the money decided anything."
+            },
+            {
+              "t": "Sign up for the annual plan, it's cheaper.",
+              "vai": "fim-caro",
+              "nota": 0,
+              "comenta": "An annual discount before knowing whether the data is useful means paying 12 months for a question with no answer."
+            },
+            {
+              "t": "Use DataForSEO per call, with no limit, when you need it.",
+              "vai": "fim-bom",
+              "nota": 1,
+              "comenta": "Paying per call is fine for low volume, but without a cap the spend runs away, especially with an agent running on its own."
+            }
+          ]
+        },
+        "fim-caro": {
+          "fim": true,
+          "titulo": "Four subscriptions, no decision",
+          "texto": "The store pays every month for dashboards that nobody reads with a question in hand. In three months, Carla cancels everything and concludes that SEO doesn't work."
+        },
+        "fim-errado": {
+          "fim": true,
+          "titulo": "Wrong number in hand",
+          "texto": "The Trends relative index became \"searches per month\" in the presentation. The inventory decision was made on a number that doesn't exist."
+        },
+        "fim-sov": {
+          "fim": true,
+          "titulo": "Hostage to a dashboard number",
+          "texto": "Share of voice drops from 34% to 22% with nothing changing in the store, and Carla asks for an explanation. The list of questions belonged to the tool, and nobody knows what changed."
+        },
+        "fim-ollama": {
+          "fim": true,
+          "titulo": "Measuring the wrong AI",
+          "texto": "The local model answered that the store is cited. The real ChatGPT was never asked."
+        },
+        "fim-bom": {
+          "fim": true,
+          "titulo": "Free core and capped paid",
+          "texto": "Search Console with history, Bing AI Performance, and the monthly battery measure the store for free. One month of volume data, with a spending cap, decides the quarter's topics. Carla knows what each number is."
+        }
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: your decision",
+      "sub": "The table from lesson 1 is the starting point.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Decision table",
+          "min": "25 min",
+          "texto": "Fill in the decision table with at least 2 rows, starting from the \"no\" questions in your lesson 1 table.",
+          "pronto": "each row has the decision, whether the free option answers it (with the lesson), the missing data and, if there is a vendor, the price with date and a link checked on the site."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Dated plan",
+          "min": "10 min",
+          "texto": "Fill in \"my tools plan\" and generate the dated plan right below.",
+          "pronto": "you have the tools plan filled in and the .md (or .ics) file from the generator saved."
+        }
+      ]
+    },
+    {
+      "tipo": "mapa",
+      "titulo": "The map of your open Semrush",
+      "sub": "Four steps and the exercises for each. Click an exercise to see its \"done when\".",
+      "degraus": [
+        {
+          "aula": "auditor",
+          "icone": "lupa",
+          "quando": "Week 1",
+          "titulo": "Audit",
+          "sub": "auditor and agente-ready (lessons 2 and 3)",
+          "saida": "Findings in priority order and the readiness score.",
+          "passo": "Start with what a bot sees. Critical first; the map shows the lesson 2 exercises."
+        },
+        {
+          "aula": "gsc-historico",
+          "icone": "grafico",
+          "quando": "Week 1",
+          "titulo": "History",
+          "sub": "gsc-historico (lesson 4)",
+          "saida": "Local database with the weeks and the non-branded report.",
+          "passo": "Requires the CSVs from gsc_semanal.py. The sooner you start saving, the more history you have."
+        },
+        {
+          "aula": "botlog",
+          "icone": "escudo",
+          "quando": "Week 2",
+          "titulo": "AI and bots",
+          "sub": "bing-ia and botlog (lessons 5 and 6)",
+          "saida": "Official citations cross-checked with Google, and bots by purpose.",
+          "passo": "Requires the Bing export and the server log; filter the log before saving it."
+        },
+        {
+          "aula": "rotina-agente",
+          "icone": "robo",
+          "quando": "Week 3",
+          "titulo": "Routine",
+          "sub": "agent and gate (lesson 7)",
+          "saida": "rotina.sh running, agent reading, and decisoes.md.",
+          "passo": "Requires the tools running. After that, decide what to pay for (lesson 8)."
+        }
+      ],
+      "resultado": {
+        "titulo": "At the end of the course",
+        "texto": "Five open tools measuring your site, a routine with an agent and a human gate, and a clear rule for paying for data.",
+        "total": "16 exercises"
+      },
+      "rolagem_fim": {
+        "titulo": "The whole open Semrush",
+        "texto": "Audit, keep the history, measure AI and bots, run the routine. Pay only for the market data that a decision asks for."
+      },
+      "legenda": "The tools measure; the groundwork (course 1) and the content (course 2) are what change the number."
+    },
+    {
+      "tipo": "gerador",
+      "titulo": "Generate your dated plan",
+      "sub": "Choose the start date and how much time you have per week.",
+      "curso": "inemaSEO 7 · Systems",
+      "horas_padrao": 3,
+      "degraus": [
+        {
+          "titulo": "Lesson 1 · Where the data comes from",
+          "aula": "semrush-mapa"
+        },
+        {
+          "titulo": "Lesson 2 · auditor",
+          "aula": "auditor"
+        },
+        {
+          "titulo": "Lesson 3 · agente-ready",
+          "aula": "agente-ready"
+        },
+        {
+          "titulo": "Lesson 4 · gsc-historico",
+          "aula": "gsc-historico"
+        },
+        {
+          "titulo": "Lesson 5 · bing-ia",
+          "aula": "bing-ia"
+        },
+        {
+          "titulo": "Lesson 6 · botlog",
+          "aula": "botlog"
+        },
+        {
+          "titulo": "Lesson 7 · Routine with an agent",
+          "aula": "rotina-agente"
+        },
+        {
+          "titulo": "Lesson 8 · When to pay",
+          "aula": "quando-pagar"
+        }
+      ],
+      "txt": {
+        "titulo": "Plan — inemaSEO 7 · Systems",
+        "inicio": "Start",
+        "ritmo": "Pace",
+        "termino": "Expected completion",
+        "ate": "by",
+        "pronto": "done when",
+        "semanas": "weeks",
+        "travou": "## What got stuck and what I decided",
+        "h": "h per week",
+        "exs": "exercises"
+      }
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "What is the first question before you subscribe to an SEO tool?",
+          "opcoes": [
+            "Which one is the most famous.",
+            "What decision the data will change.",
+            "Which one has the most charts.",
+            "Which one has an annual plan."
+          ],
+          "certa": 1,
+          "explica": "Without a decision, the data becomes a dashboard nobody reads. With one, you can see whether the free option already answers it.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "open-seo is MIT. So is it free from end to end?",
+          "opcoes": [
+            "Yes.",
+            "No: the code is open, but the data comes from DataForSEO, paid per call.",
+            "Only on Cloudflare.",
+            "Only for personal use."
+          ],
+          "certa": 1,
+          "explica": "It's an interface, MCP and skills on top of paid data. The README says you need the DataForSEO key either way.",
+          "ref": "passos"
+        },
+        {
+          "p": "An Apify actor scrapes Google for you. What's the risk?",
+          "opcoes": [
+            "None, it's paid.",
+            "The violation of Google's terms falls on whoever runs it; quality and price vary by author.",
+            "The site drops out of the index.",
+            "Apify belongs to Google."
+          ],
+          "certa": 1,
+          "explica": "Paying doesn't make scraping allowed. For your own site, prefer the open tools and the official dashboards.",
+          "ref": "passos"
+        },
+        {
+          "p": "How do you run the first paid test?",
+          "opcoes": [
+            "Annual plan, for the discount.",
+            "One month, one question, a spending cap and a price checked on the site that day.",
+            "Per call, no limit.",
+            "All vendors together."
+          ],
+          "certa": 1,
+          "explica": "At the end of the month you know whether the decision was made with the data. If it wasn't, you cancel without having lost the year.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Criterion",
+          "texto": "Pay only for the market data that a decision calls for; your own site comes free."
+        },
+        {
+          "t": "Test",
+          "texto": "One month, one question, spending cap, price checked on the site with the date."
+        },
+        {
+          "t": "2026 yardstick",
+          "texto": "Exact volume doesn't exist for free; share of voice is a sample; the official AI one is Bing AI Performance."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "open-seo (MIT, on top of DataForSEO)",
+          "href": "https://github.com/every-app/open-seo",
+          "icone": "git"
+        },
+        {
+          "t": "Firecrawl: pricing",
+          "href": "https://www.firecrawl.dev/pricing",
+          "icone": "nuvem"
+        },
+        {
+          "t": "Apify: pricing",
+          "href": "https://apify.com/pricing",
+          "icone": "nuvem"
+        },
+        {
+          "t": "inemaSEO Area",
+          "href": "https://eventos.inema.pro/inemaseo/",
+          "icone": "lupa"
+        }
+      ]
+    }
+  ]
+}

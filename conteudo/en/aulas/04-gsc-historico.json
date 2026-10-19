@@ -1,0 +1,291 @@
+{
+  "slug": "gsc-historico",
+  "num": 4,
+  "menu": "gsc-historico",
+  "titulo": "gsc-historico: Search Console forever",
+  "titulo_curto": "gsc-historico",
+  "minutos": 17,
+  "lead": "Search Console keeps 16 months. Two years from now, the week your site started being found by people who don't know your brand will be gone. gsc-historico imports the weekly CSV into a local database that never deletes anything and builds the report that matters: branded, non-branded and anonymized, what went up, what went down, and the content backlog.",
+  "objetivo": "import the weekly CSVs into a database that doesn't delete, and read branded × non-branded × anonymized, the content backlog and the pages with no clicks.",
+  "competencias": [
+    "arquivar-search-console",
+    "ler-busca-sem-marca",
+    "tirar-pauta-de-dado-real"
+  ],
+  "aprende": [
+    {
+      "t": "Where the CSV comes from and what \"anonymized\" means"
+    },
+    {
+      "t": "Import without duplicating and generate the report"
+    },
+    {
+      "t": "Read the weekly series and the up/down"
+    },
+    {
+      "t": "Content backlog and pages with no clicks: the tool's rules, not Google's"
+    }
+  ],
+  "hero_alt": "Wooden drawer file cabinet with cataloged index cards, one drawer open, in a library.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "From Search Console to the history",
+      "sub": "Every week, the same path. Click each step.",
+      "nos": [
+        {
+          "icone": "grafico",
+          "titulo": "Search Console",
+          "sub": "16 months",
+          "detalhe": "The interface and the API keep 16 months of performance data. Anything older disappears."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "gsc_semanal.py",
+          "sub": "Week's CSV",
+          "detalhe": "The inemaseo-metodo script exports a resumo.csv (branded, non-branded, anonymized) every week, plus one CSV per site with only the queries that don't include your brand. It uses the Google API with your credential; gsc-historico only reads the files."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "SQLite",
+          "sub": "never deletes",
+          "forte": true,
+          "detalhe": "import puts everything in a local database. Re-importing doesn't duplicate (the key is site + week end). The database stays on your computer and out of git."
+        },
+        {
+          "icone": "lista",
+          "titulo": "Report",
+          "sub": "4 lists",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "series branded × non-branded × anonymized"
+            },
+            {
+              "icone": "check",
+              "t": "queries that went up and down"
+            },
+            {
+              "icone": "check",
+              "t": "content backlog: new query with no owner page"
+            },
+            {
+              "icone": "check",
+              "t": "page with impressions and 0 clicks"
+            }
+          ],
+          "detalhe": "relatorio.html, relatorio.json and one CSV per list. The most recent week is compared with the previous one (or the dates you choose)."
+        }
+      ],
+      "volta": "every week, after gsc_semanal.py",
+      "legenda": "The data is Google's; the long-term memory is yours."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Read what the report shows",
+      "sub": "Click each list.",
+      "passos": [
+        {
+          "titulo": "Series",
+          "sub": "the number that matters",
+          "texto": [
+            "Branded is people who already know you. Non-branded is new people arriving through the topic. Anonymized is what Google hides because it is rare: total minus branded minus non-branded.",
+            "Track non-branded impressions and clicks, week by week."
+          ],
+          "exemplo": {
+            "rot": "Real INEMA case",
+            "texto": "inema.club, from 09/16–22 to 10/05–11: non-branded impressions went from 8 to 157 and non-branded queries from 3 to 51, with 0 non-branded clicks. The first 2 non-branded clicks came on inema.pro (2/293), driven by \"curso jev\"."
+          }
+        },
+        {
+          "titulo": "Up and down",
+          "sub": "by query",
+          "texto": [
+            "Adds up the impressions and clicks of each query, current week against the previous one. The position shown is the best among the pages.",
+            "A query that drops several weeks in a row is a sign to look at its page."
+          ]
+        },
+        {
+          "titulo": "Content backlog",
+          "sub": "query without an owner page",
+          "texto": [
+            "A new query (never seen in the database) with no owner page goes into the content backlog: write a page made for it.",
+            "Owner page is a rule of this tool: any page on Google's 1st page, or with a word from the query in the URL."
+          ],
+          "exemplo": {
+            "rot": "You decide",
+            "texto": "The rule compares words with the URL, not with the content. A Spanish page may already show up for the query, off the 1st page, and the query still comes out as backlog. The paginas_hoje column shows who appears today."
+          }
+        },
+        {
+          "titulo": "No clicks",
+          "sub": "rewrite title",
+          "texto": [
+            "A page with 5+ non-branded impressions in the week and 0 clicks: rewrite the title and description with a specific promise.",
+            "It may have branded clicks; the list looks only at non-branded searches."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Import and generate the report",
+      "sub": "Run it from the ferramentas/gsc-historico folder. The example uses the real inemaSEO CSVs that come in the repository.",
+      "blocos": [
+        {
+          "rot": "Terminal · import (folder or files)",
+          "icone": "terminal",
+          "conteudo": "cd ferramentas/gsc-historico\npython3 gsc_historico.py importar ../../exemplos/gsc-historico/entrada --db dados/gsc.sqlite"
+        },
+        {
+          "rot": "Terminal · report for one site",
+          "icone": "terminal",
+          "conteudo": "python3 gsc_historico.py relatorio --db dados/gsc.sqlite --site inema.club --saida saida/inema.club\n# outra comparação: --atual AAAA-MM-DD --anterior AAAA-MM-DD"
+        },
+        {
+          "rot": "Terminal · every week, with your CSVs",
+          "icone": "calendario",
+          "conteudo": "# depois do gsc_semanal.py (inemaseo-metodo), aponte para a pasta dele\npython3 gsc_historico.py importar ~/caminho/da/pasta/gsc --db dados/gsc.sqlite\npython3 gsc_historico.py relatorio --db dados/gsc.sqlite --site <seusite.com> --saida saida/<seusite.com>"
+        },
+        {
+          "rot": "Template · API mode (uses the Google API; not run in this course)",
+          "icone": "cadeado",
+          "conteudo": "# roda o gsc_semanal.py com a sua credencial (gcloud) e importa; não testado ao vivo pelo autor\npython3 gsc_historico.py puxar --script ~/projetos/inemaseo-metodo/tools/gsc_semanal.py --pasta dados/gsc-csv"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>importado: 10 linha(s) de resumo, 244 linha(s) de consulta → dados/gsc.sqlite\ninema.club semana 2026-10-11 (comparada com 2026-10-04): sem marca 0 cliques / 157 impr.; subiram 15, caíram 15, pauta 18, páginas sem clique 5 → saida/inema.club/relatorio.html\ninema.pro semana 2026-10-11 (comparada com 2026-10-04): sem marca 2 cliques / 293 impr.; subiram 15, caíram 5, pauta 6, páginas sem clique 6 → saida/inema.pro/relatorio.html</pre>"
+          },
+          {
+            "rot": "Content backlog and no clicks (inema.club)",
+            "html": "<p>Start of <code>pauta.csv</code> (query, impressions, best position, page that appears today):</p><pre>ia para principiantes,6,38.5,…/es/aprender-inteligencia-artificial/\nguía ia principiantes,5,60.8,…/es/aprender-inteligencia-artificial/\ntutorial ia desde cero,5,29.4,…/es/aprender-inteligencia-artificial/</pre><p>Start of <code>paginas_sem_clique.csv</code>:</p><pre>…/es/aprender-inteligencia-artificial/,106 impr.,posição 39.1,22 consultas\nhttps://buscas.inema.club/,12 impr.,posição 26.6,6 consultas</pre><p>The Spanish page already appears for these queries; the owner page rule does not recognize it because the words are not in the URL. Here the decision is to improve the page that exists, not to write another one.</p>"
+          },
+          {
+            "rot": "Common mistakes",
+            "html": "<ul><li><b>Adding up overlapping weeks</b>: 09/27–10/03 and 09/28–10/04 share days; the database keeps both and the report warns you.</li><li><b>Reading the content backlog as an order</b>: it is a heuristic; check the column for the page that appears today.</li><li><b>Putting the database in git</b>: it lives in dados/, which the .gitignore already excludes.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: your history",
+      "sub": "No CSV of your own yet? Do it with the example and come back when gsc_semanal.py runs.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Import and generate",
+          "min": "15 min",
+          "texto": "Import the example folder (or your CSVs) and generate the report for one site.",
+          "pronto": "the terminal shows the line \"semana … sem marca … pauta …\" and relatorio.html opens with the weekly series."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Three backlog decisions",
+          "min": "20 min",
+          "texto": "Pick 3 queries from the content backlog and decide for each: write a new page or improve the one that already appears (today's page column).",
+          "pronto": "3 lines with the query, the decision (new or improve) and the URL of the page you would create or change."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "Why store Search Console in a local database?",
+          "opcoes": [
+            "Because Search Console is paid.",
+            "Because it keeps only 16 months; the local database never deletes anything.",
+            "Because the local database has more queries than Google.",
+            "To send it to Bing."
+          ],
+          "certa": 1,
+          "explica": "The data is the same; the difference is memory. Without archiving, your site's history disappears after 16 months.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Total 114 clicks, branded 87, non-branded 0. Where do the other 27 come from?",
+          "opcoes": [
+            "Tool error.",
+            "From anonymized queries, which Google hides because they are rare.",
+            "From Bing.",
+            "From bots."
+          ],
+          "certa": 1,
+          "explica": "This is the week of 10/05–10/11 for inema.club. Anonymized = total minus branded minus non-branded. That's why the three columns never add up without it.",
+          "ref": "passos"
+        },
+        {
+          "p": "A query came out as a content backlog item, but today's page column shows one of your pages already appearing, outside the first page. What should you do?",
+          "opcoes": [
+            "Write another identical page.",
+            "Consider improving the page that already appears: the owner rule is a heuristic.",
+            "Ignore the query.",
+            "Delete the page."
+          ],
+          "certa": 1,
+          "explica": "The rule compares words in the query with the address. If a page already appears, improving it is usually worth more than creating a competitor inside your own site.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Which number shows new people arriving through the topic?",
+          "opcoes": [
+            "Branded clicks.",
+            "Non-branded impressions and clicks.",
+            "Total clicks.",
+            "Average position."
+          ],
+          "certa": 1,
+          "explica": "Branded means people who already know you. Non-branded measures whether the content attracts people who don't know the site yet.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Memory",
+          "texto": "Weekly CSV → SQLite that never deletes; re-importing doesn't duplicate."
+        },
+        {
+          "t": "The number",
+          "texto": "Non-branded, week by week; anonymized explains the difference."
+        },
+        {
+          "t": "Content backlog",
+          "texto": "Tool heuristic: check the page that already appears before writing another."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "gsc-historico: README",
+          "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/gsc-historico",
+          "icone": "terminal"
+        },
+        {
+          "t": "gsc_semanal.py (inemaseo-metodo)",
+          "href": "https://github.com/inematds/inemaseo-metodo/blob/main/tools/gsc_semanal.py",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Google: the 16 months of Search Console",
+          "href": "https://developers.google.com/search/blog/2018/01/introducing-new-search-console",
+          "icone": "grafico"
+        }
+      ]
+    }
+  ]
+}

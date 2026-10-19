@@ -1,0 +1,288 @@
+{
+  "slug": "rotina-agente",
+  "num": 7,
+  "menu": "Routine",
+  "titulo": "Connecting it all: the weekly and monthly routine with an agent",
+  "titulo_curto": "Routine with an agent",
+  "minutos": 18,
+  "lead": "Five separate tools turn into forgotten work. One script runs each week's tools and each month's tools and saves the output with a date. An agent on your subscription (Claude Code or Codex) reads the report and proposes three actions, with the number that justifies each. You decide, and you are the one who changes the site: that is the human gate.",
+  "objetivo": "set up the weekly and monthly routine for the 5 tools, with an agent that only reads and proposes and a human gate before the site changes.",
+  "competencias": [
+    "automatizar-rotina-de-seo",
+    "usar-agente-como-observador",
+    "manter-portao-humano"
+  ],
+  "aprende": [
+    {
+      "t": "What runs every week and what runs every month"
+    },
+    {
+      "t": "A rotina.sh that saves everything with a date"
+    },
+    {
+      "t": "The agent as observer: it only reads and proposes"
+    },
+    {
+      "t": "The human gate and the decision record"
+    }
+  ],
+  "hero_alt": "A person reviews printed reports next to a laptop with a terminal, on a calm morning.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The routine",
+      "sub": "The machine measures and proposes; a human decides. Tap each step.",
+      "nos": [
+        {
+          "icone": "calendario",
+          "titulo": "Week",
+          "sub": "gsc-historico",
+          "detalhe": "After gsc_semanal.py: import and report. Non-branded queries, what went up and down, content backlog, and pages with no clicks."
+        },
+        {
+          "icone": "calendario",
+          "titulo": "Month",
+          "sub": "the other four",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "auditor and agente-ready"
+            },
+            {
+              "icone": "check",
+              "t": "bing-ia (after the export)"
+            },
+            {
+              "icone": "check",
+              "t": "botlog (filtered log)"
+            }
+          ],
+          "detalhe": "auditor and agente-ready run on their own. bing-ia depends on you exporting the CSV from the dashboard (there is no API). botlog depends on you copying the log and filtering it."
+        },
+        {
+          "icone": "pasta",
+          "titulo": "Dated output",
+          "sub": "rotina/AAAA-MM-DD",
+          "detalhe": "Each run goes into a folder named with the date. The JSON reports stay there for the agent to read and for you to compare month to month."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Agent",
+          "sub": "only reads and proposes",
+          "detalhe": "Claude Code or Codex on your subscription, with no write tools. It reads the JSON and returns the number of the week, 3 proposals with the data that justifies them, and one question for the human."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Human gate",
+          "sub": "you decide",
+          "forte": true,
+          "detalhe": "You accept, postpone, or reject each proposal and note why. Only then does the change go to the site. It is the same gate as the \"machine with agents\" in the inemaSEO method."
+        }
+      ],
+      "volta": "the decision goes back into next week's run",
+      "legenda": "Nothing changes on the site without passing through the gate."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Build it in four steps",
+      "sub": "Tap each step.",
+      "passos": [
+        {
+          "titulo": "Script",
+          "sub": "rotina.sh",
+          "texto": [
+            "Copy rotina.sh from the block below into a working folder and adjust the four variables: where inemaseo-sistemas lives, the Search Console property, the home page, and the folder with the CSVs.",
+            "Run bash rotina.sh semana and check the dated folder."
+          ]
+        },
+        {
+          "titulo": "Schedule",
+          "sub": "cron or reminder",
+          "texto": [
+            "The weekly part can go in cron, right after gsc_semanal.py. The monthly one has two manual steps (the Bing export and copying the log): a calendar reminder works better than a cron job that fails silently."
+          ]
+        },
+        {
+          "titulo": "Agent",
+          "sub": "observer",
+          "texto": [
+            "Send the request and the relatorio.json to the agent, with no tools: it can't change anything.",
+            "The request tells it to use only the numbers in the report and reminds it that the content backlog is a heuristic."
+          ],
+          "exemplo": {
+            "rot": "Subscription, not API",
+            "texto": "claude -p and codex exec run through your subscription. Calling a model with an API key is a different thing, with per-use cost."
+          }
+        },
+        {
+          "titulo": "Gate",
+          "sub": "decisões.md",
+          "texto": [
+            "For each proposal: accept, postpone or decline, with a one-line reason. The question \"for the human to decide\" is yours; the agent doesn't have the business context.",
+            "In the next rounds, add decisoes.md to the request (one more cat before the report) so the agent doesn't repeat what you declined."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The routine and the request to the agent",
+      "sub": "Templates to copy. Every command inside them comes from the tools' READMEs.",
+      "blocos": [
+        {
+          "rot": "rotina.sh (template)",
+          "icone": "terminal",
+          "conteudo": "#!/bin/bash\n# rotina.sh — semana | mes. Runs the inemaseo-sistemas tools and saves the dated output.\nset -e\nSIS=~/inemaseo-sistemas/ferramentas   # where you cloned it\nSITE=seusite.com                       # Search Console property\nURL=https://seusite.com                # site home page\nCSV=~/caminho/da/pasta/gsc             # gsc_semanal.py folder\nD=rotina/$(date +%F); mkdir -p $D dados\n\ncase \"$1\" in\n  semana)\n    python3 $SIS/gsc-historico/gsc_historico.py importar $CSV --db dados/gsc.sqlite\n    python3 $SIS/gsc-historico/gsc_historico.py relatorio --db dados/gsc.sqlite --site $SITE --saida $D/gsc\n    ;;\n  mes)\n    python3 $SIS/auditor/auditor.py $URL --max 50 -q --saida $D/auditor\n    python3 $SIS/agente-ready/agente-ready.py $URL --saida $D/agente-ready\n    # bing-ia: only after exporting the CSV from the Bing panel (there is no API)\n    ls bing/*.csv >/dev/null 2>&1 && python3 $SIS/bing-ia/bing_ia.py importar bing/*.csv --db dados/bing.sqlite \\\n      && python3 $SIS/bing-ia/bing_ia.py relatorio --db dados/bing.sqlite --gsc-db dados/gsc.sqlite --site $SITE --saida $D/bing-ia\n    # botlog: only after copying the log (filter it before saving)\n    ls logs/* >/dev/null 2>&1 && python3 $SIS/botlog/botlog.py analisar logs/* --saida $D/botlog\n    ;;\n  *) echo \"uso: bash rotina.sh semana|mes\"; exit 1 ;;\nesac\necho \"saída em $D\""
+        },
+        {
+          "rot": "pedido-semana.md (template for the request to the agent)",
+          "icone": "chat",
+          "conteudo": "You are the site's weekly SEO observer. Below is the relatorio.json from gsc-historico (this week's Search Console, non-branded queries only).\n\nRules:\n- Read-only. Do not change any file, do not publish anything, do not run commands.\n- Use only the numbers in the report; do not invent data.\n- The \"owner page\" rule is a heuristic: check the column of the pages that appear today before proposing a new page.\n\nAnswer in Portuguese, in at most 12 lines:\n1. One sentence with the week's number (non-branded clicks and impressions, compared with the previous week).\n2. Exactly 3 proposals, each with: action (write new page / improve existing page / rewrite title), URL or query, and the number from the report that justifies it.\n3. One line \"Para o humano decidir:\" with the question only the site owner can answer."
+        },
+        {
+          "rot": "Terminal · week + agent (Claude Code, no tools)",
+          "icone": "robo",
+          "conteudo": "bash rotina.sh semana\n(cat pedido-semana.md; echo; cat rotina/$(date +%F)/gsc/relatorio.json) | claude -p --tools \"\" > rotina/$(date +%F)/leitura-agente.md"
+        },
+        {
+          "rot": "decisoes.md (human gate)",
+          "icone": "portao",
+          "conteudo": "# Decisions — week of <dd/mm/yyyy>\n| agent proposal | decision | reason | who | when |\n|---|---|---|---|---|\n| <improve /es/aprender-…/> | accept | <the page already shows up; strengthen the opening> | <name> | <dd/mm> |\n| <rewrite title of /cursos/…> | postpone | <only 5 impressions; wait 2 more weeks> | <name> | <dd/mm> |\n| <…> | decline | <…> | <name> | <dd/mm> |"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "rotina.sh (Oct 19, 2026)",
+            "html": "<p><code>bash rotina.sh semana</code> with the sample CSVs from inema.club:</p><pre>importado: 10 linha(s) de resumo, 244 linha(s) de consulta → dados/gsc.sqlite\ninema.club semana 2026-10-11 (comparada com 2026-10-04): sem marca 0 cliques / 157 impr.; subiram 15, caíram 15, pauta 18, páginas sem clique 5 → rotina/2026-10-19/gsc/relatorio.html\nsaída em rotina/2026-10-19</pre>"
+          },
+          {
+            "rot": "Agent's reading (Oct 19, 2026)",
+            "html": "<p>Real response from <code>claude -p</code> (Claude Code via subscription, no tools) to the request above, shortened:</p><pre>1. Semana 05–11/10: 0 cliques e 157 impressões sem marca, contra 0 cliques\n   e 47 impressões em 28/09–04/10.\n2. Propostas (todas já têm página respondendo, então nenhuma página nova):\n   - Melhorar /es/aprender-inteligencia-artificial/: 106 impressões,\n     22 consultas, posição média 39,1 e 0 cliques. A pauta indicava página\n     nova para algumas dessas consultas, mas é esta página que já aparece.\n   - Reescrever o título de /cursos/278-laya-jev-decisoes-estruturadas-na-pratica/:\n     posição média 7,4, 5 impressões e 0 cliques.\n   - Melhorar /agentes-de-inteligencia-artificial/ para \"curso de agentes\n     de ia\": 4 impressões, posição 34,8.\n3. Para o humano decidir: vale investir no público em espanhol, que trouxe\n   quase todo o crescimento da semana, ou o foco continua no português?</pre><p>The agent also set aside, on its own, a query that looked like an internal test and did not use it. The decision about Spanish is up to the owner.</p>"
+          },
+          {
+            "rot": "Common mistakes",
+            "html": "<ul><li><b>Giving the observer write tools</b>: it reads and proposes; whoever changes the site goes through the gate.</li><li><b>Asking \"analyze the SEO\"</b>: without rules (only the report's numbers, fixed format), the answer turns into generic opinion.</li><li><b>Cron on the Bing export</b>: there is no API; that part is manual, with a reminder.</li><li><b>Forgetting decisoes.md</b>: without it, the agent repeats every week what you already declined.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: your routine running",
+      "sub": "Start with the weekly part; the monthly part comes in when the Bing export and the log are at hand.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · rotina.sh semana",
+          "min": "20 min",
+          "texto": "Copy rotina.sh, adjust the four variables and run the weekly part (with your own CSVs or the sample ones).",
+          "pronto": "the rotina/ folder exists with today's date and, inside it, gsc/relatorio.json."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Agent + gate",
+          "min": "25 min",
+          "texto": "Send the request and the report to the agent with no tools and record your decision on each proposal.",
+          "pronto": "leitura-agente.md has 3 proposals with a number, and decisoes.md has one line per proposal with accept, postpone or decline and the reason."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "Why does the agent run with no tools (empty --tools)?",
+          "opcoes": [
+            "To make it faster.",
+            "To be an observer: it reads and proposes, with no way to change anything on the site.",
+            "Because tools are paid.",
+            "Because the JSON is large."
+          ],
+          "certa": 1,
+          "explica": "The human gate only works if the agent can't act on its own. You are the one who applies the change, after you decide.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Which part of the monthly routine can't be fully automated?",
+          "opcoes": [
+            "auditor.",
+            "agente-ready.",
+            "The Bing AI Performance export, which has no API.",
+            "gsc-historico."
+          ],
+          "certa": 2,
+          "explica": "The CSV comes out of the dashboard. The botlog also depends on copying the log; that's why the monthly routine works better with a reminder than with cron.",
+          "ref": "passos"
+        },
+        {
+          "p": "The content backlog called for a new page, and the agent proposed improving an existing page. Who was right?",
+          "opcoes": [
+            "The content backlog, always.",
+            "The agent, because the request said to check the pages that already show up; the content backlog is a heuristic.",
+            "Neither.",
+            "Both, do both things."
+          ],
+          "certa": 1,
+          "explica": "The Spanish page was already showing up in queries. Creating another page for the same topic would split the signal. The final decision is still up to the human.",
+          "ref": "codigo"
+        },
+        {
+          "p": "What is decisoes.md for?",
+          "opcoes": [
+            "For Google to read.",
+            "To record accept, postpone, or decline with a reason, so the agent doesn't repeat what was declined.",
+            "To store passwords.",
+            "To publish on the site."
+          ],
+          "certa": 1,
+          "explica": "It's the gate's memory. Month by month, it shows what was decided and why.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Cadence",
+          "texto": "Week: gsc-historico. Month: auditor, agente-ready, bing-ia, and botlog."
+        },
+        {
+          "t": "Agent",
+          "texto": "Through the subscription, no tools: it reads the JSON and proposes 3 actions with numbers."
+        },
+        {
+          "t": "Gate",
+          "texto": "You decide and write it down; only then does the site change."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "inemaSEO method: the machine with agents and the cadence",
+          "href": "https://github.com/inematds/inemaseo-metodo/blob/main/docs/METODO.md",
+          "icone": "lista"
+        },
+        {
+          "t": "inemaseo-sistemas on GitHub",
+          "href": "https://github.com/inematds/inemaseo-sistemas",
+          "icone": "git"
+        },
+        {
+          "t": "inemaSEO Program, course 5: With Agents",
+          "href": "https://inematds.github.io/formacao-inemaseo-agentes-v72/",
+          "icone": "robo"
+        }
+      ]
+    }
+  ]
+}

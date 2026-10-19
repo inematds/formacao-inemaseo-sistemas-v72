@@ -1,0 +1,285 @@
+{
+  "slug": "agente-ready",
+  "num": 3,
+  "menu": "agente-ready",
+  "titulo": "agente-ready: a 0–100 score with weights you can change",
+  "titulo_curto": "agente-ready",
+  "minutos": 16,
+  "lead": "\"AI readiness\" scanners give you a score, but almost none publish how it is calculated. agente-ready keeps each weight, the reason, and the source in a versioned file, pesos.json. You get your site's score, see what weighs most, and if you disagree with a weight, you change it and run again.",
+  "objetivo": "get your site's readiness score and change one weight in pesos.json to see the score change.",
+  "competencias": [
+    "medir-prontidao-para-ia",
+    "ler-criterio-com-fonte",
+    "ajustar-pesos-de-nota"
+  ],
+  "aprende": [
+    {
+      "t": "The 6 categories and the weight of each criterion"
+    },
+    {
+      "t": "How the score is calculated (and what leaves the denominator)"
+    },
+    {
+      "t": "Why llms.txt weighs 2 and WebMCP is preparation"
+    },
+    {
+      "t": "Run with your own weights"
+    }
+  ],
+  "hero_alt": "An inspector with a clipboard checks a list in front of the door of a commercial building.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "How the score comes out",
+      "sub": "Weights add up to 100. Tap each step.",
+      "nos": [
+        {
+          "icone": "nuvem",
+          "titulo": "Sample",
+          "sub": "home + 4 pages",
+          "detalhe": "Reads the home page and a few pages spread across the sitemap (--paginas, default 4), the robots.txt, up to 8 same-origin scripts, and the llms.txt. That's 10 to 25 requests, with a 1 s pause. It's a thermometer; for the whole site, use the auditor."
+        },
+        {
+          "icone": "camadas",
+          "titulo": "6 categories",
+          "sub": "and the weights",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "bot access · 30"
+            },
+            {
+              "icone": "check",
+              "t": "extractable content · 26"
+            },
+            {
+              "icone": "check",
+              "t": "discovery · 18"
+            },
+            {
+              "icone": "check",
+              "t": "entity · 14"
+            },
+            {
+              "icone": "check",
+              "t": "WebMCP · 8 · forms · 4"
+            }
+          ],
+          "detalhe": "Each criterion has a weight, a reason, and a source in pesos.json (v1.0.0, 10/19/2026). The informational ones (training blocked, Content-Signal, Markdown response) weigh 0: they show up, they don't count."
+        },
+        {
+          "icone": "check",
+          "titulo": "Factor",
+          "sub": "ok 1 · partial 0.5 · fail 0",
+          "detalhe": "Each criterion comes out ok, partial, or fail. What doesn't apply (a site with no forms, no languages, no WebMCP for the policy check) leaves the denominator: it doesn't count as a fail."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Score",
+          "sub": "earned ÷ applicable × 100",
+          "forte": true,
+          "detalhe": "Points earned divided by the sum of the weights that apply, times 100. The report shows the score by category and what weighs most, so you fix that first."
+        }
+      ],
+      "legenda": "A score with the math in the open: you can disagree with a number and show why."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "The criteria that weigh the most",
+      "sub": "Tap each group.",
+      "passos": [
+        {
+          "titulo": "Access",
+          "sub": "30 points",
+          "texto": [
+            "robots.txt lets search bots (12) and user-requested agents (6) in; the CDN does not block the User-Agent of OAI-SearchBot, PerplexityBot, and Perplexity-User (12).",
+            "If a bot can't read the page, nothing else matters to it."
+          ]
+        },
+        {
+          "titulo": "Content",
+          "sub": "26 points",
+          "texto": [
+            "150+ words in the delivered HTML (10), a visible answer with a main heading and paragraph (6), authorship (5), and date (5).",
+            "Authorship and date are what event sites and landing pages lack most."
+          ]
+        },
+        {
+          "titulo": "Entity",
+          "sub": "14 points",
+          "texto": [
+            "Organization or Person with @id in the home page JSON-LD (8), sameAs for the official profiles (4), and a link to About or Contact (2).",
+            "This is the \"who publishes\" that course 2 teaches you to build."
+          ]
+        },
+        {
+          "titulo": "llms.txt and WebMCP",
+          "sub": "low weight",
+          "texto": [
+            "llms.txt weighs 2: in the Ahrefs study (137 thousand domains, 06/15/2026), 97% of the files received no requests at all.",
+            "WebMCP weighs 8 in total: a tool registered with document.modelContext.registerTool() is worth 5. The specification is a W3C community draft (10/16/2026); the old API name earns partial credit, with a warning."
+          ],
+          "exemplo": {
+            "rot": "2026 yardstick",
+            "texto": "WebMCP is preparation for agents, not a ranking factor. llms.txt is cheap and optional, not a citation lever."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Get the score and change a weight",
+      "sub": "Run it from the ferramentas/agente-ready folder.",
+      "blocos": [
+        {
+          "rot": "Terminal · your site's score",
+          "icone": "terminal",
+          "conteudo": "cd ferramentas/agente-ready\npython3 agente-ready.py https://seusite.com --saida nota/seusite"
+        },
+        {
+          "rot": "Terminal · your weights",
+          "icone": "terminal",
+          "conteudo": "cp pesos.json meus-pesos.json\n# open meus-pesos.json and change the \"peso\" of one criterion (e.g.: webmcp_api from 5 to 0)\npython3 agente-ready.py https://seusite.com --pesos meus-pesos.json --saida nota/seusite-meus-pesos"
+        },
+        {
+          "rot": "Why I changed the weight (template)",
+          "icone": "caneta",
+          "conteudo": "# Weights for <seusite.com> — <dd/mm/aaaa>\ncritério: <id do critério>\npeso original: <n>  →  meu peso: <n>\nmotivo: <e.g.: my audience doesn't use browser agents; WebMCP is a draft with no stable browser>\nnota com pesos.json: <n>  ·  nota com meus pesos: <n>"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>www.inema.club: nota 93/100 (5 páginas, 22 requisições).\n  [falha, peso 2] Link para Sobre ou Contato na home: sem link /sobre, /about ou /contato\n\neventos.inema.pro: nota 69/100 (5 páginas, 15 requisições).\n  [falha, peso 8] Organization ou Person com @id no JSON-LD da home: 0 entidade(s); com @id: 0\n  [falha, peso 5] Autoria identificada: 0 de 5 com autor (meta, rel=author ou JSON-LD)\n  [falha, peso 5] Data de publicação ou atualização: 0 de 5 com data (JSON-LD, meta article ou &lt;time&gt;)\n  [falha, peso 5] Ferramentas WebMCP registradas com document.modelContext.registerTool(): nenhum registerTool() em 2 script(s) de mesma origem + inline</pre>"
+          },
+          {
+            "rot": "With a different weight (10/19/2026)",
+            "html": "<p>The same eventos.inema.pro with <code>webmcp_api</code> from 5 to 0 in <code>meus-pesos.json</code>:</p><pre>eventos.inema.pro: nota 73/100 (5 páginas, 15 requisições).\n  [falha, peso 8] Organization ou Person com @id no JSON-LD da home: 0 entidade(s); com @id: 0\n  [falha, peso 5] Autoria identificada: 0 de 5 com autor (meta, rel=author ou JSON-LD)\n  [falha, peso 5] Data de publicação ou atualização: 0 de 5 com data (JSON-LD, meta article ou &lt;time&gt;)\n  [falha, peso 4] sameAs ligando a entidade aos perfis oficiais: sem sameAs na entidade</pre><p>The math: 66 points earned out of 95 applicable gives 69; out of 90, it gives 73. The list of what to fix first did not change order at the top.</p>"
+          },
+          {
+            "rot": "Common mistakes",
+            "html": "<ul><li><b>Treating the score as a ranking</b>: the weights are an editorial decision by INEMA, with a source for the why, not for the number.</li><li><b>Changing a weight to make the score go up</b>: change it when you have a reason and write it down; the criterion stays in the report.</li><li><b>Expecting to see a WebMCP tool from another origin</b>: detection is static; a script from another domain, loaded later or in an iframe does not show up.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: the score and your weight",
+      "sub": "In lesson 7 the score joins the monthly routine.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · The score",
+          "min": "15 min",
+          "texto": "Run agente-ready on your site and write down the score and the 3 failing criteria with the highest weight.",
+          "pronto": "you have the score, the 3 criteria with the weight of each, and the evidence the report shows."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Disagree with a reason",
+          "min": "15 min",
+          "texto": "Copy pesos.json, change one weight with a written reason, and run again with --pesos.",
+          "pronto": "the \"why I changed the weight\" template is filled in with both scores, and they are different."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "Your site has no form. What happens to the 4 points for forms?",
+          "opcoes": [
+            "They become a failure and the score drops.",
+            "They leave the denominator: they count neither for nor against.",
+            "They become an automatic ok.",
+            "The tool stops with an error."
+          ],
+          "certa": 1,
+          "explica": "A criterion that does not apply is left out of the math. The score is points earned divided by the applicable weights.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Why does llms.txt weigh only 2?",
+          "opcoes": [
+            "Because it is hard to do.",
+            "Because in the largest public study, 97% of the files received no requests at all.",
+            "Because Google requires it.",
+            "Because it is forbidden."
+          ],
+          "certa": 1,
+          "explica": "It is cheap and useful as an index for coding agents, but there is no evidence it leads to citation. Google's AI guide says it may ignore it.",
+          "ref": "passos"
+        },
+        {
+          "p": "In the eventos.inema.pro output, what matters most for raising the score?",
+          "opcoes": [
+            "Publishing llms.txt.",
+            "Entity with @id on the home page (8), and authorship and date on the pages (5 + 5).",
+            "Change the site's color.",
+            "Block GPTBot."
+          ],
+          "certa": 1,
+          "explica": "The output lists the failures by weight. llms.txt was already fine. Blocking training is informational and does not change the score.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Does WebMCP registered on the site guarantee a citation in ChatGPT?",
+          "opcoes": [
+            "Yes, it's the new standard.",
+            "No: it's a community draft, with no stable browser support; it counts as preparation.",
+            "Yes, if the weight is high.",
+            "Only in Bing."
+          ],
+          "certa": 1,
+          "explica": "The specification itself says it is not a W3C standard. It prepares the site for agents in the browser; it is not a ranking factor.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Open math",
+          "texto": "Weights, reason and source in pesos.json; whatever doesn't apply is left out of the denominator."
+        },
+        {
+          "t": "What weighs most",
+          "texto": "Bot access (30) and extractable content (26) come before everything else."
+        },
+        {
+          "t": "2026 yardstick",
+          "texto": "llms.txt is optional (weight 2); WebMCP is preparation, not ranking."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "agente-ready: README and pesos.json",
+          "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/agente-ready",
+          "icone": "terminal"
+        },
+        {
+          "t": "WebMCP: specification (W3C Community Group)",
+          "href": "https://webmachinelearning.github.io/webmcp/",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Ahrefs: llms.txt study",
+          "href": "https://ahrefs.com/blog/llmstxt-study/",
+          "icone": "grafico"
+        }
+      ]
+    }
+  ]
+}

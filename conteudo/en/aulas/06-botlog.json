@@ -1,0 +1,283 @@
+{
+  "slug": "botlog",
+  "num": 6,
+  "menu": "botlog",
+  "titulo": "botlog: who really reads your site",
+  "titulo_curto": "botlog",
+  "minutos": 17,
+  "lead": "The robots.txt tells you what you allow; the server log tells you who showed up. botlog reads the access log, sorts the AI bots by purpose (search, user request, training), checks each one's IP against the company's official list, and shows you the fake ones. And it filters the log before you store or show it, because a person's IP is personal data.",
+  "objetivo": "sort the AI bots in the log by purpose, spot the fake ones, and filter the log before storing or sharing it.",
+  "competencias": [
+    "classificar-robo-por-finalidade",
+    "verificar-robo-por-ip-oficial",
+    "tratar-log-com-lgpd"
+  ],
+  "aprende": [
+    {
+      "t": "The four purposes and what happens if you block each one"
+    },
+    {
+      "t": "Fake bot: why the User-Agent isn't enough"
+    },
+    {
+      "t": "Run the analysis on an nginx or Cloudflare log"
+    },
+    {
+      "t": "Filter the log before storing it (LGPD)"
+    }
+  ],
+  "hero_alt": "A doorman checks the visitor log at the front desk of an apartment building.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "From the log to the list of who read",
+      "sub": "Each log line goes through four questions. Tap each one.",
+      "nos": [
+        {
+          "icone": "arquivo",
+          "titulo": "Log",
+          "sub": "nginx, Apache, Cloudflare",
+          "detalhe": "The nginx and Apache combined format (also .gz) and the Cloudflare Logpush JSON per line. Vercel logs are not implemented."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "Who it says it is",
+          "sub": "User-Agent",
+          "detalhe": "Looks for the bot's name in the User-Agent (the token, not the whole string). Google-Extended doesn't show up in a log: it's only a robots.txt token; the one that fetches is Googlebot."
+        },
+        {
+          "icone": "camadas",
+          "titulo": "Purpose",
+          "sub": "4 groups",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "search: OAI-SearchBot, Claude-SearchBot, PerplexityBot"
+            },
+            {
+              "icone": "check",
+              "t": "user: ChatGPT-User, Claude-User, Perplexity-User"
+            },
+            {
+              "icone": "check",
+              "t": "training: GPTBot, ClaudeBot"
+            },
+            {
+              "icone": "check",
+              "t": "search engine: Googlebot, bingbot"
+            }
+          ],
+          "detalhe": "Each bot lands in a group according to the company's documentation. A UA with bot, crawler or spider that isn't in the catalog goes in as \"not in the catalog\", with no verification."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "Official IP?",
+          "sub": "true or false",
+          "forte": true,
+          "detalhe": "Checks the IP against the list the company itself publishes (listas/ folder, with URL and date). A bot that has a list and an IP outside it = fake, and it doesn't count. With --rdns, Googlebot and bingbot outside the list go through reverse and forward DNS (uses the network)."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Report",
+          "sub": "who read what",
+          "detalhe": "Hits by purpose, by bot (authentic, fake, pages, robots.txt, 4xx/5xx errors), bot × path, fake bots, and pages that no bot managed to read."
+        }
+      ],
+      "legenda": "The log shows who requested the page, not whether the AI used the content. For citation, lesson 5."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Read the report",
+      "sub": "Tap each point.",
+      "passos": [
+        {
+          "titulo": "Purpose",
+          "sub": "what blocking costs",
+          "texto": [
+            "Blocking AI search = disappearing from that assistant's answers with sources. Blocking the user's agent = the AI doesn't open the page when someone asks.",
+            "Blocking training takes the site out of the training of future models, without disappearing from search."
+          ]
+        },
+        {
+          "titulo": "Fakes",
+          "sub": "don't count",
+          "texto": [
+            "Anyone can write GPTBot in the User-Agent. Without checking the IP, the count inflates.",
+            "The report shows the IP only for the fake bots, so you can block them if you want."
+          ]
+        },
+        {
+          "titulo": "403 for AI",
+          "sub": "check the CDN",
+          "texto": [
+            "An authentic AI bot getting a 403 is usually a CDN or WAF block, not robots.txt.",
+            "Since 09/15/2026, free Cloudflare blocks training bots and agents by default on pages with ads: check your site's dashboard."
+          ]
+        },
+        {
+          "titulo": "LGPD",
+          "sub": "before you keep it",
+          "texto": [
+            "The IP of someone who is not a bot is personal data. Before you show, publish, or keep a log for a long time, run filtrar: only the bot lines with an official IP stay.",
+            "An old list makes a false \"fake\": the Bing one in the folder is from Jan 2024. Update the listas/ folder."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Analyze and filter",
+      "sub": "Run it from the ferramentas/botlog folder. The MONTADO sample uses official User-Agents and IPs from documentation ranges (RFC 5737), which belong to nobody.",
+      "blocos": [
+        {
+          "rot": "Terminal · analisar (several files, .gz included)",
+          "icone": "terminal",
+          "conteudo": "cd ferramentas/botlog\npython3 botlog.py analisar ../../exemplos/botlog/entrada/MONTADO_access.log ../../exemplos/botlog/entrada/MONTADO_cloudflare.jsonl \\\n  --sitemap ../../exemplos/botlog/entrada/MONTADO_sitemap.xml --saida saida/montado"
+        },
+        {
+          "rot": "Terminal · your server (read-only) and your sitemap",
+          "icone": "terminal",
+          "conteudo": "ssh root@SEU_SERVIDOR 'cd /var/log/nginx; zcat -f access.log.*.gz; cat access.log.1 access.log' > /tmp/site.log\npython3 botlog.py analisar /tmp/site.log --sitemap https://seusite.com/sitemap.xml --saida saida/site"
+        },
+        {
+          "rot": "Terminal · LGPD: only bots with an official IP",
+          "icone": "cadeado",
+          "conteudo": "python3 botlog.py filtrar /tmp/site.log --saida /tmp/so-robos.log\nrm /tmp/site.log   # the full log doesn't need to stay"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>26 lines, 22 from bots (training 6, search 5, search engine 4, user 3); fake 4; never visited 1/6 → saida/montado/relatorio.html</pre><p>From <code>robos.csv</code> (mock sample):</p><pre>bot            purpose       hits    genuine    fake   errors\nGPTBot         training      5       3          2      2\nClaudeBot      training      3       3          0      2\nGooglebot      search engine 3       2          1      0\nOAI-SearchBot  search        3       3          0      0\nPerplexityBot  search        2       1          1      0</pre><p>ClaudeBot's 2 errors simulate a CDN block (403).</p>"
+          },
+          {
+            "rot": "Real log, filtered (Oct 19, 2026)",
+            "html": "<p>nginx log from desenho.inema.pro, Oct 5 to Oct 19, 2026, already run through <code>filtrar</code> (the original had 3,082 lines; 8 were left, only bots with an official IP):</p><pre>8 lines, 8 from bots (training 6, search 2); fake 0; never visited 0/1 → saida/real/relatorio.html</pre><p>And <code>filtrar</code> on the mock sample:</p><pre>16 of 23 line(s) kept (only bots with an official IP) → /tmp/so-robos.log</pre>"
+          },
+          {
+            "rot": "Common mistakes",
+            "html": "<ul><li><b>Counting by User-Agent</b>: without checking the IP, a fake bot becomes an \"AI hit\".</li><li><b>Looking for Google-Extended in the log</b>: it doesn't show up; it's a robots.txt token.</li><li><b>Looking only at the server log behind a CDN</b>: it sees only what got through the CDN, sometimes with the CDN's IP. Use the CDN log.</li><li><b>Publishing the whole log</b>: a person's IP is personal data; filter first.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice: who reads you",
+      "sub": "No access to the server log? Do E1 and ask your CDN or host for the log for E2.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · The sample",
+          "min": "10 min",
+          "texto": "Run the analysis on the mock sample and find in the report the fake bots and the page that no bot read.",
+          "pronto": "you noted which bots had fake hits and which sitemap page went unread."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Your log, filtered",
+          "min": "30 min",
+          "texto": "Copy your server's log (read-only), run analisar and then filtrar; delete the full log.",
+          "pronto": "you have the report by purpose, the \"N of M line(s) kept\" line from filtrar, and the full log deleted."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Test what you learned",
+      "sub": "The explanation shows up after your answer.",
+      "perguntas": [
+        {
+          "p": "The log shows 50 hits from \"GPTBot\". What else do you need before you believe it?",
+          "opcoes": [
+            "Nothing, the User-Agent proves it.",
+            "Check each hit's IP against OpenAI's official list.",
+            "See whether robots.txt allows it.",
+            "Count the pages."
+          ],
+          "certa": 1,
+          "explica": "Anyone can write GPTBot in the User-Agent. botlog checks the IP against the published list; outside it, it's fake and doesn't count.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "You block GPTBot and ClaudeBot. What happens?",
+          "opcoes": [
+            "The site disappears from ChatGPT and Claude.",
+            "The site leaves the training of future models, without disappearing from search.",
+            "Google stops indexing.",
+            "Nothing changes."
+          ],
+          "certa": 1,
+          "explica": "They are training bots. The ones that search and cite are OAI-SearchBot and Claude-SearchBot; the ones that open a page on request are ChatGPT-User and Claude-User.",
+          "ref": "passos"
+        },
+        {
+          "p": "A genuine ClaudeBot gets a 403 in the log. Most likely cause?",
+          "opcoes": [
+            "The robots.txt.",
+            "A CDN or WAF block.",
+            "Page is down.",
+            "Fake IP."
+          ],
+          "certa": 1,
+          "explica": "robots.txt is a request; a polite bot doesn't even ask for the page. A 403 is a response from the server or the CDN, which enforces it. Check the CDN dashboard.",
+          "ref": "passos"
+        },
+        {
+          "p": "Why run filtrar before keeping the log?",
+          "opcoes": [
+            "So the file gets smaller.",
+            "Because a person's IP is personal data (LGPD); only bots with official IPs are kept.",
+            "Because the report requires it.",
+            "To hide the fake ones."
+          ],
+          "certa": 1,
+          "explica": "A verified bot is not a person. The rest of the log has visitor IPs, which should not be published or stored without need.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways",
+      "itens": [
+        {
+          "t": "Purpose",
+          "texto": "Search, user, training, and crawler: blocking each one costs different things."
+        },
+        {
+          "t": "official IP",
+          "texto": "User-Agent proves nothing; a fake bot doesn't count."
+        },
+        {
+          "t": "LGPD",
+          "texto": "filter before storing or showing; delete the full log."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "botlog: README and official lists",
+          "href": "https://github.com/inematds/inemaseo-sistemas/tree/main/ferramentas/botlog",
+          "icone": "terminal"
+        },
+        {
+          "t": "Anthropic: ClaudeBot, Claude-User, and Claude-SearchBot",
+          "href": "https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+          "icone": "robo"
+        },
+        {
+          "t": "Google: verify Googlebot",
+          "href": "https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot",
+          "icone": "escudo"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "id": "formacao-inemaseo-sistemas-v72",
+  "lang": "es",
+  "url": "https://inematds.github.io/formacao-inemaseo-sistemas-v72/es/",
+  "nome": "inemaSEO 7 — Sistemas: arma tu propio Semrush abierto",
+  "sub": "Formación inemaSEO · curso 7 de 7",
+  "volta": {
+    "t": "Área inemaSEO",
+    "href": "https://eventos.inema.pro/inemaseo/"
+  },
+  "lado_card": {
+    "rot": "Formación inemaSEO",
+    "t": "Curso 7 de 7",
+    "texto": "Las herramientas miden; el cimiento y el contenido son los que cambian el número. Si aún no lo hiciste, empieza por el curso 1.",
+    "link": "Ir al curso 1",
+    "href": "https://inematds.github.io/formacao-inemaseo-fundacao-v72/"
+  },
+  "rodape": "INEMA.CLUB · contenido abierto y gratuito · formato INEMA Learning v7.2 · <a href=\"https://eventos.inema.pro/inemaseo/\">eventos.inema.pro/inemaseo</a> · <a href=\"https://github.com/inematds/inemaseo-sistemas\">inemaseo-sistemas (MIT)</a> · <a href=\"https://inema.club/\">inema.club</a>",
+  "videos": {},
+  "inicio": {
+    "kicker": "Formación inemaSEO · curso 7 de 7 · 8 clases",
+    "titulo": "Sistemas: arma tu propio Semrush abierto",
+    "lead": "Cinco herramientas de terminal, abiertas y gratis, que hacen para tu sitio lo que hacen las suites de pago: auditoría del sitio completo, nota de preparación para IA, historial de Search Console, citas de la IA de Bing y robots de IA en el log. En ocho clases ejecutas cada una, las unes en una rutina con un agente y decides, con criterio, cuándo vale la pena pagar.",
+    "cta": "Empezar por la clase 1",
+    "cta2": {
+      "t": "Ver el repositorio inemaseo-sistemas",
+      "href": "https://github.com/inematds/inemaseo-sistemas"
+    },
+    "capa_alt": "Notebook con la terminal abierta sobre una mesa oscura, con el título del curso: arma tu propio Semrush abierto.",
+    "numeros": [
+      {
+        "v": "5",
+        "t": "herramientas abiertas (MIT)"
+      },
+      {
+        "v": "8",
+        "t": "clases con salida real"
+      },
+      {
+        "v": "16",
+        "t": "ejercicios con \"listo cuando\""
+      },
+      {
+        "v": "0",
+        "t": "API de pago en el camino principal"
+      }
+    ],
+    "aulas_titulo": "Las clases",
+    "aulas_sub": "En el orden del trabajo: entender de dónde viene cada dato, ejecutar las cinco herramientas, unirlas en una rutina y decidir cuándo pagar.",
+    "blocos": [
+      {
+        "t": "Para quién es",
+        "itens": [
+          "Para quien ya usa la terminal (o está dispuesto a usarla) y cuida su propio sitio o el de sus clientes.",
+          "Para quien paga, o piensa pagar, una suite de SEO y quiere saber qué se puede hacer gratis con los datos de su propio sitio.",
+          "Para quien quiere medir robots y citas de IA con fuente oficial, no con el número de un panel que nadie explica."
+        ]
+      },
+      {
+        "t": "Lo que sales haciendo",
+        "itens": [
+          "Auditar el sitio completo y obtener la nota de preparación para IA, con pesos que puedes cambiar.",
+          "Guardar Search Console para siempre y leer de marca, sin marca y anónimas semana a semana.",
+          "Cruzar las citas oficiales de la IA de Bing con Google y ver qué robots leen el sitio de verdad.",
+          "Ejecutar todo en una rutina con un agente que lee los informes y solo propone, y decidir cuándo pagar por datos."
+        ]
+      },
+      {
+        "t": "Dónde entra este curso en la Formación inemaSEO",
+        "itens": [
+          "<b>1 Fundación</b>, <b>2 Contenido</b> y <b>3 Medición</b>: el cimiento técnico, las páginas que solo tú puedes escribir y el número de las búsquedas sin tu marca.",
+          "<b>4 En las IAs</b>, <b>5 Con Agentes</b> y <b>6 Profesional</b>: paneles oficiales de IA, agentes en lo repetitivo y SEO como servicio.",
+          "<b>7 Sistemas</b> (este curso): las herramientas que miden todo eso, abiertas en <a href=\"https://github.com/inematds/inemaseo-sistemas\">inemaseo-sistemas</a>. Se puede hacer después del curso 1."
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "pular": "Saltar al contenido",
+    "aulas": "Clases",
+    "concluido": "completado",
+    "aula": "Clase",
+    "nesta_aula": "En esta clase vas a aprender:",
+    "objetivo": "Objetivo:",
+    "proxima_aula": "Próxima clase",
+    "aula_anterior": "Clase anterior",
+    "voltar_inicio": "Volver al inicio del curso",
+    "marcar_concluida": "Marcar la clase como completada",
+    "dg_dica": "Haz clic en cada bloque del diagrama para ver qué hace.",
+    "copiar": "Copiar",
+    "copiado": "Copiado",
+    "selo_simulacao": "Simulación: ejemplo ilustrativo",
+    "selo_real": "Ejemplo del repositorio",
+    "pronto_quando": "Listo cuando:",
+    "fiz": "Hice este ejercicio",
+    "video_pagina": "Página del video con guion",
+    "pergunta": "Pregunta",
+    "de": "de",
+    "cert_tag": "competencia",
+    "correto": "Correcto",
+    "errado": "No es esa",
+    "quiz_aguarda": "Elige una alternativa. La explicación aparece después de tu intento.",
+    "proxima_pergunta": "Siguiente pregunta",
+    "quiz_ver": "Ver resultado",
+    "quiz_fim": "Prueba completada",
+    "quiz_total": "Acertaste {a} de {n}. Si aciertas todas, la clase se marca como completada.",
+    "aparencia": "Apariencia",
+    "tamanho_texto": "Tamaño del texto",
+    "tema": "Tema",
+    "tema_escuro": "Oscuro",
+    "tema_papel": "Papel claro",
+    "role_dica": "Desplázate por la página: cada etapa de abajo enciende su parte del diagrama.",
+    "pre_requisito": "requiere",
+    "ver_aula": "Ver la clase",
+    "mapa_dica": "Haz clic en un ejercicio para ver qué hacer y el \"listo cuando\".",
+    "etapas": "Etapas",
+    "exercicios": "ejercicios",
+    "rever": "Repasar:",
+    "revisar_erradas": "Revisar las erradas",
+    "refazer": "Rehacer la prueba",
+    "h_semana": "h por semana",
+    "data_inicio": "Fecha de inicio",
+    "ritmo": "Tiempo disponible",
+    "gerar_plano": "Generar mi plan",
+    "baixar_md": "Descargar plan.md",
+    "baixar_ics": "Descargar para el calendario (.ics)",
+    "ind_estudo": "Estudio (clases)",
+    "ind_pratica": "Práctica declarada",
+    "ind_nota": "Práctica = ejercicios que marcaste como hechos. La comprobación viene en el examen de la certificación.",
+    "estudo": {
+      "titulo": "Tu estudio",
+      "continuar": "Continuar donde lo dejé",
+      "comecar": "Empezar por la clase 1",
+      "cta_continuar": "Continuar la clase {n}",
+      "hoje": "hoy",
+      "ontem": "ayer",
+      "ha_dias": "hace {n} días",
+      "desempenho": "Desempeño en los tests",
+      "notas": "Mis anotaciones",
+      "dados": "Copiar mis datos",
+      "sem_testes": "Aún no hiciste ningún test. El test está al final de cada clase.",
+      "nao_fez": "test aún no hecho",
+      "ultimo": "Último",
+      "melhor": "Mejor",
+      "tentativas": "intentos",
+      "tentativa": "intento",
+      "tudo_certo": "Acertaste todo en el último test.",
+      "rever": "Para repasar",
+      "resposta": "Respuesta correcta:",
+      "ir_teste": "Rehacer la prueba",
+      "sem_notas": "Aún no hay anotaciones. En la clase, selecciona un fragmento del texto y toca Marcar o Anotar.",
+      "so_marcado": "(solo marcado)",
+      "marcar": "Marcar",
+      "anotar": "Anotar",
+      "salvar": "Guardar",
+      "apagar": "Borrar marca",
+      "fechar": "Cerrar",
+      "nota_ph": "Escribe tu anotación sobre este fragmento…",
+      "um_bloco": "Marca dentro de un solo párrafo.",
+      "nao_marca": "Este fragmento no se puede marcar.",
+      "dados_exp": "Tu progreso, tus anotaciones y las notas de los tests se guardan solo en este navegador. Descarga una copia (.json) para guardarla o para continuar en otra computadora u otro navegador; allí, carga la copia. Cargar se suma a lo que ya existe y no borra nada.",
+      "exportar": "Descargar copia",
+      "importar": "Cargar copia",
+      "import_ok": "Copia cargada ({n} elementos). Actualizando la página…",
+      "import_erro": "Archivo no reconocido. No se cambió nada.",
+      "import_outro": "Esta copia es de otro curso. No se cambió nada.",
+      "export_ok": "Copia descargada."
+    },
+    "conv_dica": "Elige tu respuesta. El comentario aparece justo después y la conversación sigue según tu elección.",
+    "conv_voce": "Tú",
+    "conv_escolha": "Tu respuesta",
+    "conv_boa": "Buena elección",
+    "conv_meio": "Se puede mejorar",
+    "conv_ruim": "Elección débil",
+    "conv_fim": "Fin de la conversación",
+    "conv_placar": "Hiciste {p} de {m} puntos posibles.",
+    "conv_licao": "Lección:",
+    "conv_recomecar": "Reiniciar la conversación",
+    "conv_feita": "Tu mejor puntaje: {p} de {m} puntos.",
+    "comecar": "Empezar la clase",
+    "nesta_vai": "En esta clase vas a",
+    "trocar_tema": "Cambiar tema claro/oscuro"
+  },
+  "icone": "lupa"
+}
